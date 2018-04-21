@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <BorderPane layoutX="80.0" layoutY="66.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+         <left>
+            <AnchorPane prefHeight="608.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuButton layoutX="10.0" layoutY="14.0" mnemonicParsing="false" prefWidth="140.0" text="Add block">
+                    <items>
+                      <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" text="Add block" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" text="Sub block" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" text="Mul block" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" text="Div block" />
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false">
+                           <graphic>
+                              <Button mnemonicParsing="false" text="Button" />
+                           </graphic>
+                        </MenuItem>
+                    </items>
+                  </MenuButton>
+                  <Button layoutX="10.0" layoutY="56.0" mnemonicParsing="false" prefWidth="140.0" text="Add connection" />
+                  <Button layoutX="10.0" layoutY="100.0" mnemonicParsing="false" prefWidth="140.0" text="Remove" />
+               </children>
+            </AnchorPane>
+         </left>
+         <bottom>
+            <AnchorPane prefHeight="82.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="14.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" prefWidth="100.0" text="Reset" />
+                  <Button layoutX="159.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" prefWidth="100.0" text="Next" />
+               </children></AnchorPane>
+         </bottom>
+         <center>
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
