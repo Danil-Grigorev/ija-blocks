@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,12 +30,16 @@ public class Controller implements Initializable {
 
     // Elements with scheme content
     public AnchorPane displayPane;
+    public ScrollPane dispParent;
 
     private Logic appL;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        displayPane.setPrefSize(dispParent.getWidth(), dispParent.getHeight());
+        System.out.println(dispParent.getWidth());
+        System.out.println(dispParent.getWidth());
         appL = new Logic(displayPane);
         appL.setSchemaState(Logic.State.DEFAULT);
     }

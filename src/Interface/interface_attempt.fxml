@@ -5,6 +5,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -76,7 +77,11 @@
             </AnchorPane>
          </bottom>
          <center>
-            <AnchorPane fx:id="displayPane" onMouseClicked="#schemaAct" BorderPane.alignment="CENTER" />
+            <ScrollPane fx:id="dispParent" fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+               <content>
+                  <AnchorPane fx:id="displayPane" onMouseClicked="#schemaAct" />
+               </content>
+            </ScrollPane>
          </center>
       </BorderPane>
    </children>
