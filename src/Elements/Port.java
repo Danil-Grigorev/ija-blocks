@@ -1,33 +1,21 @@
+package Elements;
 
-public class Port {
+import java.io.IOException;
 
-    private double value;
-    private String name;
+public abstract class Port {
 
+    protected Connection conTo;
+    protected Block parent;
+    // TODO: rewrite to "dataType"
+    protected double value;
+    protected boolean defined;
 
-
-
-    public Port(double value, String name) {
-        this.value = value;
-        this.name = name;
+    public boolean isConnected() {
+	    return this.conTo != null;
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
+	public void setConnection(Connection con) {
+		this.conTo = con;
+	}
 
 }
