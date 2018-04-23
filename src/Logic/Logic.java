@@ -3,6 +3,8 @@ package Logic;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 
@@ -13,11 +15,16 @@ public class Logic {
     // -----------------------
     private boolean accNode;
     private Rectangle opNode;
+
+    private Rectangle tmp;
+    private Line tmpLn;
+
     // -----------------------
     public Logic(AnchorPane displayPane) {
         schemaPane = displayPane;
         opNode = null;
         accNode = true;
+        tmpLn = null;
     }
 
     public State getSchemaState() {
@@ -44,13 +51,9 @@ public class Logic {
                 break;
             case ADD_CON_1:
                 System.out.println("ADD_CON_1 block state");
-                // Some actions
-                schemaState = State.ADD_CON_2;
                 break;
             case ADD_CON_2:
                 System.out.println("ADD_CON_1 block state");
-                // Some actions
-                schemaState = State.DEFAULT;
                 break;
             default:
                 System.out.println("Unknown state");
@@ -104,7 +107,23 @@ public class Logic {
                 setSchemaState(State.DEFAULT);
                 break;
             case ADD_CON_1:
+                tmp = (Rectangle) e.getSource();
+                tmp.setFill(Color.GREEN);
+                tmpLn = new Line();
+                tmpLn.setStartX(tmp.getX() + tmp.getWidth());
+                tmpLn.setStartY(e.getY());
+                setSchemaState(State.ADD_CON_2);
                 break;
+            case ADD_CON_2:
+                tmp = (Rectangle) e.getSource();
+                tmp.setFill(Color.BLUE);
+                tmpLn.setEndX(tmp.getX());
+                tmpLn.setEndY(e.getY());
+                Platform.runLater(() -> {
+                    schemaPane.getChildren().add(tmpLn);
+                    tmpLn = null;
+                });
+                setSchemaState(State.DEFAULT);
             case DEFAULT:
                 break;
         }

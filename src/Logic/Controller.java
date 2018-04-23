@@ -37,9 +37,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        displayPane.setPrefSize(dispParent.getWidth(), dispParent.getHeight());
-        System.out.println(dispParent.getWidth());
-        System.out.println(dispParent.getWidth());
         appL = new Logic(displayPane);
         appL.setSchemaState(Logic.State.DEFAULT);
     }
@@ -84,14 +81,10 @@ public class Controller implements Initializable {
         appL.setSchemaState(Logic.State.PUT_BLOCK);
     }
 
-    // Logic section
-    // TODO: Move to own class
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Main schema area action
     public void schemaAct(MouseEvent mouseEvent) {
         appL.schemaAct(mouseEvent);
     }
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     public void exitApp(javafx.event.ActionEvent actionEvent) {
         Platform.exit();
