@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Logic.Controller">
    <children>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="exitBtn1" mnemonicParsing="false" onAction="#exitApp" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -33,49 +37,46 @@
                     <items>
                       <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Button mnemonicParsing="false" text="Add block" />
+                              <Button fx:id="addBlBtn1" mnemonicParsing="false" onAction="#addBlockCreate" text="Add block" />
                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Button mnemonicParsing="false" text="Sub block" />
+                              <Button fx:id="subBlBtn1" mnemonicParsing="false" onAction="#subBlockCreate" text="Sub block" />
                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Button mnemonicParsing="false" text="Mul block" />
+                              <Button fx:id="mulBlBtn1" mnemonicParsing="false" onAction="#mulBlockCreate" text="Mul block" />
                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Button mnemonicParsing="false" text="Div block" />
+                              <Button fx:id="divBlBtn" mnemonicParsing="false" onAction="#divBlockCreate" text="Div block" />
                            </graphic>
                         </MenuItem>
                         <MenuItem mnemonicParsing="false">
                            <graphic>
-                              <Button mnemonicParsing="false" text="Button" />
+                              <Button mnemonicParsing="false" onAction="#splitBlockCreate" text="Split block" />
                            </graphic>
                         </MenuItem>
                     </items>
                   </MenuButton>
-                  <Button layoutX="10.0" layoutY="56.0" mnemonicParsing="false" prefWidth="140.0" text="Add connection" />
-                  <Button layoutX="10.0" layoutY="100.0" mnemonicParsing="false" prefWidth="140.0" text="Remove" />
+                  <Button fx:id="conBtn1" layoutX="10.0" layoutY="56.0" mnemonicParsing="false" onAction="#addConClick" prefWidth="140.0" text="Add connection" />
+                  <Button fx:id="remBtn1" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onAction="#remClick" prefWidth="140.0" text="Remove" />
                </children>
             </AnchorPane>
          </left>
          <bottom>
             <AnchorPane prefHeight="82.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="14.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" prefWidth="100.0" text="Reset" />
-                  <Button layoutX="159.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" prefWidth="100.0" text="Next" />
-               </children></AnchorPane>
+                  <Button fx:id="rstBtn1" layoutX="14.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" onAction="#rsClick" prefWidth="100.0" text="Reset" />
+                  <Button fx:id="nxBtn1" layoutX="159.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" onAction="#nxClick" prefWidth="100.0" text="Next" />
+               </children>
+            </AnchorPane>
          </bottom>
          <center>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
+            <AnchorPane fx:id="displayPane" onMouseClicked="#schemaAct" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>
