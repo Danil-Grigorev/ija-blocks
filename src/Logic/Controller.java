@@ -57,29 +57,31 @@ public class Controller implements Initializable {
     }
 
     public void splitBlockCreate(javafx.event.ActionEvent actionEvent) {
-        appL.initBl();
+        appL.initBl("split");
         appL.setSchemaState(Logic.State.PUT_BLOCK);
     }
 
     public void addBlockCreate(javafx.event.ActionEvent actionEvent) {
-        appL.initBl();
+        appL.initBl("add");
         appL.setSchemaState(Logic.State.PUT_BLOCK);
     }
 
     public void subBlockCreate(javafx.event.ActionEvent actionEvent) {
-        appL.initBl();
+        appL.initBl("sub");
         appL.setSchemaState(Logic.State.PUT_BLOCK);
     }
 
     public void mulBlockCreate(javafx.event.ActionEvent actionEvent) {
-        appL.initBl();
+        appL.initBl("mul");
         appL.setSchemaState(Logic.State.PUT_BLOCK);
     }
 
     public void divBlockCreate(javafx.event.ActionEvent actionEvent) {
-        appL.initBl();
+        appL.initBl("div");
         appL.setSchemaState(Logic.State.PUT_BLOCK);
     }
+
+    // TODO: add custom block
 
     // Main schema area action
     public void schemaAct(MouseEvent mouseEvent) {

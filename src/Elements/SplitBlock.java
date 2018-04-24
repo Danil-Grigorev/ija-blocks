@@ -2,22 +2,22 @@ package Elements;
 
 import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-public class MulBlock extends Block{
+public class SplitBlock extends Block {
 
-	public MulBlock(Logic parent) {
+    public SplitBlock(Logic parent) {
         this.parent = parent;
-        this.name = "*";
-        this.maxInPorts = 2;
-        this.maxOutPorts = 1;
+        this.name = "-<";
+        this.maxInPorts = 1;
+        this.maxOutPorts = 2;
         this.valDefined = false;
         this.value = 0.0;
         this.id = (int) Math.random();
-        System.out.println("Mul block " + this.id + " created.");
-	}
+
+        System.out.println("Split block " + this.id + " created.");
+    }
 
     @Override
     public void execute() {
@@ -29,21 +29,10 @@ public class MulBlock extends Block{
         if (this.maxInPorts != this.inputPorts.size()) { return;}
         try {
             this.value = this.inputPorts.get(0).getValue();
+            this.valDefined = true;
         } catch (IOException e) {
             this.value = 0.0;
             this.valDefined = false;
-            return;
         }
-        for (int i = 1; i < maxInPorts; i++) {
-            try {
-                this.value *= this.inputPorts.get(i).getValue();
-            } catch (IOException e) {
-                this.value = 0.0;
-                this.valDefined = false;
-                return;
-            }
-        }
-        this.valDefined = true;
     }
-
 }

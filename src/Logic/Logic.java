@@ -1,11 +1,13 @@
 package Logic;
 
+import Elements.*;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 
 public class Logic {
@@ -14,7 +16,7 @@ public class Logic {
     // Synchronized block operations
     // -----------------------
     private boolean accNode;
-    private Rectangle opNode;
+    private Block opNode;
 
     private Rectangle tmp;
     private Line tmpLn;
@@ -62,8 +64,7 @@ public class Logic {
         mouseEvent.consume();
     }
 
-    // TODO: add block class as argument
-    public synchronized void initBl() {
+    public synchronized void initBl(String type) {
         Platform.runLater(() -> {
             if (accNode == false) {
                 try {
@@ -72,12 +73,27 @@ public class Logic {
                 }
             }
             accNode = false;
-            opNode = new Rectangle();
-            opNode.setWidth(200);
-            opNode.setHeight(100);
-            opNode.setArcWidth(20);
-            opNode.setArcHeight(20);
-            opNode.setOnMouseClicked(e -> blockOp(e));
+            switch (type) {
+                case "add":     opNode = new AddBlock(this);
+                    break;
+                case "sub":     opNode = new SubBlock(this);
+                    break;
+                case "mul":     opNode = new MulBlock(this);
+                    break;
+                case "div":     opNode = new DivBlock(this);
+                    break;
+                case "split":   opNode = new SplitBlock(this);
+                    break;
+                case "custom":
+                    // TODO
+                    break;
+                default:
+                    System.err.println("Unknown block type for init");
+                    Platform.exit();
+                    System.exit(99);
+                    break;
+            }
+            // TODO: add to itemContainer
             accNode = true;
         });
     }
@@ -92,31 +108,28 @@ public class Logic {
             }
             accNode = false;
             assert opNode != null : "Block was not initialised";
-            opNode.setX(X - opNode.getWidth() / 2);
-            opNode.setY(Y - opNode.getHeight() / 2);
-            schemaPane.getChildren().add(opNode);
+            opNode.setVisuals(X,Y);
+            opNode.set(schemaPane);
             opNode = null;
             accNode = true;
         });
     }
 
-    private void blockOp(MouseEvent e) {
+    public void blockOp(Block caller, MouseEvent e) {
         switch (getSchemaState()) {
             case REMOVE_BLOCK:
-                Platform.runLater(() -> schemaPane.getChildren().remove(e.getSource()));
+                caller.remove(schemaPane);
                 setSchemaState(State.DEFAULT);
                 break;
             case ADD_CON_1:
-                tmp = (Rectangle) e.getSource();
-                tmp.setFill(Color.GREEN);
+                tmp = caller.getVisuals();
                 tmpLn = new Line();
                 tmpLn.setStartX(tmp.getX() + tmp.getWidth());
                 tmpLn.setStartY(e.getY());
                 setSchemaState(State.ADD_CON_2);
                 break;
             case ADD_CON_2:
-                tmp = (Rectangle) e.getSource();
-                tmp.setFill(Color.BLUE);
+                tmp = caller.getVisuals();
                 tmpLn.setEndX(tmp.getX());
                 tmpLn.setEndY(e.getY());
                 Platform.runLater(() -> {

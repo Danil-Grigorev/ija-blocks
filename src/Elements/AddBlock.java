@@ -1,23 +1,26 @@
 package Elements;
 
-import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.io.IOException;
+import Logic.Logic;
+import javafx.scene.text.Text;
 
-public class MulBlock extends Block{
+public class AddBlock extends Block {
 
-	public MulBlock(Logic parent) {
-        this.parent = parent;
-        this.name = "*";
+	public AddBlock(Logic parent) {
+	    this.parent = parent;
+		this.name = "+";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.valDefined = false;
         this.value = 0.0;
         this.id = (int) Math.random();
-        System.out.println("Mul block " + this.id + " created.");
-	}
+
+        System.out.println("Add block " + this.id + " created.");
+    }
 
     @Override
     public void execute() {
@@ -36,7 +39,7 @@ public class MulBlock extends Block{
         }
         for (int i = 1; i < maxInPorts; i++) {
             try {
-                this.value *= this.inputPorts.get(i).getValue();
+                this.value += this.inputPorts.get(i).getValue();
             } catch (IOException e) {
                 this.value = 0.0;
                 this.valDefined = false;
@@ -45,5 +48,4 @@ public class MulBlock extends Block{
         }
         this.valDefined = true;
     }
-
 }

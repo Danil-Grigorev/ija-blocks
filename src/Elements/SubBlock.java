@@ -1,21 +1,49 @@
 package Elements;
 
+import Logic.Logic;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
+
 public class SubBlock extends Block{
 
-	public SubBlock(String name, InputPort port1, InputPort port2) {
-		super(name, port1, port2);
-		calculation();
-	}
+	public SubBlock(Logic parent) {
+        this.parent = parent;
+        this.name = "-";
+        this.maxInPorts = 2;
+        this.maxOutPorts = 1;
+        this.valDefined = false;
+        this.value = 0.0;
+        this.id = (int) Math.random();
+        System.out.println("Sub block " + this.id + " created.");
+    }
 
 	@Override
-	public void calculation() {
-		if (this.getPort1() != null && this.getPort2() != null) {
-			this.setOutputPort(new OutputPort(getPort1().getValue() - this.getPort2().getValue(), "subOutputPort"));
-		}else{
-			this.setOutputPort(null);
+	public void execute() {
+		// Value reset
+		if (!this.valDefined) {
+			this.value = 0.0;
 		}
 
-		
+		if (this.maxInPorts != this.inputPorts.size()) { return;}
+        try {
+            this.value = this.inputPorts.get(0).getValue();
+        } catch (IOException e) {
+            this.value = 0.0;
+            this.valDefined = false;
+            return;
+        }
+		for (int i = 1; i < maxInPorts; i++) {
+            try {
+                this.value -= this.inputPorts.get(i).getValue();
+            } catch (IOException e) {
+                this.value = 0.0;
+                this.valDefined = false;
+                return;
+            }
+        }
+		this.valDefined = true;
 	}
 
 }
