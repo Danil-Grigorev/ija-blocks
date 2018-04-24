@@ -1,10 +1,16 @@
 package Elements;
 
+import Logic.Logic;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
+
 import java.io.IOException;
 
 public class OutputPort extends Port {
 
-	public OutputPort(Block parent) {
+	public OutputPort(Block parent, AnchorPane schema, Logic logic) {
+        this.logic = logic;
+        this.schema = schema;
 		this.parent = parent;
         this.conTo = null;
         // TODO
@@ -22,5 +28,6 @@ public class OutputPort extends Port {
             return this.parent.getValue();
         }
     }
+
 
 }

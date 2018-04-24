@@ -1,13 +1,19 @@
 package Elements;
 
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import Logic.Logic;
+
 import java.io.IOException;
 
 public class InputPort extends Port {
 
-    public InputPort(Block parent) {
+    public InputPort(Block parent, AnchorPane schema, Logic logic) {
+        this.logic = logic;
+        this.schema = schema;
         this.parent = parent;
         this.conTo = null;
-        this.value = 0.0;
     }
 
     // TODO: rewrite to return "dataType"
@@ -19,4 +25,5 @@ public class InputPort extends Port {
             return this.conTo.getValue();
         }
     }
+
 }

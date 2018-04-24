@@ -5,17 +5,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SubBlock extends Block{
 
-	public SubBlock(Logic parent) {
-        this.parent = parent;
+	public SubBlock(Logic logic, AnchorPane schema) {
+        this.schema = schema;
+        this.logic = logic;
         this.name = "-";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = (int) Math.random();
+        // TODO: make ItemContainer set id
+        this.id = Math.abs(rand.nextInt());
         System.out.println("Sub block " + this.id + " created.");
     }
 

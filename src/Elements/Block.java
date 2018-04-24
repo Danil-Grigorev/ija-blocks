@@ -1,5 +1,6 @@
 package Elements;
 
+import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -8,16 +9,20 @@ import Logic.Logic;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Block {
 
     protected int id;
+    protected Random rand = new Random();
+
     protected ArrayList<InputPort> inputPorts;
     protected ArrayList<OutputPort> outputPorts;
     protected int maxInPorts;
     protected int maxOutPorts;
     protected String name;
-    protected Logic parent;
+    protected Logic logic;
+    protected AnchorPane schema;
 
     // TODO: rewrite to "dataType"
     protected boolean valDefined;
@@ -44,23 +49,56 @@ public abstract class Block {
     }
 
     public InputPort getInPort(int num) {
-        assert num < getMaxInPorts() : "Accessing port out of range";
-        return this.inputPorts.get(num);
+        assert num < this.getMaxInPorts() : "Accessing port out of range";
+        if (this.inputPorts.size() <= num) {
+            return null;
+        }
+        else {
+            return this.inputPorts.get(num);
+        }
     }
 
     public void setInPort(InputPort InputPort, int num) {
-        assert num < getMaxInPorts() : "Accessing port out of range";
+        assert num < this.getMaxInPorts();
         this.inputPorts.set(num, InputPort);
     }
 
     public OutputPort getOutputPort(int num) {
         assert num < this.getMaxOutPorts() : "Accessing port out of range";
-        return this.outputPorts.get(num);
+        if (this.outputPorts.size() <= num) {
+            return null;
+        }
+        else {
+            return this.outputPorts.get(num);
+        }
     }
 
     public void setOutputPort(OutputPort OutputPort, int num) {
-        assert num < getMaxInPorts() : "Accessing port out of range";
+        assert num < getMaxOutPorts() : "Accessing port out of range";
         this.outputPorts.set(num, OutputPort);
+    }
+
+    protected void setupPorts() {
+        this.inputPorts = new ArrayList<InputPort>();
+        this.outputPorts = new ArrayList<OutputPort>();
+        for (int i = 0; i < getMaxInPorts(); i++) {
+            InputPort tmp = new InputPort(this, this.schema, this.logic);
+            tmp.setVisuals(
+                    getVisuals().getX(),
+                    getVisuals().getY() +
+                            (sizeY / (getMaxInPorts() + 1) * (i+1)));
+            tmp.set();
+            this.inputPorts.add(tmp);
+        }
+        for (int i = 0; i < getMaxOutPorts(); i++) {
+            OutputPort tmp = new OutputPort(this, this.schema, this.logic);
+            tmp.setVisuals(
+                    getVisuals().getX() + sizeX,
+                    getVisuals().getY() +
+                            (sizeY / (getMaxOutPorts() + 1) * (i+1)));
+            tmp.set();
+            this.outputPorts.add(tmp);
+        }
     }
 
     // TODO: connect to "dataType"
@@ -73,21 +111,26 @@ public abstract class Block {
         return this.value;
     }
 
-    public void remove(AnchorPane schema) {
+    public void remove() {
         for (InputPort port: this.inputPorts) {
-            port.remove(schema);
+            port.remove();
         }
-        for (OutputPort port: this.outputPorts) {
-            port.remove(schema);
+        for (OutputPort port : this.outputPorts) {
+            if (port == null) continue;
+            port.remove();
         }
         StackPane stack = (StackPane) getVisuals().getParent();
-        stack.getChildren().removeAll();
-        schema.getChildren().remove(stack);
+        Platform.runLater(() -> {
+            stack.getChildren().removeAll();
+            this.schema.getChildren().remove(stack);
+        });
     }
 
-    public void set(AnchorPane schema) {
+    public void set() {
+        setupPorts();
+
         StackPane stack = (StackPane) getVisuals().getParent();
-        schema.getChildren().add(stack);
+        this.schema.getChildren().add(stack);
     }
 
     public void setVisuals(double X, double Y) {
@@ -98,7 +141,7 @@ public abstract class Block {
         this.shape.setY(Y - this.shape.getHeight() / 2);
         this.shape.setArcWidth(5);
         this.shape.setArcHeight(5);
-        this.shape.setOnMouseClicked(e -> this.parent.blockOp(this, e));
+        this.shape.setOnMouseClicked(e -> this.logic.blockOp(this, e));
 
         Text shText = new Text(this.name);
 

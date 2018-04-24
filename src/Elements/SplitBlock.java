@@ -4,18 +4,21 @@ import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SplitBlock extends Block {
 
-    public SplitBlock(Logic parent) {
-        this.parent = parent;
+    public SplitBlock(Logic logic, AnchorPane schema) {
+        this.schema = schema;
+        this.logic = logic;
         this.name = "-<";
         this.maxInPorts = 1;
         this.maxOutPorts = 2;
         this.valDefined = false;
         this.value = 0.0;
         this.id = (int) Math.random();
-
+        // TODO: make ItemContainer set id
+        this.id = Math.abs(rand.nextInt());
         System.out.println("Split block " + this.id + " created.");
     }
 

@@ -5,20 +5,22 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import Logic.Logic;
 import javafx.scene.text.Text;
 
 public class AddBlock extends Block {
 
-	public AddBlock(Logic parent) {
-	    this.parent = parent;
+	public AddBlock(Logic logic, AnchorPane schema) {
+	    this.schema = schema;
+	    this.logic = logic;
 		this.name = "+";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = (int) Math.random();
-
+        this.id = Math.abs(rand.nextInt());
         System.out.println("Add block " + this.id + " created.");
     }
 

@@ -5,17 +5,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MulBlock extends Block{
 
-	public MulBlock(Logic parent) {
-        this.parent = parent;
+	public MulBlock(Logic logic, AnchorPane schema) {
+        this.schema = schema;
+        this.logic = logic;
         this.name = "*";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = (int) Math.random();
+        // TODO: make ItemContainer set id
+        this.id = Math.abs(rand.nextInt());
         System.out.println("Mul block " + this.id + " created.");
 	}
 

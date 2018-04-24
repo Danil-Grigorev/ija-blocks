@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
+import java.io.Serializable;
+
 
 public class Logic {
     public State schemaState;
@@ -72,15 +74,15 @@ public class Logic {
             }
             accNode = false;
             switch (type) {
-                case "add":     opNode = new AddBlock(this);
+                case "add":     opNode = new AddBlock(this, schemaPane);
                     break;
-                case "sub":     opNode = new SubBlock(this);
+                case "sub":     opNode = new SubBlock(this, schemaPane);
                     break;
-                case "mul":     opNode = new MulBlock(this);
+                case "mul":     opNode = new MulBlock(this, schemaPane);
                     break;
-                case "div":     opNode = new DivBlock(this);
+                case "div":     opNode = new DivBlock(this, schemaPane);
                     break;
-                case "split":   opNode = new SplitBlock(this);
+                case "split":   opNode = new SplitBlock(this, schemaPane);
                     break;
                 case "custom":
                     // TODO
@@ -107,7 +109,7 @@ public class Logic {
             accNode = false;
             assert opNode != null : "Block was not initialised";
             opNode.setVisuals(X,Y);
-            opNode.set(schemaPane);
+            opNode.set();
             opNode = null;
             accNode = true;
         });
@@ -116,7 +118,7 @@ public class Logic {
     public void blockOp(Block caller, MouseEvent e) {
         switch (getSchemaState()) {
             case REMOVE_BLOCK:
-                caller.remove(schemaPane);
+                caller.remove();
                 setSchemaState(State.DEFAULT);
                 break;
             case ADD_CON_1:

@@ -1,8 +1,12 @@
 package Elements;
 
+import Interface.DoubleConElm;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
+
 import java.io.IOException;
 
-public class Connection {
+public class Connection implements DoubleConElm{
 
     private OutputPort portIn;
     private InputPort portOut;
@@ -28,5 +32,30 @@ public class Connection {
         else {
             return this.portIn.getValue();
         }
+    }
+
+    @Override
+    public Line getVisuals() {
+        return null;
+    }
+
+    @Override
+    public void setVisualsA(double X, double Y) {
+
+    }
+
+    @Override
+    public void setVisualsB(double X, double Y) {
+
+    }
+
+    @Override
+    public void set() {
+
+    }
+
+    @Override
+    public void remove() {
+
     }
 }
