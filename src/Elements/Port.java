@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import java.io.IOException;
 
-public abstract class Port extends Rectangle implements SingConElm{
+public abstract class Port implements SingConElm {
 
     // TODO: rewrite to "dataType"
     protected Connection conTo;
@@ -25,9 +25,7 @@ public abstract class Port extends Rectangle implements SingConElm{
 	    return this.conTo != null;
     }
 
-	public void setConnection(Connection con) {
-		this.conTo = con;
-	}
+	abstract public void setConnection(Connection con) throws IOException;
 
     public Rectangle getVisuals() {
         return this.shape;
@@ -42,7 +40,7 @@ public abstract class Port extends Rectangle implements SingConElm{
 
 
         // TODO: add mouse handlers
-        // this.shape.setOnMouseClicked(e -> this.parent.blockOp(this, e));
+        this.shape.setOnMouseClicked(e -> this.logic.portOp(this, e));
 
         StackPane stack = new StackPane();
         stack.setLayoutX(X - this.shape.getWidth() / 2);
@@ -63,6 +61,18 @@ public abstract class Port extends Rectangle implements SingConElm{
             stack.getChildren().removeAll();
             this.schema.getChildren().remove(stack);
         });
+    }
+
+    public Block getParent() {
+        return this.parent;
+    }
+
+    public double getCenterX() {
+        return getVisuals().getX() + sizeX / 2;
+    }
+
+    public double getCenterY() {
+        return getVisuals().getY() + sizeY / 2;
     }
 
 }

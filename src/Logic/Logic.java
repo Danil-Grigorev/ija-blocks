@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 
@@ -20,6 +21,7 @@ public class Logic {
 
     private Rectangle tmp;
     private Line tmpLn;
+    private Connection tmpCon;
 
     // -----------------------
     public Logic(AnchorPane displayPane) {
@@ -121,21 +123,36 @@ public class Logic {
                 caller.remove();
                 setSchemaState(State.DEFAULT);
                 break;
+            case DEFAULT:
+                break;
+        }
+    }
+
+    public void portOp(Port caller, MouseEvent e) {
+        switch (getSchemaState()) {
+            case REMOVE_BLOCK:
+                caller.remove();
+                setSchemaState(State.DEFAULT);
+                break;
             case ADD_CON_1:
-//                tmp = caller.getVisuals();
-//                tmpLn = new Line();
-//                tmpLn.setStartX(tmp.getX() + tmp.getWidth());
-//                tmpLn.setStartY(e.getY());
+                if (tmpCon == null) {
+                    tmpCon = new Connection(this, schemaPane);
+                    tmpCon.setStartPoint(caller.getCenterX(), caller.getCenterY());
+                }
+                try {
+                    caller.setConnection(tmpCon);
+                } catch (IOException ex) { break; }
                 setSchemaState(State.ADD_CON_2);
                 break;
             case ADD_CON_2:
-//                tmp = caller.getVisuals();
-//                tmpLn.setEndX(tmp.getX());
-//                tmpLn.setEndY(e.getY());
-//                Platform.runLater(() -> {
-//                    schemaPane.getChildren().add(tmpLn);
-//                    tmpLn = null;
-//                });
+                try {
+                    caller.setConnection(tmpCon);
+                } catch (IOException ex) { break; }
+                tmpCon.setEndPoint(caller.getCenterX(), caller.getCenterY());
+                Platform.runLater(() -> {
+                    tmpCon.set();
+                    tmpCon = null;
+                });
                 setSchemaState(State.DEFAULT);
             case DEFAULT:
                 break;

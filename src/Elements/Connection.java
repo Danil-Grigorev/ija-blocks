@@ -1,61 +1,81 @@
 package Elements;
 
-import Interface.DoubleConElm;
+import Logic.Logic;
+import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class Connection implements DoubleConElm{
+public class Connection {
 
-    private OutputPort portIn;
-    private InputPort portOut;
+    private OutputPort from;
+    private InputPort to;
 
-    public Connection() {
-        this.portIn = null;
-        this.portOut = null;
+    private ArrayList<Line> lines;
+    private ArrayList<Rectangle>  joints;
+
+    private Logic logic;
+    private AnchorPane schema;
+
+    public Connection(Logic logic, AnchorPane schema) {
+        this.logic = logic;
+        this.schema = schema;
+        this.from = null;
+        this.to = null;
+        this.lines = new ArrayList<Line>();
+        this.joints = new ArrayList<Rectangle>();
     }
 
     public void setPortIn(OutputPort port) {
-        this.portIn = port;
+        this.from = port;
     }
 
     public void setPortOut(InputPort port) {
-        this.portOut = port;
+        this.to = port;
     }
 
     // TODO: rewrite to "dataType"
     public double getValue() throws IOException {
-        if (this.portIn == null || this.portOut == null) {
+        if (this.from == null || this.to == null) {
             throw new IOException();
         }
         else {
-            return this.portIn.getValue();
+            return this.from.getValue();
         }
     }
 
-    @Override
-    public Line getVisuals() {
-        return null;
+    public ArrayList<Line> getLines() {
+        return this.lines;
+    }
+    public ArrayList<Rectangle> getJoints() { return joints; }
+
+    public void setStartPoint(double X, double Y) {
+        Line tmp = new Line();
+        tmp.setStartX(X);
+        tmp.setStartY(Y);
+        this.lines.add(tmp);
     }
 
-    @Override
-    public void setVisualsA(double X, double Y) {
-
+    public void setEndPoint(double X, double Y) {
+        Line tmp = this.lines.get(0);
+        tmp.setEndX(X);
+        tmp.setEndY(Y);
     }
 
-    @Override
-    public void setVisualsB(double X, double Y) {
-
-    }
-
-    @Override
     public void set() {
-
+        Platform.runLater(() -> {
+            this.schema.getChildren().addAll(this.lines);
+            this.schema.getChildren().addAll(this.joints);
+        });
     }
 
-    @Override
     public void remove() {
-
+        Platform.runLater(() -> {
+            this.schema.getChildren().removeAll(this.lines);
+            this.schema.getChildren().removeAll(this.joints);
+        });
     }
 }

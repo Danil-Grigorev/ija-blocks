@@ -26,4 +26,10 @@ public class InputPort extends Port {
         }
     }
 
+    @Override
+    public void setConnection(Connection con) throws IOException {
+        if (this.conTo != null) throw new IOException();
+        con.setPortOut(this);
+        this.conTo = con;
+    }
 }

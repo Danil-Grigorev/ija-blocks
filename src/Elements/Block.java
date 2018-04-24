@@ -29,7 +29,7 @@ public abstract class Block {
     protected double value;
 
     protected int sizeX = 120;
-    protected int sizeY = 40;
+    protected int sizeY = 60;
     protected Rectangle shape;
 
     public int getId() {
