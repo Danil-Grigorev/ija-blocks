@@ -74,7 +74,14 @@ public abstract class Block {
     }
 
     public void remove(AnchorPane schema) {
+        for (InputPort port: this.inputPorts) {
+            port.remove(schema);
+        }
+        for (OutputPort port: this.outputPorts) {
+            port.remove(schema);
+        }
         StackPane stack = (StackPane) getVisuals().getParent();
+        stack.getChildren().removeAll();
         schema.getChildren().remove(stack);
     }
 

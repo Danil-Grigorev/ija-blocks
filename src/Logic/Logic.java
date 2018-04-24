@@ -4,10 +4,8 @@ import Elements.*;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 
 public class Logic {
@@ -122,20 +120,20 @@ public class Logic {
                 setSchemaState(State.DEFAULT);
                 break;
             case ADD_CON_1:
-                tmp = caller.getVisuals();
-                tmpLn = new Line();
-                tmpLn.setStartX(tmp.getX() + tmp.getWidth());
-                tmpLn.setStartY(e.getY());
+//                tmp = caller.getVisuals();
+//                tmpLn = new Line();
+//                tmpLn.setStartX(tmp.getX() + tmp.getWidth());
+//                tmpLn.setStartY(e.getY());
                 setSchemaState(State.ADD_CON_2);
                 break;
             case ADD_CON_2:
-                tmp = caller.getVisuals();
-                tmpLn.setEndX(tmp.getX());
-                tmpLn.setEndY(e.getY());
-                Platform.runLater(() -> {
-                    schemaPane.getChildren().add(tmpLn);
-                    tmpLn = null;
-                });
+//                tmp = caller.getVisuals();
+//                tmpLn.setEndX(tmp.getX());
+//                tmpLn.setEndY(e.getY());
+//                Platform.runLater(() -> {
+//                    schemaPane.getChildren().add(tmpLn);
+//                    tmpLn = null;
+//                });
                 setSchemaState(State.DEFAULT);
             case DEFAULT:
                 break;
