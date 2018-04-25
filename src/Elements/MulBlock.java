@@ -18,7 +18,7 @@ public class MulBlock extends Block{
         this.valDefined = false;
         this.value = 0.0;
         // TODO: make ItemContainer set id
-        this.id = Math.abs(rand.nextInt());
+        this.id = this.logic.generateId();
         System.out.println("Mul block " + this.id + " created.");
 	}
 

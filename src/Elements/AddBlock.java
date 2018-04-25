@@ -20,7 +20,7 @@ public class AddBlock extends Block {
         this.maxOutPorts = 1;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = Math.abs(rand.nextInt());
+        this.id = this.logic.generateId();
         System.out.println("Add block " + this.id + " created.");
     }
 

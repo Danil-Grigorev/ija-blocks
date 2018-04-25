@@ -30,6 +30,7 @@ public class Connection {
         this.lines = new ArrayList<Line>();
         this.joints = new ArrayList<Rectangle>();
         this.isSet = false;
+        this.lines.add(new Line());
     }
 
     public void setPortIn(OutputPort port) throws IOException {
@@ -64,15 +65,20 @@ public class Connection {
         }
     }
 
-    public void setStartPoint(double X, double Y) {
-        Line tmp = new Line();
+    public void setStartPoint(int lineNumber, double X, double Y) {
+        assert lineNumber < this.lines.size() && lineNumber >= -1: "Line number out of range";
+        Line tmp;
+        if (lineNumber == -1) tmp = this.lines.get(this.lines.size() - 1);
+        else tmp = this.lines.get(lineNumber);
         tmp.setStartX(X);
         tmp.setStartY(Y);
-        this.lines.add(tmp);
     }
 
-    public void setEndPoint(double X, double Y) {
-        Line tmp = this.lines.get(this.lines.size() - 1);
+    public void setEndPoint(int lineNumber, double X, double Y) {
+        assert lineNumber < this.lines.size() && lineNumber >= -1: "Line number out of range";
+        Line tmp;
+        if (lineNumber == -1) tmp = this.lines.get(this.lines.size() - 1);
+        else tmp = this.lines.get(lineNumber);
         tmp.setEndX(X);
         tmp.setEndY(Y);
     }
@@ -102,5 +108,15 @@ public class Connection {
         });
     }
 
-
+    public void reposition(Port caller, double diffX, double diffY) {
+        Line tmp;
+        if (this.from == caller) {
+            tmp = this.lines.get(0);
+            setStartPoint(0, tmp.getStartX() + diffX, tmp.getStartY() + diffY );
+        }
+        else {
+            tmp = this.lines.get(this.lines.size() - 1);
+            setEndPoint(-1, tmp.getStartX() + diffX, tmp.getStartY() + diffY );
+        }
+    }
 }

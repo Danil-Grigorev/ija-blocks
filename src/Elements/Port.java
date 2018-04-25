@@ -45,7 +45,7 @@ public abstract class Port implements SingConElm {
 
 
         // TODO: add all mouse handlers
-        this.shape.setOnMouseClicked(e -> this.logic.portOp(this, e));
+        this.shape.setOnMouseClicked(e -> this.logic.portClick(this, e));
 
     }
 
@@ -72,6 +72,10 @@ public abstract class Port implements SingConElm {
 
     public double getCenterY() {
         return this.parent.getVisuals().getLayoutY() + this.shape.getY() + this.shape.getHeight() / 2;
+    }
+
+    public void reposition(double diffX, double diffY) {
+        if (isConnected()) this.conTo.reposition(this, diffX, diffY);
     }
 
 }

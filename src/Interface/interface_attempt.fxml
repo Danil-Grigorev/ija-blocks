@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Logic.Controller">
    <children>
-      <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar fx:id="topMenu" prefHeight="30.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -32,7 +32,7 @@
       </MenuBar>
       <BorderPane layoutX="80.0" layoutY="66.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <left>
-            <AnchorPane prefHeight="608.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="leftMenu" prefHeight="600.0" prefWidth="160.0" BorderPane.alignment="CENTER">
                <children>
                   <MenuButton layoutX="10.0" layoutY="14.0" mnemonicParsing="false" prefWidth="140.0" text="Add block" textAlignment="CENTER">
                     <items>
@@ -69,7 +69,7 @@
             </AnchorPane>
          </left>
          <bottom>
-            <AnchorPane prefHeight="82.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="80.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="rstBtn1" layoutX="14.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" onAction="#rsClick" prefWidth="100.0" text="Reset" />
                   <Button fx:id="nxBtn1" layoutX="159.0" layoutY="16.0" minHeight="50.0" mnemonicParsing="false" onAction="#nxClick" prefWidth="100.0" text="Next" />
@@ -79,7 +79,7 @@
          <center>
             <ScrollPane fx:id="dispParent" fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
                <content>
-                  <AnchorPane fx:id="displayPane" onMouseClicked="#schemaAct" />
+                  <AnchorPane fx:id="displayPane" onMouseClicked="#schemaAct" prefHeight="600.0" prefWidth="1120.0" />
                </content>
             </ScrollPane>
          </center>

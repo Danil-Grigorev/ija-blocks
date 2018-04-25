@@ -16,7 +16,7 @@ public class SplitBlock extends Block {
         this.maxOutPorts = 2;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = (int) Math.random();
+        this.id = this.logic.generateId();
         // TODO: make ItemContainer set id
         this.id = Math.abs(rand.nextInt());
         System.out.println("Split block " + this.id + " created.");

@@ -1,6 +1,7 @@
 package Logic;
 
 import Elements.*;
+import Execute.Main;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 public class Logic {
     public State schemaState;
     private AnchorPane schemaPane;
+
     // Synchronized block operations
     // -----------------------
     private boolean accNode;
@@ -21,13 +23,20 @@ public class Logic {
 
     private Rectangle tmp;
     private Connection tmpCon;
+    private int id;
+
+    private double indentX;
+    private double indentY;
 
     // -----------------------
-    public Logic(AnchorPane displayPane) {
+    public Logic(AnchorPane displayPane, double indentX, double indentY) {
+        this.indentX = indentX;
+        this.indentY = indentY;
         schemaPane = displayPane;
         opNode = null;
         accNode = true;
         tmpCon = null;
+        id = 0;
     }
 
     public State getSchemaState() {
@@ -122,7 +131,7 @@ public class Logic {
         });
     }
 
-    public void blockOp(Block caller, MouseEvent e) {
+    public void blockClick(Block caller, MouseEvent e) {
         switch (getSchemaState()) {
             case REMOVE_BLOCK:
                 caller.remove();
@@ -134,7 +143,12 @@ public class Logic {
         e.consume();
     }
 
-    public void portOp(Port caller, MouseEvent e) {
+    public void blockDrag(Block caller, MouseEvent e) {
+        caller.reposition(e.getSceneX() - this.indentX, e.getSceneY() - this.indentY);
+        e.consume();
+    }
+
+    public void portClick(Port caller, MouseEvent e) {
         switch (getSchemaState()) {
             case REMOVE_BLOCK:
                 caller.remove();
@@ -149,12 +163,12 @@ public class Logic {
                     System.out.println("Connected first");
                 } catch (IOException ex) { break; }
                 if (caller instanceof InputPort) {
-                    tmpCon.setStartPoint(
+                    tmpCon.setEndPoint(0,
                             caller.getCenterX() - caller.getVisuals().getWidth() / 2,
                             caller.getCenterY());
                 }
                 else {
-                    tmpCon.setStartPoint(
+                    tmpCon.setEndPoint(0,
                             caller.getCenterX() + caller.getVisuals().getWidth() / 2,
                             caller.getCenterY());
                 }
@@ -166,12 +180,12 @@ public class Logic {
                     System.out.println("Connected second");
                 } catch (IOException ex) { break; }
                 if (caller instanceof InputPort) {
-                    tmpCon.setEndPoint(
+                    tmpCon.setStartPoint(0,
                             caller.getCenterX() - caller.getVisuals().getWidth() / 2,
                             caller.getCenterY());
                 }
                 else {
-                    tmpCon.setEndPoint(
+                    tmpCon.setStartPoint(0,
                             caller.getCenterX() + caller.getVisuals().getWidth() / 2,
                             caller.getCenterY());
                 }
@@ -184,7 +198,12 @@ public class Logic {
         e.consume();
     }
 
-    private void tmpReset() {
+
+    public int generateId() {
+        return id++;
+    }
+
+    public void tmpReset() {
         if (tmpCon != null && !tmpCon.isSet()) {
             tmpCon.remove();
         }

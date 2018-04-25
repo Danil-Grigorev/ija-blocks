@@ -3,6 +3,7 @@ package Logic;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -31,13 +32,15 @@ public class Controller implements Initializable {
     // Elements with scheme content
     public AnchorPane displayPane;
     public ScrollPane dispParent;
+    public AnchorPane leftMenu;
+    public MenuBar topMenu;
 
     private Logic appL;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        appL = new Logic(displayPane);
+        appL = new Logic(displayPane, leftMenu.getPrefWidth(), topMenu.getPrefHeight());
         appL.setSchemaState(Logic.State.DEFAULT);
     }
 
@@ -53,6 +56,7 @@ public class Controller implements Initializable {
     }
 
     public void addConClick(javafx.event.ActionEvent actionEvent) {
+        appL.tmpReset();
         appL.setSchemaState(Logic.State.ADD_CON_1);
     }
 

@@ -1,12 +1,14 @@
 package Elements;
 
+import com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages_zh_CN;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -155,19 +157,35 @@ public abstract class Block {
 
         this.shape.setArcWidth(5);
         this.shape.setArcHeight(5);
-        this.shape.setOnMouseClicked(e -> this.logic.blockOp(this, e));
+        this.shape.setOnMouseClicked(e -> this.logic.blockClick(this, e));
+        this.shape.setOnMouseDragged(e -> this.logic.blockDrag(this, e));
 
-        Text shText = new Text(this.name);
+        Label shText = new Label(this.name);
+        shText.setFont(Font.font("Arial", 16));
+
+        shText.setLayoutX(this.shape.getWidth() / 2 - shText.getWidth());
+        shText.setLayoutY(this.shape.getHeight() / 2 - shText.getHeight());
 
         this.stack = new Pane();
         this.stack.setPrefSize(this.shape.getWidth(), this.shape.getHeight());
-        this.stack.setLayoutX(X - this.shape.getWidth() / 2);
-        this.stack.setLayoutY(Y - this.shape.getHeight() / 2);
+        reposition(X, Y);
         this.stack.getChildren().addAll(this.shape, shText);
     }
 
     public Pane getVisuals() {
         return this.stack;
+    }
+
+    public void reposition(double X, double Y) {
+        Block.this.getVisuals().setLayoutX(X - Block.this.shape.getWidth() / 2);
+        Block.this.getVisuals().setLayoutY(Y - Block.this.shape.getHeight() / 2);
+//        for (Port port : this.inputPorts) {
+//            port.reposition(diffX, diffY);
+//        }
+//        for (Port port : this.outputPorts) {
+//            port.reposition(diffX, diffY);
+//        }
+
     }
 
     public abstract void execute();
