@@ -20,7 +20,6 @@ public class Logic {
     private Block opNode;
 
     private Rectangle tmp;
-    private Line tmpLn;
     private Connection tmpCon;
 
     // -----------------------
@@ -28,7 +27,7 @@ public class Logic {
         schemaPane = displayPane;
         opNode = null;
         accNode = true;
-        tmpLn = null;
+        tmpCon = null;
     }
 
     public State getSchemaState() {
@@ -36,6 +35,9 @@ public class Logic {
     }
 
     public void setSchemaState(State schemaState) {
+        if (schemaState == State.DEFAULT && this.schemaState != State.DEFAULT) {
+            tmpReset();
+        }
         this.schemaState = schemaState;
     }
 
@@ -43,6 +45,9 @@ public class Logic {
         switch (getSchemaState()) {
             case DEFAULT:
                 System.out.println("DEFAULT block state");
+                if (this.tmpCon != null) {
+                    tmpCon = null;
+                }
                 break;
             case PUT_BLOCK:
                 System.out.println("PUT block state");
@@ -126,6 +131,7 @@ public class Logic {
             case DEFAULT:
                 break;
         }
+        e.consume();
     }
 
     public void portOp(Port caller, MouseEvent e) {
@@ -137,26 +143,54 @@ public class Logic {
             case ADD_CON_1:
                 if (tmpCon == null) {
                     tmpCon = new Connection(this, schemaPane);
-                    tmpCon.setStartPoint(caller.getCenterX(), caller.getCenterY());
                 }
                 try {
                     caller.setConnection(tmpCon);
+                    System.out.println("Connected first");
                 } catch (IOException ex) { break; }
+                if (caller instanceof InputPort) {
+                    tmpCon.setStartPoint(
+                            caller.getCenterX() - caller.getVisuals().getWidth() / 2,
+                            caller.getCenterY());
+                }
+                else {
+                    tmpCon.setStartPoint(
+                            caller.getCenterX() + caller.getVisuals().getWidth() / 2,
+                            caller.getCenterY());
+                }
                 setSchemaState(State.ADD_CON_2);
                 break;
             case ADD_CON_2:
                 try {
                     caller.setConnection(tmpCon);
+                    System.out.println("Connected second");
                 } catch (IOException ex) { break; }
-                tmpCon.setEndPoint(caller.getCenterX(), caller.getCenterY());
-                Platform.runLater(() -> {
-                    tmpCon.set();
-                    tmpCon = null;
-                });
+                if (caller instanceof InputPort) {
+                    tmpCon.setEndPoint(
+                            caller.getCenterX() - caller.getVisuals().getWidth() / 2,
+                            caller.getCenterY());
+                }
+                else {
+                    tmpCon.setEndPoint(
+                            caller.getCenterX() + caller.getVisuals().getWidth() / 2,
+                            caller.getCenterY());
+                }
+                tmpCon.set();
                 setSchemaState(State.DEFAULT);
+                break;
             case DEFAULT:
                 break;
         }
+        e.consume();
+    }
+
+    private void tmpReset() {
+        if (tmpCon != null && !tmpCon.isSet()) {
+            tmpCon.remove();
+        }
+        opNode = null;
+        accNode = true;
+        tmpCon = null;
     }
 
     // State logic

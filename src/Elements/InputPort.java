@@ -1,6 +1,7 @@
 package Elements;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
@@ -9,9 +10,9 @@ import java.io.IOException;
 
 public class InputPort extends Port {
 
-    public InputPort(Block parent, AnchorPane schema, Logic logic) {
+    public InputPort(Block parent, Pane stack, Logic logic) {
         this.logic = logic;
-        this.schema = schema;
+        this.stack = stack;
         this.parent = parent;
         this.conTo = null;
     }

@@ -2,8 +2,9 @@ package Elements;
 
 import Interface.SingConElm;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
@@ -14,7 +15,7 @@ public abstract class Port implements SingConElm {
     // TODO: rewrite to "dataType"
     protected Connection conTo;
     protected Block parent;
-    protected AnchorPane schema;
+    protected Pane stack;
     protected Logic logic;
 
     private int sizeX = 10;
@@ -26,6 +27,10 @@ public abstract class Port implements SingConElm {
     }
 
 	abstract public void setConnection(Connection con) throws IOException;
+
+    public void removeConnection() {
+        this.conTo = null;
+    }
 
     public Rectangle getVisuals() {
         return this.shape;
@@ -39,28 +44,22 @@ public abstract class Port implements SingConElm {
         this.shape.setY(Y - this.shape.getHeight() / 2);
 
 
-        // TODO: add mouse handlers
+        // TODO: add all mouse handlers
         this.shape.setOnMouseClicked(e -> this.logic.portOp(this, e));
 
-        StackPane stack = new StackPane();
-        stack.setLayoutX(X - this.shape.getWidth() / 2);
-        stack.setLayoutY(Y - this.shape.getHeight() / 2);
-        stack.getChildren().add(this.shape);
     }
 
+    public Connection getConTo() {
+        return this.conTo;
+    }
 
     public void set() {
-        StackPane stack = (StackPane) getVisuals().getParent();
-        this.schema.getChildren().add(stack);
+        this.stack.getChildren().add(this.shape);
     }
 
     public void remove() {
-        // TODO: remove connections
-        StackPane stack = (StackPane) getVisuals().getParent();
-        Platform.runLater(() -> {
-            stack.getChildren().removeAll();
-            this.schema.getChildren().remove(stack);
-        });
+        if (isConnected()) this.conTo.remove();
+        Platform.runLater(() -> this.stack.getChildren().clear());
     }
 
     public Block getParent() {
@@ -68,11 +67,11 @@ public abstract class Port implements SingConElm {
     }
 
     public double getCenterX() {
-        return getVisuals().getX() + sizeX / 2;
+        return this.parent.getVisuals().getLayoutX() + this.shape.getX() + this.shape.getWidth() / 2;
     }
 
     public double getCenterY() {
-        return getVisuals().getY() + sizeY / 2;
+        return this.parent.getVisuals().getLayoutY() + this.shape.getY() + this.shape.getHeight() / 2;
     }
 
 }

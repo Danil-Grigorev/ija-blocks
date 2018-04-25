@@ -1,6 +1,7 @@
 package Elements;
 
 import Logic.Logic;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
@@ -19,6 +20,7 @@ public class Connection {
 
     private Logic logic;
     private AnchorPane schema;
+    private boolean isSet;
 
     public Connection(Logic logic, AnchorPane schema) {
         this.logic = logic;
@@ -27,14 +29,29 @@ public class Connection {
         this.to = null;
         this.lines = new ArrayList<Line>();
         this.joints = new ArrayList<Rectangle>();
+        this.isSet = false;
     }
 
-    public void setPortIn(OutputPort port) {
+    public void setPortIn(OutputPort port) throws IOException {
+        if (this.from != null)
+            throw new IOException();
         this.from = port;
+
+        if (this.to != null && this.to.getParent().cycleCheck(this.from.getParent().getId())) {
+            this.from = null;
+            throw new IOException();
+        }
+
     }
 
-    public void setPortOut(InputPort port) {
+    public void setPortOut(InputPort port) throws IOException {
+        if (this.to != null) throw new IOException();
         this.to = port;
+
+        if (this.from != null && this.to.getParent().cycleCheck(this.from.getParent().getId())) {
+            this.to = null;
+            throw new IOException();
+        }
     }
 
     // TODO: rewrite to "dataType"
@@ -47,11 +64,6 @@ public class Connection {
         }
     }
 
-    public ArrayList<Line> getLines() {
-        return this.lines;
-    }
-    public ArrayList<Rectangle> getJoints() { return joints; }
-
     public void setStartPoint(double X, double Y) {
         Line tmp = new Line();
         tmp.setStartX(X);
@@ -60,22 +72,35 @@ public class Connection {
     }
 
     public void setEndPoint(double X, double Y) {
-        Line tmp = this.lines.get(0);
+        Line tmp = this.lines.get(this.lines.size() - 1);
         tmp.setEndX(X);
         tmp.setEndY(Y);
     }
 
     public void set() {
+        this.isSet = true;
         Platform.runLater(() -> {
             this.schema.getChildren().addAll(this.lines);
             this.schema.getChildren().addAll(this.joints);
         });
     }
 
+    public boolean isSet() {
+        return this.isSet;
+    }
+
+    public Block getNext() {
+        return this.to.getParent();
+    }
+
     public void remove() {
+        if (this.from   != null) { this.from.removeConnection(); }
+        if (this.to     != null) { this.to.removeConnection(); }
         Platform.runLater(() -> {
             this.schema.getChildren().removeAll(this.lines);
             this.schema.getChildren().removeAll(this.joints);
         });
     }
+
+
 }

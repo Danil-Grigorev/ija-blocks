@@ -1,8 +1,9 @@
 package Elements;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
@@ -31,6 +32,7 @@ public abstract class Block {
     protected int sizeX = 120;
     protected int sizeY = 60;
     protected Rectangle shape;
+    private Pane stack;
 
     public int getId() {
         return this.id;
@@ -48,54 +50,69 @@ public abstract class Block {
         return this.maxOutPorts;
     }
 
-    public InputPort getInPort(int num) {
-        assert num < this.getMaxInPorts() : "Accessing port out of range";
-        if (this.inputPorts.size() <= num) {
-            return null;
-        }
+    public ArrayList<OutputPort> getOutputPorts() {
+        return this.outputPorts;
+    }
+
+//    public InputPort getInPort(int num) {
+//        assert num < this.getMaxInPorts() : "Accessing port out of range";
+//        if (this.inputPorts.size() <= num) {
+//            return null;
+//        }
+//        else {
+//            return this.inputPorts.get(num);
+//        }
+//    }
+//
+//    public void setInPort(InputPort InputPort, int num) {
+//        assert num < this.getMaxInPorts();
+//        this.inputPorts.set(num, InputPort);
+//    }
+//
+//    public OutputPort getOutputPort(int num) {
+//        assert num < this.getMaxOutPorts() : "Accessing port out of range";
+//        if (this.outputPorts.size() <= num) {
+//            return null;
+//        }
+//        else {
+//            return this.outputPorts.get(num);
+//        }
+//    }
+//
+//    public void setOutputPort(OutputPort OutputPort, int num) {
+//        assert num < getMaxOutPorts() : "Accessing port out of range";
+//        this.outputPorts.set(num, OutputPort);
+//    }
+
+    public boolean cycleCheck(int id) {
+        System.out.println("Checking block " + getId() + " and " + id);
+
+        if (getId() == id) { return true; }
         else {
-            return this.inputPorts.get(num);
+            for (OutputPort port : this.outputPorts) {
+                if (!port.isConnected()) { continue; }
+                else if (port.getConTo().getNext().cycleCheck(id))
+                    return true;
+            }
+            return false;
         }
-    }
-
-    public void setInPort(InputPort InputPort, int num) {
-        assert num < this.getMaxInPorts();
-        this.inputPorts.set(num, InputPort);
-    }
-
-    public OutputPort getOutputPort(int num) {
-        assert num < this.getMaxOutPorts() : "Accessing port out of range";
-        if (this.outputPorts.size() <= num) {
-            return null;
-        }
-        else {
-            return this.outputPorts.get(num);
-        }
-    }
-
-    public void setOutputPort(OutputPort OutputPort, int num) {
-        assert num < getMaxOutPorts() : "Accessing port out of range";
-        this.outputPorts.set(num, OutputPort);
     }
 
     protected void setupPorts() {
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
         for (int i = 0; i < getMaxInPorts(); i++) {
-            InputPort tmp = new InputPort(this, this.schema, this.logic);
+            InputPort tmp = new InputPort(this, getVisuals(), this.logic);
             tmp.setVisuals(
-                    getVisuals().getX(),
-                    getVisuals().getY() +
-                            (sizeY / (getMaxInPorts() + 1) * (i+1)));
+                    0,sizeY / (getMaxInPorts() + 1) * (i+1));
             tmp.set();
             this.inputPorts.add(tmp);
         }
         for (int i = 0; i < getMaxOutPorts(); i++) {
-            OutputPort tmp = new OutputPort(this, this.schema, this.logic);
+            OutputPort tmp = new OutputPort(this, getVisuals(), this.logic);
             tmp.setVisuals(
-                    getVisuals().getX() + sizeX,
-                    getVisuals().getY() +
-                            (sizeY / (getMaxOutPorts() + 1) * (i+1)));
+                    sizeX,
+                    sizeY / (getMaxOutPorts() + 1) * (i+1));
             tmp.set();
             this.outputPorts.add(tmp);
         }
@@ -119,17 +136,16 @@ public abstract class Block {
             if (port == null) continue;
             port.remove();
         }
-        StackPane stack = (StackPane) getVisuals().getParent();
         Platform.runLater(() -> {
-            stack.getChildren().removeAll();
-            this.schema.getChildren().remove(stack);
+            getVisuals().getChildren().clear();
+            this.schema.getChildren().remove(getVisuals());
         });
     }
 
     public void set() {
         setupPorts();
 
-        StackPane stack = (StackPane) getVisuals().getParent();
+        Pane stack = getVisuals();
         this.schema.getChildren().add(stack);
     }
 
@@ -137,22 +153,21 @@ public abstract class Block {
         this.shape = new Rectangle(sizeX, sizeY, Color.TRANSPARENT);
         this.shape.setStroke(Color.BLACK);
 
-        this.shape.setX(X - this.shape.getWidth() / 2);
-        this.shape.setY(Y - this.shape.getHeight() / 2);
         this.shape.setArcWidth(5);
         this.shape.setArcHeight(5);
         this.shape.setOnMouseClicked(e -> this.logic.blockOp(this, e));
 
         Text shText = new Text(this.name);
 
-        StackPane stack = new StackPane();
-        stack.setLayoutX(X - this.shape.getWidth() / 2);
-        stack.setLayoutY(Y - this.shape.getHeight() / 2);
-        stack.getChildren().addAll(this.shape, shText);
+        this.stack = new Pane();
+        this.stack.setPrefSize(this.shape.getWidth(), this.shape.getHeight());
+        this.stack.setLayoutX(X - this.shape.getWidth() / 2);
+        this.stack.setLayoutY(Y - this.shape.getHeight() / 2);
+        this.stack.getChildren().addAll(this.shape, shText);
     }
 
-    public Rectangle getVisuals() {
-        return this.shape;
+    public Pane getVisuals() {
+        return this.stack;
     }
 
     public abstract void execute();
