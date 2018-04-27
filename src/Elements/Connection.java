@@ -108,15 +108,13 @@ public class Connection {
         });
     }
 
-    public void reposition(Port caller, double diffX, double diffY) {
+    public void reposition(Port caller) {
         Line tmp;
         if (this.from == caller) {
-            tmp = this.lines.get(0);
-            setStartPoint(0, tmp.getStartX() + diffX, tmp.getStartY() + diffY );
+            setStartPoint(0, caller.getCenterX() + caller.getVisuals().getWidth() / 2, caller.getCenterY() );
         }
         else {
-            tmp = this.lines.get(this.lines.size() - 1);
-            setEndPoint(-1, tmp.getStartX() + diffX, tmp.getStartY() + diffY );
+            setEndPoint(-1, caller.getCenterX() - caller.getVisuals().getWidth() / 2, caller.getCenterY() );
         }
     }
 }

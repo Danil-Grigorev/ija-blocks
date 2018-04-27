@@ -74,8 +74,8 @@ public abstract class Port implements SingConElm {
         return this.parent.getVisuals().getLayoutY() + this.shape.getY() + this.shape.getHeight() / 2;
     }
 
-    public void reposition(double diffX, double diffY) {
-        if (isConnected()) this.conTo.reposition(this, diffX, diffY);
+    public void reposition() {
+        if (isConnected()) this.conTo.reposition(this);
     }
 
 }

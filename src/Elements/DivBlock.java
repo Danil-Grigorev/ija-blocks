@@ -17,7 +17,6 @@ public class DivBlock extends Block {
 		this.maxOutPorts = 1;
 		this.valDefined = false;
 		this.value = 0.0;
-        // TODO: make ItemContainer set id
         this.id = this.logic.generateId();
         System.out.println("Div block " + this.id + " created.");
     }

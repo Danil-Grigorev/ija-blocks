@@ -144,7 +144,9 @@ public class Logic {
     }
 
     public void blockDrag(Block caller, MouseEvent e) {
-        caller.reposition(e.getSceneX() - this.indentX, e.getSceneY() - this.indentY);
+        caller.reposition(
+                e.getSceneX() - this.indentX,
+                e.getSceneY() - this.indentY);
         e.consume();
     }
 
@@ -168,7 +170,7 @@ public class Logic {
                             caller.getCenterY());
                 }
                 else {
-                    tmpCon.setEndPoint(0,
+                    tmpCon.setStartPoint(0,
                             caller.getCenterX() + caller.getVisuals().getWidth() / 2,
                             caller.getCenterY());
                 }
@@ -180,7 +182,7 @@ public class Logic {
                     System.out.println("Connected second");
                 } catch (IOException ex) { break; }
                 if (caller instanceof InputPort) {
-                    tmpCon.setStartPoint(0,
+                    tmpCon.setEndPoint(0,
                             caller.getCenterX() - caller.getVisuals().getWidth() / 2,
                             caller.getCenterY());
                 }

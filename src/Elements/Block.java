@@ -168,7 +168,9 @@ public abstract class Block {
 
         this.stack = new Pane();
         this.stack.setPrefSize(this.shape.getWidth(), this.shape.getHeight());
-        reposition(X, Y);
+//        reposition(X, Y);
+        this.stack.setLayoutX(X - Block.this.shape.getWidth() / 2);
+        this.stack.setLayoutY(Y - Block.this.shape.getHeight() / 2);
         this.stack.getChildren().addAll(this.shape, shText);
     }
 
@@ -177,14 +179,14 @@ public abstract class Block {
     }
 
     public void reposition(double X, double Y) {
-        Block.this.getVisuals().setLayoutX(X - Block.this.shape.getWidth() / 2);
-        Block.this.getVisuals().setLayoutY(Y - Block.this.shape.getHeight() / 2);
-//        for (Port port : this.inputPorts) {
-//            port.reposition(diffX, diffY);
-//        }
-//        for (Port port : this.outputPorts) {
-//            port.reposition(diffX, diffY);
-//        }
+        getVisuals().setLayoutX(X - this.shape.getWidth() / 2);
+        getVisuals().setLayoutY(Y - this.shape.getHeight() / 2);
+        for (Port port : this.inputPorts) {
+            port.reposition();
+        }
+        for (Port port : this.outputPorts) {
+            port.reposition();
+        }
 
     }
 
