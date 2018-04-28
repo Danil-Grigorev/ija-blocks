@@ -52,7 +52,7 @@ public class Controller implements Initializable {
     }
 
     public void remClick(javafx.event.ActionEvent actionEvent) {
-        appL.setSchemaState(Logic.State.REMOVE_BLOCK);
+        appL.setSchemaState(Logic.State.REMOVE);
     }
 
     public void addConClick(javafx.event.ActionEvent actionEvent) {

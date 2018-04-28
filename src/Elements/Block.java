@@ -1,6 +1,5 @@
 package Elements;
 
-import com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages_zh_CN;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -9,8 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
+import javax.print.CancelablePrintJob;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,10 +30,13 @@ public abstract class Block {
     protected boolean valDefined;
     protected double value;
 
+    // Block interface
     protected int sizeX = 120;
     protected int sizeY = 60;
     protected Rectangle shape;
     private Pane stack;
+
+    private Color stColor = Color.GRAY;
 
     public int getId() {
         return this.id;
@@ -50,10 +52,6 @@ public abstract class Block {
 
     public int getMaxOutPorts() {
         return this.maxOutPorts;
-    }
-
-    public ArrayList<OutputPort> getOutputPorts() {
-        return this.outputPorts;
     }
 
 //    public InputPort getInPort(int num) {
@@ -153,12 +151,15 @@ public abstract class Block {
 
     public void setVisuals(double X, double Y) {
         this.shape = new Rectangle(sizeX, sizeY, Color.TRANSPARENT);
-        this.shape.setStroke(Color.BLACK);
+        this.shape.setStroke(stColor);
+        this.shape.setStrokeWidth(2);
 
         this.shape.setArcWidth(5);
         this.shape.setArcHeight(5);
         this.shape.setOnMouseClicked(e -> this.logic.blockClick(this, e));
         this.shape.setOnMouseDragged(e -> this.logic.blockDrag(this, e));
+        this.shape.setOnMouseEntered(e -> this.logic.elementHover(e));
+        this.shape.setOnMouseExited(e -> this.logic.elementHover(e));
 
         Label shText = new Label(this.name);
         shText.setFont(Font.font("Arial", 16));
@@ -168,7 +169,6 @@ public abstract class Block {
 
         this.stack = new Pane();
         this.stack.setPrefSize(this.shape.getWidth(), this.shape.getHeight());
-//        reposition(X, Y);
         this.stack.setLayoutX(X - Block.this.shape.getWidth() / 2);
         this.stack.setLayoutY(Y - Block.this.shape.getHeight() / 2);
         this.stack.getChildren().addAll(this.shape, shText);

@@ -5,8 +5,12 @@ import Execute.Main;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -63,7 +67,7 @@ public class Logic {
                 putBl(mouseEvent.getX(), mouseEvent.getY());
                 schemaState = State.DEFAULT;
                 break;
-            case REMOVE_BLOCK:
+            case REMOVE:
                 System.out.println("Remove block state");
                 // Some actions
                 break;
@@ -133,7 +137,7 @@ public class Logic {
 
     public void blockClick(Block caller, MouseEvent e) {
         switch (getSchemaState()) {
-            case REMOVE_BLOCK:
+            case REMOVE:
                 caller.remove();
                 setSchemaState(State.DEFAULT);
                 break;
@@ -144,15 +148,19 @@ public class Logic {
     }
 
     public void blockDrag(Block caller, MouseEvent e) {
-        caller.reposition(
-                e.getSceneX() - this.indentX,
-                e.getSceneY() - this.indentY);
+        switch (getSchemaState()) {
+            case DEFAULT:
+                caller.reposition(
+                        e.getSceneX() - this.indentX,
+                        e.getSceneY() - this.indentY);
+                break;
+        }
         e.consume();
     }
 
     public void portClick(Port caller, MouseEvent e) {
         switch (getSchemaState()) {
-            case REMOVE_BLOCK:
+            case REMOVE:
                 caller.remove();
                 setSchemaState(State.DEFAULT);
                 break;
@@ -200,6 +208,50 @@ public class Logic {
         e.consume();
     }
 
+    public void connectionClick(Connection caller, MouseEvent e) {
+        switch (getSchemaState()) {
+            case DEFAULT:
+                caller.addJoint((Line) e.getSource(),
+                        e.getSceneX() - this.indentX,
+                        e.getSceneY() - this.indentY);
+                break;
+        }
+        e.consume();
+    }
+
+    public void jointDrag(Connection caller, MouseEvent e) {
+        Rectangle joint = (Rectangle) e.getSource();
+        switch (getSchemaState()) {
+            case DEFAULT:
+                caller.repositionJoint(joint, e.getSceneX() - this.indentX, e.getSceneY() - this.indentY);
+                break;
+        }
+        e.consume();
+    }
+
+    public void jointClick(Connection caller, MouseEvent e) {
+        Rectangle joint = (Rectangle) e.getSource();
+        switch (getSchemaState()) {
+            case REMOVE:
+                caller.removeJoint(joint);
+                setSchemaState(State.DEFAULT);
+                break;
+        }
+        e.consume();
+    }
+
+    public void elementHover(MouseEvent e) {
+        Shape object = (Shape) e.getSource();
+        Color color = (Color) object.getStroke();
+
+        if (e.getEventType() == MouseEvent.MOUSE_ENTERED) {
+            object.setStroke(color.brighter());
+        }
+        else {
+            object.setStroke(color.darker());
+        }
+        e.consume();
+    }
 
     public int generateId() {
         return id++;
@@ -218,7 +270,7 @@ public class Logic {
     public enum State {
         DEFAULT,
         PUT_BLOCK,
-        REMOVE_BLOCK,
+        REMOVE,
         ADD_CON_1,
         ADD_CON_2,
     }

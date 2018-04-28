@@ -22,6 +22,8 @@ public abstract class Port implements SingConElm {
     private int sizeY = 10;
     private Rectangle shape;
 
+    private Color stColor = Color.GRAY;
+
     public boolean isConnected() {
 	    return this.conTo != null;
     }
@@ -38,7 +40,8 @@ public abstract class Port implements SingConElm {
 
     public void setVisuals(double X, double Y) {
         this.shape = new Rectangle(sizeX, sizeY, Color.GOLD);
-        this.shape.setStroke(Color.BLACK);
+        this.shape.setStroke(stColor);
+        this.shape.setStrokeWidth(2);
 
         this.shape.setX(X - this.shape.getWidth() / 2);
         this.shape.setY(Y - this.shape.getHeight() / 2);
@@ -46,6 +49,8 @@ public abstract class Port implements SingConElm {
 
         // TODO: add all mouse handlers
         this.shape.setOnMouseClicked(e -> this.logic.portClick(this, e));
+        this.shape.setOnMouseEntered(e -> this.logic.elementHover(e));
+        this.shape.setOnMouseExited(e -> this.logic.elementHover(e));
 
     }
 

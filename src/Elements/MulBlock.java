@@ -17,7 +17,6 @@ public class MulBlock extends Block{
         this.maxOutPorts = 1;
         this.valDefined = false;
         this.value = 0.0;
-        // TODO: make ItemContainer set id
         this.id = this.logic.generateId();
         System.out.println("Mul block " + this.id + " created.");
 	}
