@@ -1,5 +1,7 @@
 package Elements;
 
+import Elements.Containers.ConnectionSave;
+import Elements.Containers.ItemContainer;
 import Logic.Logic;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
@@ -9,12 +11,14 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Connection {
 
     private OutputPort from;
     private InputPort to;
+    private int id;
 
     private ArrayList<Line> lines;
     private ArrayList<Rectangle>  joints;
@@ -33,6 +37,7 @@ public class Connection {
         this.lines = new ArrayList<Line>();
         this.joints = new ArrayList<Rectangle>();
         this.isSet = false;
+        this.id = logic.generateId();
 
         Line tmp = new Line();
         tmp.setStrokeWidth(3);
@@ -98,6 +103,7 @@ public class Connection {
         this.lines.add(index, toLine);
         this.joints.add(index, joint);
         this.schema.getChildren().addAll(next, joint);
+        next.toBack();
     }
 
     public void repositionJoint(Rectangle joint, double X, double Y) {
@@ -136,6 +142,7 @@ public class Connection {
 
         lineLeft.setEndX(next.getEndX());
         lineLeft.setEndY(next.getEndY());
+        lineLeft.toBack();
 
         this.lines.remove(index + 1);
         this.joints.remove(index);
@@ -159,6 +166,7 @@ public class Connection {
         else tmp = this.lines.get(lineNumber);
         tmp.setStartX(X);
         tmp.setStartY(Y);
+        tmp.toBack();
     }
 
     public void setEndPoint(int lineNumber, double X, double Y) {
@@ -168,6 +176,7 @@ public class Connection {
         else tmp = this.lines.get(lineNumber);
         tmp.setEndX(X);
         tmp.setEndY(Y);
+        tmp.toBack();
     }
 
     public void set() {
@@ -181,7 +190,7 @@ public class Connection {
 
         Platform.runLater(() -> {
             this.schema.getChildren().addAll(this.lines);
-            this.schema.getChildren().addAll(this.joints);
+            for (Line ln : this.lines) { ln.toBack(); }
         });
     }
 
@@ -191,6 +200,22 @@ public class Connection {
 
     public Block getNext() {
         return this.to.getParent();
+    }
+
+    public Port getFrom() {
+        return this.from;
+    }
+
+    public Port getTo() {
+        return this.to;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public ArrayList<Rectangle> getJoints() {
+        return this.joints;
     }
 
     public void remove() {
@@ -204,10 +229,14 @@ public class Connection {
 
     public void reposition(Port caller) {
         if (this.from == caller) {
-            setStartPoint(0, caller.getCenterX() + caller.getVisuals().getWidth() / 2, caller.getCenterY() );
+            setStartPoint(0, caller.getCenterX(), caller.getCenterY() );
         }
         else {
-            setEndPoint(-1, caller.getCenterX() - caller.getVisuals().getWidth() / 2, caller.getCenterY() );
+            setEndPoint(-1, caller.getCenterX(), caller.getCenterY() );
         }
+    }
+
+    public void createSave(ItemContainer container) {
+        container.addConnection(new ConnectionSave(this));
     }
 }

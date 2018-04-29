@@ -1,5 +1,7 @@
 package Elements;
 
+import Elements.Containers.ItemContainer;
+import Elements.Containers.PortSave;
 import Interface.SingConElm;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -9,17 +11,21 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import java.io.IOException;
+import java.io.Serializable;
 
-public abstract class Port implements SingConElm {
+public abstract class Port implements SingConElm, Serializable {
 
     // TODO: rewrite to "dataType"
     protected Connection conTo;
     protected Block parent;
     protected Pane stack;
     protected Logic logic;
+    protected int id;
 
     private int sizeX = 10;
     private int sizeY = 10;
+    protected double layoutX;
+    protected double layoutY;
     private Rectangle shape;
 
     private Color stColor = Color.GRAY;
@@ -43,11 +49,12 @@ public abstract class Port implements SingConElm {
         this.shape.setStroke(stColor);
         this.shape.setStrokeWidth(2);
 
+        this.layoutX = X;
+        this.layoutY = Y;
+
         this.shape.setX(X - this.shape.getWidth() / 2);
         this.shape.setY(Y - this.shape.getHeight() / 2);
 
-
-        // TODO: add all mouse handlers
         this.shape.setOnMouseClicked(e -> this.logic.portClick(this, e));
         this.shape.setOnMouseEntered(e -> this.logic.elementHover(e));
         this.shape.setOnMouseExited(e -> this.logic.elementHover(e));
@@ -79,8 +86,27 @@ public abstract class Port implements SingConElm {
         return this.parent.getVisuals().getLayoutY() + this.shape.getY() + this.shape.getHeight() / 2;
     }
 
+    public double getLayoutX() {
+        return layoutX;
+    }
+
+    public double getLayoutY() {
+        return layoutY;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
     public void reposition() {
         if (isConnected()) this.conTo.reposition(this);
+    }
+
+    public void createSave(ItemContainer container) {
+        if (isConnected()) {
+            this.conTo.createSave(container);
+        }
+        container.addPort(new PortSave(this));
     }
 
 }

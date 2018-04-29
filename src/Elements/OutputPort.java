@@ -14,7 +14,9 @@ public class OutputPort extends Port {
         this.stack = stack;
 		this.parent = parent;
         this.conTo = null;
-        // TODO
+        this.id = logic.generateId();
+        this.layoutX = 0.0;
+        this.layoutY = 0.0;
 	}
 
     // TODO: rewrite to return "dataType"
@@ -36,5 +38,7 @@ public class OutputPort extends Port {
 	    con.setPortIn(this);
         this.conTo = con;
     }
+
+
 
 }

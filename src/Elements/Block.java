@@ -1,5 +1,8 @@
 package Elements;
 
+import Elements.Containers.BlockSave;
+import Elements.Containers.ItemContainer;
+import Elements.Containers.PortSave;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -9,14 +12,12 @@ import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import javafx.scene.text.Font;
 
-import javax.print.CancelablePrintJob;
+
 import java.util.ArrayList;
-import java.util.Random;
 
 public abstract class Block {
 
     protected int id;
-    protected Random rand = new Random();
 
     protected ArrayList<InputPort> inputPorts;
     protected ArrayList<OutputPort> outputPorts;
@@ -33,56 +34,12 @@ public abstract class Block {
     // Block interface
     protected int sizeX = 120;
     protected int sizeY = 60;
+    protected double layoutX;
+    protected double layoutY;
     protected Rectangle shape;
     private Pane stack;
 
     private Color stColor = Color.GRAY;
-
-    public int getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getMaxInPorts() {
-        return this.maxInPorts;
-    }
-
-    public int getMaxOutPorts() {
-        return this.maxOutPorts;
-    }
-
-//    public InputPort getInPort(int num) {
-//        assert num < this.getMaxInPorts() : "Accessing port out of range";
-//        if (this.inputPorts.size() <= num) {
-//            return null;
-//        }
-//        else {
-//            return this.inputPorts.get(num);
-//        }
-//    }
-//
-//    public void setInPort(InputPort InputPort, int num) {
-//        assert num < this.getMaxInPorts();
-//        this.inputPorts.set(num, InputPort);
-//    }
-//
-//    public OutputPort getOutputPort(int num) {
-//        assert num < this.getMaxOutPorts() : "Accessing port out of range";
-//        if (this.outputPorts.size() <= num) {
-//            return null;
-//        }
-//        else {
-//            return this.outputPorts.get(num);
-//        }
-//    }
-//
-//    public void setOutputPort(OutputPort OutputPort, int num) {
-//        assert num < getMaxOutPorts() : "Accessing port out of range";
-//        this.outputPorts.set(num, OutputPort);
-//    }
 
     public boolean cycleCheck(int id) {
         System.out.println("Checking block " + getId() + " and " + id);
@@ -167,6 +124,9 @@ public abstract class Block {
         shText.setLayoutX(this.shape.getWidth() / 2 - shText.getWidth());
         shText.setLayoutY(this.shape.getHeight() / 2 - shText.getHeight());
 
+        this.layoutX = X;
+        this.layoutY = Y;
+
         this.stack = new Pane();
         this.stack.setPrefSize(this.shape.getWidth(), this.shape.getHeight());
         this.stack.setLayoutX(X - Block.this.shape.getWidth() / 2);
@@ -174,11 +134,9 @@ public abstract class Block {
         this.stack.getChildren().addAll(this.shape, shText);
     }
 
-    public Pane getVisuals() {
-        return this.stack;
-    }
-
     public void reposition(double X, double Y) {
+        this.layoutX = X;
+        this.layoutY = Y;
         getVisuals().setLayoutX(X - this.shape.getWidth() / 2);
         getVisuals().setLayoutY(Y - this.shape.getHeight() / 2);
         for (Port port : this.inputPorts) {
@@ -188,6 +146,49 @@ public abstract class Block {
             port.reposition();
         }
 
+    }
+
+    public Pane getVisuals() {
+        return this.stack;
+    }
+
+    public double getLayoutX() {
+        return this.layoutX;
+    }
+
+    public double getLayoutY() {
+        return this.layoutY;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getMaxInPorts() {
+        return this.maxInPorts;
+    }
+
+    public int getMaxOutPorts() {
+        return this.maxOutPorts;
+    }
+
+    public void createSave(ItemContainer container) {
+        for (Port port : this.inputPorts) {
+            port.createSave(container);
+        }
+        for (Port port : this.outputPorts) {
+            port.createSave(container);
+        }
+        container.addBlock(new BlockSave(this));
+    }
+
+    public void loadSave(BlockSave save) {
+        this.id = save.getId();
+        reposition(this.layoutX, this.layoutY);
     }
 
     public abstract void execute();

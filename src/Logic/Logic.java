@@ -1,6 +1,7 @@
 package Logic;
 
 import Elements.*;
+import Elements.Containers.ItemContainer;
 import Execute.Main;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
@@ -12,20 +13,19 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 
 
 public class Logic {
     public State schemaState;
     private AnchorPane schemaPane;
+    private ItemContainer elementContainer;
 
     // Synchronized block operations
     // -----------------------
     private boolean accNode;
     private Block opNode;
 
-    private Rectangle tmp;
     private Connection tmpCon;
     private int id;
 
@@ -36,6 +36,7 @@ public class Logic {
     public Logic(AnchorPane displayPane, double indentX, double indentY) {
         this.indentX = indentX;
         this.indentY = indentY;
+        elementContainer = new ItemContainer();
         schemaPane = displayPane;
         opNode = null;
         accNode = true;
@@ -71,11 +72,8 @@ public class Logic {
                 System.out.println("Remove block state");
                 // Some actions
                 break;
-            case ADD_CON_1:
-                System.out.println("ADD_CON_1 block state");
-                break;
             case ADD_CON_2:
-                System.out.println("ADD_CON_1 block state");
+                System.out.println("ADD_CON_2 block state");
                 break;
             default:
                 System.out.println("Unknown state");
@@ -113,7 +111,6 @@ public class Logic {
                     System.exit(99);
                     break;
             }
-            // TODO: add to itemContainer
             accNode = true;
         });
     }
@@ -130,6 +127,7 @@ public class Logic {
             assert opNode != null : "Block was not initialised";
             opNode.setVisuals(X,Y);
             opNode.set();
+            opNode.createSave(elementContainer);
             opNode = null;
             accNode = true;
         });
@@ -139,8 +137,10 @@ public class Logic {
         switch (getSchemaState()) {
             case REMOVE:
                 caller.remove();
-                setSchemaState(State.DEFAULT);
+                elementContainer.remove(caller);
                 break;
+            case ADD_CON_2:
+                setSchemaState(State.DEFAULT);
             case DEFAULT:
                 break;
         }
@@ -153,6 +153,7 @@ public class Logic {
                 caller.reposition(
                         e.getSceneX() - this.indentX,
                         e.getSceneY() - this.indentY);
+                caller.createSave(elementContainer);
                 break;
         }
         e.consume();
@@ -162,9 +163,28 @@ public class Logic {
         switch (getSchemaState()) {
             case REMOVE:
                 caller.remove();
+                elementContainer.remove(caller);
+                break;
+            case ADD_CON_2:
+                try {
+                    caller.setConnection(tmpCon);
+                    System.out.println("Connected second");
+                } catch (IOException ex) { break; }
+                if (caller instanceof InputPort) {
+                    tmpCon.setEndPoint(0,
+                            caller.getCenterX(),
+                            caller.getCenterY());
+                }
+                else {
+                    tmpCon.setStartPoint(0,
+                            caller.getCenterX(),
+                            caller.getCenterY());
+                }
+                tmpCon.set();
+                caller.createSave(elementContainer);
                 setSchemaState(State.DEFAULT);
                 break;
-            case ADD_CON_1:
+            case DEFAULT:
                 if (tmpCon == null) {
                     tmpCon = new Connection(this, schemaPane);
                 }
@@ -174,35 +194,15 @@ public class Logic {
                 } catch (IOException ex) { break; }
                 if (caller instanceof InputPort) {
                     tmpCon.setEndPoint(0,
-                            caller.getCenterX() - caller.getVisuals().getWidth() / 2,
+                            caller.getCenterX(),
                             caller.getCenterY());
                 }
                 else {
                     tmpCon.setStartPoint(0,
-                            caller.getCenterX() + caller.getVisuals().getWidth() / 2,
+                            caller.getCenterX(),
                             caller.getCenterY());
                 }
                 setSchemaState(State.ADD_CON_2);
-                break;
-            case ADD_CON_2:
-                try {
-                    caller.setConnection(tmpCon);
-                    System.out.println("Connected second");
-                } catch (IOException ex) { break; }
-                if (caller instanceof InputPort) {
-                    tmpCon.setEndPoint(0,
-                            caller.getCenterX() - caller.getVisuals().getWidth() / 2,
-                            caller.getCenterY());
-                }
-                else {
-                    tmpCon.setStartPoint(0,
-                            caller.getCenterX() + caller.getVisuals().getWidth() / 2,
-                            caller.getCenterY());
-                }
-                tmpCon.set();
-                setSchemaState(State.DEFAULT);
-                break;
-            case DEFAULT:
                 break;
         }
         e.consume();
@@ -214,6 +214,7 @@ public class Logic {
                 caller.addJoint((Line) e.getSource(),
                         e.getSceneX() - this.indentX,
                         e.getSceneY() - this.indentY);
+                caller.createSave(elementContainer);
                 break;
         }
         e.consume();
@@ -224,6 +225,7 @@ public class Logic {
         switch (getSchemaState()) {
             case DEFAULT:
                 caller.repositionJoint(joint, e.getSceneX() - this.indentX, e.getSceneY() - this.indentY);
+                caller.createSave(elementContainer);
                 break;
         }
         e.consume();
@@ -234,7 +236,7 @@ public class Logic {
         switch (getSchemaState()) {
             case REMOVE:
                 caller.removeJoint(joint);
-                setSchemaState(State.DEFAULT);
+                caller.createSave(elementContainer);
                 break;
         }
         e.consume();
@@ -251,6 +253,40 @@ public class Logic {
             object.setStroke(color.darker());
         }
         e.consume();
+    }
+
+    public void save(String name) {
+        try {
+            FileOutputStream file = new FileOutputStream(name);
+            ObjectOutputStream byteObj = new ObjectOutputStream(file);
+            byteObj.writeObject(elementContainer);
+            byteObj.close();
+            file.close();
+        } catch (IOException e) {
+            System.err.println("Error while writing schema to file");
+            e.printStackTrace();
+            Platform.exit();
+            System.exit(99);
+        }
+    }
+
+    public void load(String name) {
+        try {
+            FileInputStream fileIn = new FileInputStream(name);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            elementContainer = (ItemContainer) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            System.out.println("Error reading class from file");
+            i.printStackTrace();
+            Platform.exit();
+            System.exit(99);
+        } catch (ClassNotFoundException c) {
+            c.printStackTrace();
+            Platform.exit();
+            System.exit(99);
+        }
     }
 
     public int generateId() {
@@ -271,7 +307,6 @@ public class Logic {
         DEFAULT,
         PUT_BLOCK,
         REMOVE,
-        ADD_CON_1,
         ADD_CON_2,
     }
 }

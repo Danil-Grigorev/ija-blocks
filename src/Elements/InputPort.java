@@ -15,6 +15,10 @@ public class InputPort extends Port {
         this.stack = stack;
         this.parent = parent;
         this.conTo = null;
+        this.layoutX = 0.0;
+        this.layoutY = 0.0;
+
+        this.id = logic.generateId();
     }
 
     // TODO: rewrite to return "dataType"

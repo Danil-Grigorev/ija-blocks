@@ -14,9 +14,11 @@ public class SplitBlock extends Block {
         this.name = "-<";
         this.maxInPorts = 1;
         this.maxOutPorts = 2;
+        this.id = this.logic.generateId();
+        this.layoutX = 0.0;
+        this.layoutY = 0.0;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = this.logic.generateId();
         System.out.println("Split block " + this.id + " created.");
     }
 

@@ -15,9 +15,11 @@ public class MulBlock extends Block{
         this.name = "*";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
+        this.id = this.logic.generateId();
+        this.layoutX = 0.0;
+        this.layoutY = 0.0;
         this.valDefined = false;
         this.value = 0.0;
-        this.id = this.logic.generateId();
         System.out.println("Mul block " + this.id + " created.");
 	}
 

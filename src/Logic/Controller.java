@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,14 +21,13 @@ public class Controller implements Initializable {
     public Button rstBtn1;  // Reset button
     public Button nxBtn1;   // Next button
 
-    public Button conBtn1;  // Add connection button
     public Button remBtn1;  // Remove button
 
     // Block creating buttons
-    public Button addBlBtn1;
-    public Button subBlBtn1;
-    public Button mulBlBtn1;
-    public Button divBlBtn;
+    public MenuItem addBlBtn1;
+    public MenuItem subBlBtn1;
+    public MenuItem mulBlBtn1;
+    public MenuItem divBlBtn;
 
     // Elements with scheme content
     public AnchorPane displayPane;
@@ -44,6 +44,15 @@ public class Controller implements Initializable {
         appL.setSchemaState(Logic.State.DEFAULT);
     }
 
+    // Top menu actions
+    public void saveSchema(javafx.event.ActionEvent actionEvent) {
+        appL.save("test.txt");
+    }
+
+    public void openSchema(javafx.event.ActionEvent actionEvent) {
+        appL.load("test.txt");
+    }
+
     // Button click handler function
     public void nxClick(javafx.event.ActionEvent actionEvent) {
     }
@@ -52,12 +61,12 @@ public class Controller implements Initializable {
     }
 
     public void remClick(javafx.event.ActionEvent actionEvent) {
-        appL.setSchemaState(Logic.State.REMOVE);
-    }
-
-    public void addConClick(javafx.event.ActionEvent actionEvent) {
-        appL.tmpReset();
-        appL.setSchemaState(Logic.State.ADD_CON_1);
+        if (appL.getSchemaState() == Logic.State.REMOVE) {
+            appL.setSchemaState(Logic.State.DEFAULT);
+        }
+        else {
+            appL.setSchemaState(Logic.State.REMOVE);
+        }
     }
 
     public void splitBlockCreate(javafx.event.ActionEvent actionEvent) {
