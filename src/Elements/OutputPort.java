@@ -1,5 +1,7 @@
 package Elements;
 
+import Elements.Containers.ItemContainer;
+import Elements.Containers.PortSave;
 import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -18,6 +20,13 @@ public class OutputPort extends Port {
         this.layoutX = 0.0;
         this.layoutY = 0.0;
 	}
+
+    public void createSave(ItemContainer container) {
+        if (isConnected()) {
+            this.conTo.createSave(container);
+        }
+        container.addPort(new PortSave(this));
+    }
 
     // TODO: rewrite to return "dataType"
     public double getValue() throws IOException {

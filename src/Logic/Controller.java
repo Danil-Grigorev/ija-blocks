@@ -41,15 +41,15 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appL = new Logic(displayPane, leftMenu.getPrefWidth(), topMenu.getPrefHeight());
-        appL.setSchemaState(Logic.State.DEFAULT);
+        appL.setSchemeState(Logic.State.DEFAULT);
     }
 
     // Top menu actions
-    public void saveSchema(javafx.event.ActionEvent actionEvent) {
+    public void saveScheme(javafx.event.ActionEvent actionEvent) {
         appL.save("test.txt");
     }
 
-    public void openSchema(javafx.event.ActionEvent actionEvent) {
+    public void openScheme(javafx.event.ActionEvent actionEvent) {
         appL.load("test.txt");
     }
 
@@ -61,44 +61,44 @@ public class Controller implements Initializable {
     }
 
     public void remClick(javafx.event.ActionEvent actionEvent) {
-        if (appL.getSchemaState() == Logic.State.REMOVE) {
-            appL.setSchemaState(Logic.State.DEFAULT);
+        if (appL.getSchemeState() == Logic.State.REMOVE) {
+            appL.setSchemeState(Logic.State.DEFAULT);
         }
         else {
-            appL.setSchemaState(Logic.State.REMOVE);
+            appL.setSchemeState(Logic.State.REMOVE);
         }
     }
 
     public void splitBlockCreate(javafx.event.ActionEvent actionEvent) {
         appL.initBl("split");
-        appL.setSchemaState(Logic.State.PUT_BLOCK);
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 
     public void addBlockCreate(javafx.event.ActionEvent actionEvent) {
         appL.initBl("add");
-        appL.setSchemaState(Logic.State.PUT_BLOCK);
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 
     public void subBlockCreate(javafx.event.ActionEvent actionEvent) {
         appL.initBl("sub");
-        appL.setSchemaState(Logic.State.PUT_BLOCK);
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 
     public void mulBlockCreate(javafx.event.ActionEvent actionEvent) {
         appL.initBl("mul");
-        appL.setSchemaState(Logic.State.PUT_BLOCK);
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 
     public void divBlockCreate(javafx.event.ActionEvent actionEvent) {
         appL.initBl("div");
-        appL.setSchemaState(Logic.State.PUT_BLOCK);
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 
     // TODO: add custom block
 
-    // Main schema area action
-    public void schemaAct(MouseEvent mouseEvent) {
-        appL.schemaAct(mouseEvent);
+    // Main scheme area action
+    public void schemeAct(MouseEvent mouseEvent) {
+        appL.schemeAct(mouseEvent);
     }
 
     public void exitApp(javafx.event.ActionEvent actionEvent) {

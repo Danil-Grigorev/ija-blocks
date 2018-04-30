@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class MulBlock extends Block{
 
-	public MulBlock(Logic logic, AnchorPane schema) {
-        this.schema = schema;
+	public MulBlock(Logic logic, AnchorPane scheme) {
+        this.scheme = scheme;
         this.logic = logic;
         this.name = "*";
         this.maxInPorts = 2;
@@ -20,7 +20,8 @@ public class MulBlock extends Block{
         this.layoutY = 0.0;
         this.valDefined = false;
         this.value = 0.0;
-        System.out.println("Mul block " + this.id + " created.");
+        this.inputPorts = new ArrayList<InputPort>();
+        this.outputPorts = new ArrayList<OutputPort>();
 	}
 
     @Override

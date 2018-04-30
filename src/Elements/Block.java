@@ -25,7 +25,7 @@ public abstract class Block {
     protected int maxOutPorts;
     protected String name;
     protected Logic logic;
-    protected AnchorPane schema;
+    protected AnchorPane scheme;
 
     // TODO: rewrite to "dataType"
     protected boolean valDefined;
@@ -55,9 +55,23 @@ public abstract class Block {
         }
     }
 
-    protected void setupPorts() {
-        this.inputPorts = new ArrayList<InputPort>();
-        this.outputPorts = new ArrayList<OutputPort>();
+    public void addInPort(InputPort port) {
+        this.inputPorts.add(port);
+    }
+
+    public void addOutPort(OutputPort port) {
+        this.outputPorts.add(port);
+    }
+
+    public ArrayList<OutputPort> getOutputPorts() {
+        return this.outputPorts;
+    }
+
+    public ArrayList<InputPort> getInputPorts() {
+        return this.inputPorts;
+    }
+
+    public void setupPorts() {
         for (int i = 0; i < getMaxInPorts(); i++) {
             InputPort tmp = new InputPort(this, getVisuals(), this.logic);
             tmp.setVisuals(
@@ -95,15 +109,13 @@ public abstract class Block {
         }
         Platform.runLater(() -> {
             getVisuals().getChildren().clear();
-            this.schema.getChildren().remove(getVisuals());
+            this.scheme.getChildren().remove(getVisuals());
         });
     }
 
     public void set() {
-        setupPorts();
-
         Pane stack = getVisuals();
-        this.schema.getChildren().add(stack);
+        this.scheme.getChildren().add(stack);
     }
 
     public void setVisuals(double X, double Y) {
@@ -164,6 +176,10 @@ public abstract class Block {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -184,11 +200,6 @@ public abstract class Block {
             port.createSave(container);
         }
         container.addBlock(new BlockSave(this));
-    }
-
-    public void loadSave(BlockSave save) {
-        this.id = save.getId();
-        reposition(this.layoutX, this.layoutY);
     }
 
     public abstract void execute();

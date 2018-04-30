@@ -1,10 +1,11 @@
 package Elements.Containers;
 
-import Elements.Block;
-import Elements.Connection;
-import Elements.Port;
+import Elements.*;
+import Logic.Logic;
+import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -14,12 +15,29 @@ public class ItemContainer implements Serializable {
     private ArrayList <BlockSave> blocks;
     private ArrayList <ConnectionSave> connections;
     private ArrayList <PortSave> ports;
+    private int id;
 
     public ItemContainer() {
         blocks = new ArrayList<>();
         connections = new ArrayList<>();
         ports = new ArrayList<>();
+        id = 0;
+    }
 
+    public int generateId() {
+        return id++;
+    }
+
+    public ArrayList<BlockSave> getBlocks() {
+        return blocks;
+    }
+
+    public ArrayList<PortSave> getPorts() {
+        return ports;
+    }
+
+    public ArrayList<ConnectionSave> getConnections() {
+        return connections;
     }
 
     public void addBlock(BlockSave save) {
@@ -61,7 +79,7 @@ public class ItemContainer implements Serializable {
         }
         System.out.println("ports: " + this.ports);
         for (PortSave pt : this.ports) {
-            System.out.println("\tPort: " + pt.getId() + " -> Block: " + pt.getBlockId());
+            System.out.println("\t" + pt.getType() + "Port: " + pt.getId() + " -> Block: " + pt.getBlockId());
         }
         System.out.println("connections: " + this.connections);
         for (ConnectionSave cn : this.connections) {
@@ -121,6 +139,52 @@ public class ItemContainer implements Serializable {
         this.ports.removeAll(portsToRemove);
         this.blocks.removeAll(blocksToRemove);
         show();
+    }
+
+    public void restore(Logic logic, AnchorPane scheme) {
+        Hashtable<Integer, Block> rest_blocks = new Hashtable<>();
+        Hashtable<Integer, Port> rest_ports = new Hashtable<>();
+        Hashtable<Integer, Connection> rest_cons = new Hashtable<>();
+        Block tmp_bl;
+        Port tmp_prt;
+        Connection tmp_con;
+
+        for (BlockSave bl : this.blocks) {
+            rest_blocks.put(bl.getId(), bl.restore(logic, scheme));
+        }
+        for (PortSave prt : ports) {
+            Block tmp = rest_blocks.get(prt.getBlockId());
+            rest_ports.put(prt.getId(), prt.restore(logic, tmp));
+        }
+        for (ConnectionSave con : connections) {
+            rest_cons.put(con.getId(), con.restore(logic, scheme));
+        }
+
+        try {
+            for (ConnectionSave conS : connections) {
+                tmp_con = rest_cons.get(conS.getId());
+                tmp_prt = rest_ports.get(conS.getFromPortId());
+                tmp_prt.setConnection(tmp_con);
+
+                tmp_prt = rest_ports.get(conS.getToPortId());
+                tmp_prt.setConnection(tmp_con);
+            }
+        } catch (IOException e) {
+            System.err.println("Can't restore scheme from save");
+            e.printStackTrace();
+            Platform.exit();
+            System.exit(99);
+        }
+
+        for (BlockSave blS : blocks) {
+            tmp_bl = rest_blocks.get(blS.getId());
+            for (Integer portId : blS.getInPorts()) {
+                tmp_bl.addInPort((InputPort) rest_ports.get(portId));
+            }
+            for (Integer portId : blS.getOutPorts()) {
+                tmp_bl.addOutPort((OutputPort) rest_ports.get(portId));
+            }
+        }
     }
 
 }

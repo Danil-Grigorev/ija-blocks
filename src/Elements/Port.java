@@ -98,15 +98,14 @@ public abstract class Port implements SingConElm, Serializable {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void reposition() {
         if (isConnected()) this.conTo.reposition(this);
     }
 
-    public void createSave(ItemContainer container) {
-        if (isConnected()) {
-            this.conTo.createSave(container);
-        }
-        container.addPort(new PortSave(this));
-    }
+    public abstract void createSave(ItemContainer container);
 
 }

@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class SplitBlock extends Block {
 
-    public SplitBlock(Logic logic, AnchorPane schema) {
-        this.schema = schema;
+    public SplitBlock(Logic logic, AnchorPane scheme) {
+        this.scheme = scheme;
         this.logic = logic;
         this.name = "-<";
         this.maxInPorts = 1;
@@ -19,7 +19,8 @@ public class SplitBlock extends Block {
         this.layoutY = 0.0;
         this.valDefined = false;
         this.value = 0.0;
-        System.out.println("Split block " + this.id + " created.");
+        this.inputPorts = new ArrayList<InputPort>();
+        this.outputPorts = new ArrayList<OutputPort>();
     }
 
     @Override

@@ -1,17 +1,20 @@
 package Elements.Containers;
 
-import Elements.Block;
+import Elements.*;
+import javafx.application.Platform;
+import javafx.scene.layout.AnchorPane;
 
-import java.io.ObjectOutputStream;
+import Logic.Logic;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class BlockSave implements Serializable {
     private double layoutX;
     private double layoutY;
     private String name;
     private int id;
-    private double maxInPorts;
-    private double maxOutPorts;
+    private ArrayList<Integer> InPorts;
+    private ArrayList<Integer> OutPorts;
 
     public BlockSave(Block block) {
         this.id = block.getId();
@@ -20,8 +23,17 @@ public class BlockSave implements Serializable {
         this.layoutX = block.getLayoutX();
         this.layoutY = block.getLayoutY();
 
-        this.maxInPorts = block.getMaxInPorts();
-        this.maxOutPorts = block.getMaxOutPorts();
+        ArrayList<InputPort> blockInputPorts = block.getInputPorts();
+        this.InPorts = new ArrayList<>();
+        for (InputPort in : blockInputPorts) {
+            this.InPorts.add(in.getId());
+        }
+
+        ArrayList<OutputPort> blockOutputPorts = block.getOutputPorts();
+        this.OutPorts = new ArrayList<>();
+        for (OutputPort out : blockOutputPorts) {
+            this.OutPorts.add(out.getId());
+        }
     }
 
 
@@ -41,12 +53,47 @@ public class BlockSave implements Serializable {
         return this.id;
     }
 
-    public double getMaxInPorts() {
-        return this.maxInPorts;
+    public ArrayList<Integer> getInPorts() {
+        return this.InPorts;
     }
 
-    public double getMaxOutPorts() {
-        return this.maxOutPorts;
+    public ArrayList<Integer> getOutPorts() {
+        return this.OutPorts;
+    }
+
+    public Block restore(Logic logic, AnchorPane scheme) {
+        Block newBl;
+        switch (this.name) {
+            case "+":
+                newBl = new AddBlock(logic, scheme);
+                // TODO: test and remove
+                if (!(newBl instanceof AddBlock)) {
+                    Platform.exit();
+                    System.exit(99);
+                }
+                break;
+            case "-":
+                newBl = new SubBlock(logic, scheme);
+                break;
+            case "*":
+                newBl = new MulBlock(logic, scheme);
+                break;
+            case "/":
+                newBl = new DivBlock(logic, scheme);
+                break;
+            case "-<":
+                newBl = new SplitBlock(logic, scheme);
+                break;
+            default:
+                newBl = null;
+                break;
+        }
+
+        newBl.setId(this.id);
+        newBl.setVisuals(this.layoutX, this.layoutY);
+
+        newBl.set();
+        return newBl;
     }
 
     @Override
@@ -61,4 +108,5 @@ public class BlockSave implements Serializable {
     public int hashCode() {
         return this.getId();
     }
+
 }

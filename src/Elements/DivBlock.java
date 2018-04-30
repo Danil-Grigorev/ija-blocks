@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class DivBlock extends Block {
 
-	public DivBlock(Logic logic, AnchorPane schema) {
-        this.schema = schema;
+	public DivBlock(Logic logic, AnchorPane scheme) {
+        this.scheme = scheme;
         this.logic = logic;
 		this.name = "/";
 		this.maxInPorts = 2;
@@ -20,7 +20,8 @@ public class DivBlock extends Block {
         this.layoutY = 0.0;
 		this.valDefined = false;
 		this.value = 0.0;
-		System.out.println("Div block " + this.id + " created.");
+        this.inputPorts = new ArrayList<InputPort>();
+        this.outputPorts = new ArrayList<OutputPort>();
 	}
 
 	@Override

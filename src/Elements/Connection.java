@@ -24,14 +24,14 @@ public class Connection {
     private ArrayList<Rectangle>  joints;
 
     private Logic logic;
-    private AnchorPane schema;
+    private AnchorPane scheme;
     private boolean isSet;
 
     public Color stColor = Color.GRAY;
 
-    public Connection(Logic logic, AnchorPane schema) {
+    public Connection(Logic logic, AnchorPane scheme) {
         this.logic = logic;
-        this.schema = schema;
+        this.scheme = scheme;
         this.from = null;
         this.to = null;
         this.lines = new ArrayList<Line>();
@@ -46,8 +46,10 @@ public class Connection {
     }
 
     public void setPortIn(OutputPort port) throws IOException {
-        if (this.from != null)
+        if (this.from != null) {
+            System.out.println(this.from);
             throw new IOException();
+        }
         this.from = port;
 
         if (this.to != null && this.to.getParent().cycleCheck(this.from.getParent().getId())) {
@@ -102,7 +104,7 @@ public class Connection {
         this.lines.set(index, next);
         this.lines.add(index, toLine);
         this.joints.add(index, joint);
-        this.schema.getChildren().addAll(next, joint);
+        this.scheme.getChildren().addAll(next, joint);
         next.toBack();
     }
 
@@ -146,7 +148,7 @@ public class Connection {
 
         this.lines.remove(index + 1);
         this.joints.remove(index);
-        this.schema.getChildren().removeAll(joint, next);
+        this.scheme.getChildren().removeAll(joint, next);
     }
 
     // TODO: rewrite to "dataType"
@@ -157,6 +159,13 @@ public class Connection {
         else {
             return this.from.getValue();
         }
+    }
+
+    public Line getLine(int lineNum) {
+        if (this.lines.size() == 0) { return null; }
+        if (lineNum < -1 || lineNum > this.lines.size() - 1) { return null; }
+        if (lineNum == -1) { return this.lines.get(this.lines.size() - 1); }
+        else { return this.lines.get(lineNum); }
     }
 
     public void setStartPoint(int lineNumber, double X, double Y) {
@@ -188,10 +197,8 @@ public class Connection {
         tmp.setOnMouseEntered(e -> this.logic.elementHover(e));
         tmp.setOnMouseExited(e -> this.logic.elementHover(e));
 
-        Platform.runLater(() -> {
-            this.schema.getChildren().addAll(this.lines);
+            this.scheme.getChildren().addAll(this.lines);
             for (Line ln : this.lines) { ln.toBack(); }
-        });
     }
 
     public boolean isSet() {
@@ -214,6 +221,10 @@ public class Connection {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public ArrayList<Rectangle> getJoints() {
         return this.joints;
     }
@@ -222,8 +233,8 @@ public class Connection {
         if (this.from   != null) { this.from.removeConnection(); }
         if (this.to     != null) { this.to.removeConnection(); }
         Platform.runLater(() -> {
-            this.schema.getChildren().removeAll(this.lines);
-            this.schema.getChildren().removeAll(this.joints);
+            this.scheme.getChildren().removeAll(this.lines);
+            this.scheme.getChildren().removeAll(this.joints);
         });
     }
 

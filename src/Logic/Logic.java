@@ -17,8 +17,8 @@ import java.io.*;
 
 
 public class Logic {
-    public State schemaState;
-    private AnchorPane schemaPane;
+    public State schemeState;
+    private AnchorPane schemePane;
     private ItemContainer elementContainer;
 
     // Synchronized block operations
@@ -27,7 +27,6 @@ public class Logic {
     private Block opNode;
 
     private Connection tmpCon;
-    private int id;
 
     private double indentX;
     private double indentY;
@@ -37,26 +36,25 @@ public class Logic {
         this.indentX = indentX;
         this.indentY = indentY;
         elementContainer = new ItemContainer();
-        schemaPane = displayPane;
+        schemePane = displayPane;
         opNode = null;
         accNode = true;
         tmpCon = null;
-        id = 0;
     }
 
-    public State getSchemaState() {
-        return schemaState;
+    public State getSchemeState() {
+        return schemeState;
     }
 
-    public void setSchemaState(State schemaState) {
-        if (schemaState == State.DEFAULT && this.schemaState != State.DEFAULT) {
+    public void setSchemeState(State schemeState) {
+        if (schemeState == State.DEFAULT && this.schemeState != State.DEFAULT) {
             tmpReset();
         }
-        this.schemaState = schemaState;
+        this.schemeState = schemeState;
     }
 
-    public void schemaAct(MouseEvent mouseEvent) {
-        switch (getSchemaState()) {
+    public void schemeAct(MouseEvent mouseEvent) {
+        switch (getSchemeState()) {
             case DEFAULT:
                 System.out.println("DEFAULT block state");
                 if (this.tmpCon != null) {
@@ -66,7 +64,7 @@ public class Logic {
             case PUT_BLOCK:
                 System.out.println("PUT block state");
                 putBl(mouseEvent.getX(), mouseEvent.getY());
-                schemaState = State.DEFAULT;
+                schemeState = State.DEFAULT;
                 break;
             case REMOVE:
                 System.out.println("Remove block state");
@@ -92,15 +90,15 @@ public class Logic {
             }
             accNode = false;
             switch (type) {
-                case "add":     opNode = new AddBlock(this, schemaPane);
+                case "add":     opNode = new AddBlock(this, schemePane);
                     break;
-                case "sub":     opNode = new SubBlock(this, schemaPane);
+                case "sub":     opNode = new SubBlock(this, schemePane);
                     break;
-                case "mul":     opNode = new MulBlock(this, schemaPane);
+                case "mul":     opNode = new MulBlock(this, schemePane);
                     break;
-                case "div":     opNode = new DivBlock(this, schemaPane);
+                case "div":     opNode = new DivBlock(this, schemePane);
                     break;
-                case "split":   opNode = new SplitBlock(this, schemaPane);
+                case "split":   opNode = new SplitBlock(this, schemePane);
                     break;
                 case "custom":
                     // TODO
@@ -126,6 +124,7 @@ public class Logic {
             accNode = false;
             assert opNode != null : "Block was not initialised";
             opNode.setVisuals(X,Y);
+            opNode.setupPorts();
             opNode.set();
             opNode.createSave(elementContainer);
             opNode = null;
@@ -134,13 +133,13 @@ public class Logic {
     }
 
     public void blockClick(Block caller, MouseEvent e) {
-        switch (getSchemaState()) {
+        switch (getSchemeState()) {
             case REMOVE:
                 caller.remove();
                 elementContainer.remove(caller);
                 break;
             case ADD_CON_2:
-                setSchemaState(State.DEFAULT);
+                setSchemeState(State.DEFAULT);
             case DEFAULT:
                 break;
         }
@@ -148,7 +147,7 @@ public class Logic {
     }
 
     public void blockDrag(Block caller, MouseEvent e) {
-        switch (getSchemaState()) {
+        switch (getSchemeState()) {
             case DEFAULT:
                 caller.reposition(
                         e.getSceneX() - this.indentX,
@@ -160,7 +159,7 @@ public class Logic {
     }
 
     public void portClick(Port caller, MouseEvent e) {
-        switch (getSchemaState()) {
+        switch (getSchemeState()) {
             case REMOVE:
                 caller.remove();
                 elementContainer.remove(caller);
@@ -182,11 +181,11 @@ public class Logic {
                 }
                 tmpCon.set();
                 caller.createSave(elementContainer);
-                setSchemaState(State.DEFAULT);
+                setSchemeState(State.DEFAULT);
                 break;
             case DEFAULT:
                 if (tmpCon == null) {
-                    tmpCon = new Connection(this, schemaPane);
+                    tmpCon = new Connection(this, schemePane);
                 }
                 try {
                     caller.setConnection(tmpCon);
@@ -202,14 +201,14 @@ public class Logic {
                             caller.getCenterX(),
                             caller.getCenterY());
                 }
-                setSchemaState(State.ADD_CON_2);
+                setSchemeState(State.ADD_CON_2);
                 break;
         }
         e.consume();
     }
 
     public void connectionClick(Connection caller, MouseEvent e) {
-        switch (getSchemaState()) {
+        switch (getSchemeState()) {
             case DEFAULT:
                 caller.addJoint((Line) e.getSource(),
                         e.getSceneX() - this.indentX,
@@ -222,7 +221,7 @@ public class Logic {
 
     public void jointDrag(Connection caller, MouseEvent e) {
         Rectangle joint = (Rectangle) e.getSource();
-        switch (getSchemaState()) {
+        switch (getSchemeState()) {
             case DEFAULT:
                 caller.repositionJoint(joint, e.getSceneX() - this.indentX, e.getSceneY() - this.indentY);
                 caller.createSave(elementContainer);
@@ -233,7 +232,7 @@ public class Logic {
 
     public void jointClick(Connection caller, MouseEvent e) {
         Rectangle joint = (Rectangle) e.getSource();
-        switch (getSchemaState()) {
+        switch (getSchemeState()) {
             case REMOVE:
                 caller.removeJoint(joint);
                 caller.createSave(elementContainer);
@@ -263,7 +262,7 @@ public class Logic {
             byteObj.close();
             file.close();
         } catch (IOException e) {
-            System.err.println("Error while writing schema to file");
+            System.err.println("Error while writing scheme to file");
             e.printStackTrace();
             Platform.exit();
             System.exit(99);
@@ -277,9 +276,9 @@ public class Logic {
             elementContainer = (ItemContainer) in.readObject();
             in.close();
             fileIn.close();
-        } catch (IOException i) {
+        } catch (IOException e) {
             System.out.println("Error reading class from file");
-            i.printStackTrace();
+            e.printStackTrace();
             Platform.exit();
             System.exit(99);
         } catch (ClassNotFoundException c) {
@@ -287,10 +286,14 @@ public class Logic {
             Platform.exit();
             System.exit(99);
         }
+
+        schemePane.getChildren().clear();
+        elementContainer.restore(this, schemePane);
+
     }
 
     public int generateId() {
-        return id++;
+        return elementContainer.generateId();
     }
 
     public void tmpReset() {

@@ -1,5 +1,7 @@
 package Elements;
 
+import Elements.Containers.ItemContainer;
+import Elements.Containers.PortSave;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -19,6 +21,13 @@ public class InputPort extends Port {
         this.layoutY = 0.0;
 
         this.id = logic.generateId();
+    }
+
+    public void createSave(ItemContainer container) {
+        if (isConnected()) {
+            this.conTo.createSave(container);
+        }
+        container.addPort(new PortSave(this));
     }
 
     // TODO: rewrite to return "dataType"
