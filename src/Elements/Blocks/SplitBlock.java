@@ -1,8 +1,13 @@
 package Elements.Blocks;
 
+import Elements.DataTypes.DataType;
+import Elements.DataTypes.DoubleType;
+import Elements.DataTypes.FloatType;
+import Elements.DataTypes.IntType;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Logic.Logic;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -13,32 +18,29 @@ public class SplitBlock extends Block {
     public SplitBlock(Logic logic, AnchorPane scheme) {
         this.scheme = scheme;
         this.logic = logic;
+        this.id = this.logic.generateId();
+
+        this.data = null;
+
         this.name = "-<";
         this.maxInPorts = 1;
         this.maxOutPorts = 2;
-        this.id = this.logic.generateId();
         this.layoutX = 0.0;
         this.layoutY = 0.0;
-        this.valDefined = false;
-        this.value = 0.0;
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
     }
 
     @Override
-    public void execute() {
-        // Value reset
-        if (!this.valDefined) {
-            this.value = 0.0;
-        }
+    public void calculate() {
 
-        if (this.maxInPorts != this.inputPorts.size()) { return;}
-        try {
-            this.value = this.inputPorts.get(0).getValue();
-            this.valDefined = true;
-        } catch (IOException e) {
-            this.value = 0.0;
-            this.valDefined = false;
-        }
+        Block bl =  this.inputPorts.get(0).getParent();
+        this.data = bl.getData();
+        setActive();
+        popupUpdate();
+    }
+
+    public void dataAccepted() {
+        super.dataAccepted();
     }
 }

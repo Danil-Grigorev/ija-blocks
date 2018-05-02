@@ -1,8 +1,14 @@
 package Elements.Blocks;
 
+import Elements.DataTypes.DataType;
+import Elements.DataTypes.DoubleType;
+import Elements.DataTypes.FloatType;
+import Elements.DataTypes.IntType;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
+import Elements.Ports.Port;
 import Logic.Logic;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -13,43 +19,53 @@ public class MulBlock extends Block {
 	public MulBlock(Logic logic, AnchorPane scheme) {
         this.scheme = scheme;
         this.logic = logic;
+        this.id = this.logic.generateId();
+
+        this.data = null;
+
         this.name = "*";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
-        this.id = this.logic.generateId();
         this.layoutX = 0.0;
         this.layoutY = 0.0;
-        this.valDefined = false;
-        this.value = 0.0;
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
 	}
 
     @Override
-    public void execute() {
-        // Value reset
-        if (!this.valDefined) {
-            this.value = 0.0;
+    public void calculate() {
+        if (this.data == null) {
+            this.data = new IntType(1.0);
         }
 
-        if (this.maxInPorts != this.inputPorts.size()) { return;}
-        try {
-            this.value = this.inputPorts.get(0).getValue();
-        } catch (IOException e) {
-            this.value = 0.0;
-            this.valDefined = false;
-            return;
-        }
-        for (int i = 1; i < maxInPorts; i++) {
-            try {
-                this.value *= this.inputPorts.get(i).getValue();
-            } catch (IOException e) {
-                this.value = 0.0;
-                this.valDefined = false;
-                return;
+        double value = this.data.getValue();
+        for (InputPort port : this.inputPorts) {
+            DataType newData = port.getData();
+
+            // Retyping
+            switch (newData.getClass().getName()) {
+                case "DoubleType":
+                    if (!(this.data instanceof DoubleType)) {
+                        this.data = new DoubleType(this.data.getValue());
+                    }
+                    break;
+                case "FloatType":
+                    if (this.data instanceof IntType) {
+                        this.data = new FloatType(this.data.getValue());
+                    }
+                    break;
             }
+
+            // Executing
+            value *= newData.getValue();
+            port.dataAccepted();
         }
-        this.valDefined = true;
+        this.data.setValue(value);
+        setActive();
+    }
+
+    public void dataAccepted() {
+        super.dataAccepted();
     }
 
 }

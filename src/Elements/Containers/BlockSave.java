@@ -86,6 +86,12 @@ public class BlockSave implements Serializable {
             case "-<":
                 newBl = new SplitBlock(logic, scheme);
                 break;
+            case "In":
+                newBl = new InOutBlock(logic, scheme, true);
+                break;
+            case "Out":
+                newBl = new InOutBlock(logic, scheme, false);
+                break;
             default:
                 newBl = null;
                 break;

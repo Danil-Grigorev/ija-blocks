@@ -106,9 +106,11 @@ public class Controller implements Initializable {
     // Schema execution buttons handler
 
     public void nxClick(javafx.event.ActionEvent actionEvent) {
+        appL.executeAll();
     }
 
     public void rsClick(javafx.event.ActionEvent actionEvent) {
+        // TODO: reset all inBlocks
     }
 
     public void remClick(javafx.event.ActionEvent actionEvent) {
@@ -142,6 +144,16 @@ public class Controller implements Initializable {
 
     public void divBlockCreate(javafx.event.ActionEvent actionEvent) {
         appL.initBl("div");
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
+    }
+
+    public void inBlCreate(ActionEvent actionEvent) {
+        appL.initBl("in");
+        appL.setSchemeState(Logic.State.PUT_BLOCK);
+    }
+
+    public void outBlCreate(ActionEvent actionEvent) {
+        appL.initBl("out");
         appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 

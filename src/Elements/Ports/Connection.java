@@ -8,6 +8,7 @@ import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import Logic.Logic;
 import javafx.application.Platform;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -30,6 +31,8 @@ public class Connection {
     private boolean isSet;
 
     public Color stColor = Color.GRAY;
+    private Color actColor = Color.TURQUOISE;
+
 
     public Connection(Logic logic, AnchorPane scheme) {
         this.logic = logic;
@@ -58,7 +61,7 @@ public class Connection {
             this.from = null;
             throw new IOException();
         }
-
+        popupUpdate();
     }
 
     public void setPortOut(InputPort port) throws IOException {
@@ -69,6 +72,7 @@ public class Connection {
             this.to = null;
             throw new IOException();
         }
+        popupUpdate();
     }
 
     public void addJoint(Line toLine, double X, double Y) {
@@ -108,6 +112,7 @@ public class Connection {
         this.joints.add(index, joint);
         this.scheme.getChildren().addAll(next, joint);
         next.toBack();
+        popupUpdate();
     }
 
     public void repositionJoint(Rectangle joint, double X, double Y) {
@@ -153,14 +158,37 @@ public class Connection {
         this.scheme.getChildren().removeAll(joint, next);
     }
 
-    // TODO: rewrite to "dataType"
-    public double getValue() throws IOException {
-        if (this.from == null || this.to == null) {
-            throw new IOException();
+    public void setActive() {
+        double strokeWidth;
+        for (Line ln : this.lines) {
+            strokeWidth = ln.getStrokeWidth();
+            ln.setStroke(actColor);
+            ln.setStrokeWidth(strokeWidth);
         }
-        else {
-            return this.from.getValue();
+        for (Rectangle joint : this.joints) {
+            strokeWidth = joint.getStrokeWidth();
+            joint.setStroke(actColor);
+            joint.setStrokeWidth(strokeWidth);
         }
+        this.to.setActive();
+        popupUpdate();
+    }
+
+    public void setInactive() {
+        double strokeWidth;
+        if (this.from == null || this.to == null) { return; }
+        for (Line ln : this.lines) {
+            strokeWidth = ln.getStrokeWidth();
+            ln.setStroke(stColor);
+            ln.setStrokeWidth(strokeWidth);
+        }
+        for (Rectangle joint : this.joints) {
+            strokeWidth = joint.getStrokeWidth();
+            joint.setStroke(stColor);
+            joint.setStrokeWidth(strokeWidth);
+        }
+        this.to.setInactive();
+        popupUpdate();
     }
 
     public Line getLine(int lineNum) {
@@ -199,8 +227,14 @@ public class Connection {
         tmp.setOnMouseEntered(e -> this.logic.elementHover(e));
         tmp.setOnMouseExited(e -> this.logic.elementHover(e));
 
-            this.scheme.getChildren().addAll(this.lines);
-            for (Line ln : this.lines) { ln.toBack(); }
+        this.scheme.getChildren().addAll(this.lines);
+        for (Line ln : this.lines) {
+            ln.toBack();
+        }
+        if (this.from != null && this.from.getParent().isActive()) {
+            setActive();
+        }
+        popupUpdate();
     }
 
     public boolean isSet() {
@@ -247,6 +281,29 @@ public class Connection {
         else {
             setEndPoint(-1, caller.getCenterX(), caller.getCenterY() );
         }
+    }
+
+    public void popupUpdate() {
+        String info = "";
+        info += "ID: " + getId() + "\n";
+        if (this.from == null || this.to == null) return;
+        info += "From block: " + getFrom().getParent().getId()
+                + " To: " + getTo().getParent().getId() + "\n";
+        if (!this.from.isActive()) {
+            info += "Propagated value: ?";
+        }
+        else {
+            info += "Propagated value: " + this.from.getParent().getData().getValue()
+                    + "\tType: " + this.from.getParent().getData().getType() + "\n";
+        }
+        Tooltip popupMsg = new Tooltip(info);
+        for (Line ln : this.lines) {
+            Tooltip.install(ln, popupMsg);
+        }
+        for (Rectangle joint : this.joints) {
+            Tooltip.install(joint, popupMsg);
+        }
+
     }
 
     public void createSave(ItemContainer container) {

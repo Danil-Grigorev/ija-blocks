@@ -3,6 +3,7 @@ package Elements.Ports;
 import Elements.Blocks.Block;
 import Elements.Containers.ItemContainer;
 import Elements.Containers.PortSave;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import Logic.Logic;
 
@@ -17,7 +18,6 @@ public class InputPort extends Port {
         this.conTo = null;
         this.layoutX = 0.0;
         this.layoutY = 0.0;
-
         this.id = logic.generateId();
     }
 
@@ -28,20 +28,11 @@ public class InputPort extends Port {
         container.addPort(new PortSave(this));
     }
 
-    // TODO: rewrite to return "dataType"
-    public double getValue() throws IOException {
-        if (!isConnected()) {
-            throw new IOException();
-        }
-        else {
-            return this.conTo.getValue();
-        }
-    }
-
     @Override
     public void setConnection(Connection con) throws IOException {
         if (this.conTo != null) throw new IOException();
         con.setPortOut(this);
         this.conTo = con;
+        popupUpdate();
     }
 }

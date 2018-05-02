@@ -187,6 +187,7 @@ public class ItemContainer implements Serializable {
                 tmp_bl.addOutPort((OutputPort) rest_ports.get(portId));
             }
         }
+        logic.getBlocks().addAll(rest_blocks.values());
     }
 
     public String getName() {

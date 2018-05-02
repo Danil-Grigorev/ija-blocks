@@ -39,6 +39,8 @@
                         <MenuItem fx:id="divBlBtn" mnemonicParsing="false" onAction="#divBlockCreate" text="Div block" />
                         <MenuItem fx:id="mulBlBtn1" mnemonicParsing="false" onAction="#mulBlockCreate" text="Mul block" />
                         <MenuItem fx:id="splBlBtn1" mnemonicParsing="false" onAction="#splitBlockCreate" text="Split block" />
+                        <MenuItem fx:id="inBlBtn1" mnemonicParsing="false" onAction="#inBlCreate" text="In block" />
+                        <MenuItem fx:id="outBlBtn1" mnemonicParsing="false" onAction="#outBlCreate" text="Out block" />
                     </items>
                   </MenuButton>
                   <Button fx:id="remBtn1" layoutX="10.0" layoutY="552.0" mnemonicParsing="false" onAction="#remClick" prefWidth="140.0" text="Remove" textAlignment="CENTER" />

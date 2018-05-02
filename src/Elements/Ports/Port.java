@@ -2,8 +2,10 @@ package Elements.Ports;
 
 import Elements.Blocks.Block;
 import Elements.Containers.ItemContainer;
+import Elements.DataTypes.DataType;
 import Interface.SingConElm;
 import javafx.application.Platform;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +29,7 @@ public abstract class Port implements SingConElm, Serializable {
     private Rectangle shape;
 
     private Color stColor = Color.GRAY;
+    private Color actColor = Color.TURQUOISE;
 
     public boolean isConnected() {
 	    return this.conTo != null;
@@ -36,6 +39,43 @@ public abstract class Port implements SingConElm, Serializable {
 
     public void removeConnection() {
         this.conTo = null;
+    }
+
+    public boolean isActive() {
+        if (this.conTo == null) { return false; }
+        Block from = this.conTo.getFrom().getParent();
+        return from.isActive();
+    }
+
+    public DataType getData() {
+        assert (this instanceof InputPort) : "Can getData only from Output ports";
+        if (this.conTo == null) { return null; }
+        Block from = this.conTo.getFrom().getParent();
+        return from.getData();
+    }
+
+    public void dataAccepted() {
+        this.conTo.getFrom().getParent().dataAccepted();
+    }
+
+    public void setActive() {
+        if (this instanceof OutputPort &&  getConTo() != null) {
+            this.conTo.setActive();
+        }
+        double strokeWidth = this.shape.getStrokeWidth();
+        this.shape.setStroke(actColor);
+        this.shape.setStrokeWidth(strokeWidth);
+        popupUpdate();
+    }
+
+    public void setInactive() {
+        if (this instanceof OutputPort &&  getConTo() != null) {
+            this.conTo.setInactive();
+        }
+        double strokeWidth = this.shape.getStrokeWidth();
+        this.shape.setStroke(stColor);
+        this.shape.setStrokeWidth(strokeWidth);
+        popupUpdate();
     }
 
     public Rectangle getVisuals() {
@@ -56,7 +96,7 @@ public abstract class Port implements SingConElm, Serializable {
         this.shape.setOnMouseClicked(e -> this.logic.portClick(this, e));
         this.shape.setOnMouseEntered(e -> this.logic.elementHover(e));
         this.shape.setOnMouseExited(e -> this.logic.elementHover(e));
-
+        popupUpdate();
     }
 
     public Connection getConTo() {
@@ -102,6 +142,15 @@ public abstract class Port implements SingConElm, Serializable {
 
     public void reposition() {
         if (isConnected()) this.conTo.reposition(this);
+    }
+
+    public void popupUpdate() {
+        String info = "";
+        info += "ID: " + getId() + "\n";
+        info += "Block ID: " + getParent().getId() + "\n";
+        info += "Connected: " + isConnected();
+        Tooltip popupMsg = new Tooltip(info);
+        Tooltip.install(this.shape, popupMsg);
     }
 
     public abstract void createSave(ItemContainer container);

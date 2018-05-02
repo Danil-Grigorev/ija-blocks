@@ -2,11 +2,13 @@ package Elements.Blocks;
 
 import Elements.Containers.BlockSave;
 import Elements.Containers.ItemContainer;
+import Elements.DataTypes.DataType;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -29,9 +31,7 @@ public abstract class Block {
     protected Logic logic;
     protected AnchorPane scheme;
 
-    // TODO: rewrite to "dataType"
-    protected boolean valDefined;
-    protected double value;
+    protected DataType data;
 
     // Block interface
     protected int sizeX = 120;
@@ -42,6 +42,7 @@ public abstract class Block {
     private Pane stack;
 
     private Color stColor = Color.GRAY;
+    private Color actColor = Color.TURQUOISE;
 
     public boolean cycleCheck(int id) {
         System.out.println("Checking block " + getId() + " and " + id);
@@ -77,28 +78,51 @@ public abstract class Block {
         for (int i = 0; i < getMaxInPorts(); i++) {
             InputPort tmp = new InputPort(this, getVisuals(), this.logic);
             tmp.setVisuals(
-                    0,sizeY / (getMaxInPorts() + 1) * (i+1));
+                    0,this.sizeY / (getMaxInPorts() + 1) * (i+1));
             tmp.set();
             this.inputPorts.add(tmp);
         }
         for (int i = 0; i < getMaxOutPorts(); i++) {
             OutputPort tmp = new OutputPort(this, getVisuals(), this.logic);
             tmp.setVisuals(
-                    sizeX,
-                    sizeY / (getMaxOutPorts() + 1) * (i+1));
+                    this.sizeX,
+                    this.sizeY / (getMaxOutPorts() + 1) * (i+1));
             tmp.set();
             this.outputPorts.add(tmp);
         }
     }
 
-    // TODO: connect to "dataType"
-    public boolean isValDefined() {
-        return this.valDefined;
+    public boolean isActive() {
+        return this.data != null;
     }
 
-    // TODO: rewrite to "dataType"
-    public double getValue() {
-        return this.value;
+    public DataType getData() {
+        return this.data;
+    }
+
+    public void setData(DataType data) {
+        this.data = data;
+        setActive();
+    }
+
+    public void setActive() {
+        double strokeWidth = this.shape.getStrokeWidth();
+        this.shape.setStroke(actColor);
+        this.shape.setStrokeWidth(strokeWidth);
+        for (OutputPort port : this.outputPorts) {
+            port.setActive();
+        }
+        popupUpdate();
+    }
+
+    public void setInactive() {
+        double strokeWidth = this.shape.getStrokeWidth();
+        this.shape.setStroke(stColor);
+        this.shape.setStrokeWidth(strokeWidth);
+        for (OutputPort port : this.outputPorts) {
+            port.setInactive();
+        }
+        popupUpdate();
     }
 
     public void remove() {
@@ -121,7 +145,7 @@ public abstract class Block {
     }
 
     public void setVisuals(double X, double Y) {
-        this.shape = new Rectangle(sizeX, sizeY, Color.TRANSPARENT);
+        this.shape = new Rectangle(this.sizeX, this.sizeY, Color.TRANSPARENT);
         this.shape.setStroke(stColor);
         this.shape.setStrokeWidth(2);
 
@@ -146,6 +170,7 @@ public abstract class Block {
         this.stack.setLayoutX(X - Block.this.shape.getWidth() / 2);
         this.stack.setLayoutY(Y - Block.this.shape.getHeight() / 2);
         this.stack.getChildren().addAll(this.shape, shText);
+        popupUpdate();
     }
 
     public void reposition(double X, double Y) {
@@ -204,6 +229,46 @@ public abstract class Block {
         container.addBlock(new BlockSave(this));
     }
 
-    public abstract void execute();
+    public void dataAccepted() {
+        System.out.println("dataAccepted called");
+        if (this.data != null) {
+            this.data = null;
+            setInactive();
+        }
+    }
+
+    public void execute() {
+        if (!this.logic.getExecutedBlocks().contains(getId())) {
+            this.logic.getExecutedBlocks().add(getId());
+        }
+        boolean doCalc = true;
+        for (InputPort in : this.inputPorts) {
+            if (doCalc && !in.isActive()) {
+                doCalc = false;
+            }
+            if (in.isConnected()) {
+                in.getConTo().getFrom().getParent().execute();
+            }
+        }
+        if (doCalc) {
+            calculate();
+        }
+    }
+
+    public void popupUpdate() {
+        String info = "";
+        info += "ID: " + getId() + "\n";
+        info += "Name: " + getName() + "\n";
+        if (this.data == null) {
+            info += "Value: ?";
+        }
+        else {
+            info += "Value: " + this.data.getValue() + "\nType: " + this.data.getType() + "\n";
+        }
+        Tooltip popupMsg = new Tooltip(info);
+        Tooltip.install(this.shape, popupMsg);
+    }
+
+    public abstract void calculate();
 
 }

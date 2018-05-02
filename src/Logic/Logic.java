@@ -2,8 +2,10 @@ package Logic;
 
 import Elements.Blocks.*;
 import Elements.Containers.ItemContainer;
+import Elements.DataTypes.IntType;
 import Elements.Ports.Connection;
 import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.io.*;
+import java.util.ArrayList;
 
 
 public class Logic {
@@ -25,6 +28,8 @@ public class Logic {
     // -----------------------
     private boolean accNode;
     private Block opNode;
+    private ArrayList<Block> blocks;
+    private ArrayList<Integer> executedBlocks;
 
     private Connection tmpCon;
 
@@ -43,6 +48,8 @@ public class Logic {
         opNode = null;
         accNode = true;
         tmpCon = null;
+        blocks = new ArrayList<>();
+        executedBlocks = new ArrayList<>();
     }
 
     public State getSchemeState() {
@@ -50,37 +57,39 @@ public class Logic {
     }
 
     public void setSchemeState(State schemeState) {
-        if (schemeState == State.DEFAULT && this.schemeState != State.DEFAULT) {
-            tmpReset();
-        }
-        this.schemeState = schemeState;
+        Platform.runLater( () -> {
+            if (schemeState == State.DEFAULT && this.schemeState != State.DEFAULT) {
+                tmpReset();
+            }
+            this.schemeState = schemeState;
+        });
     }
 
     public void schemeAct(MouseEvent mouseEvent) {
-        switch (getSchemeState()) {
-            case DEFAULT:
-                System.out.println("DEFAULT block state");
-                if (this.tmpCon != null) {
-                    tmpCon = null;
-                }
-                break;
-            case PUT_BLOCK:
-                System.out.println("PUT block state");
-                putBl(mouseEvent.getX(), mouseEvent.getY());
-                schemeState = State.DEFAULT;
-                break;
-            case REMOVE:
-                System.out.println("Remove -> default block state");
-                setSchemeState(State.DEFAULT);
-                break;
-            case ADD_CON_2:
-                System.out.println("ADD_CON_2 block state");
-                break;
-            default:
-                System.out.println("Unknown state");
-                break;
-        }
-        mouseEvent.consume();
+        Platform.runLater( () -> {
+
+            switch (getSchemeState()) {
+                case DEFAULT:
+                    System.out.println("DEFAULT block state");
+                    break;
+                case PUT_BLOCK:
+                    System.out.println("PUT block state");
+                    putBl(mouseEvent.getX(), mouseEvent.getY());
+                    setSchemeState(State.DEFAULT);
+                    break;
+                case REMOVE:
+                    System.out.println("Remove -> default block state");
+                    setSchemeState(State.DEFAULT);
+                    break;
+                case ADD_CON_2:
+                    System.out.println("ADD_CON_2 block state");
+                    break;
+                default:
+                    System.out.println("Unknown state");
+                    break;
+            }
+            mouseEvent.consume();
+        });
     }
 
     public synchronized void initBl(String type) {
@@ -103,9 +112,13 @@ public class Logic {
                     break;
                 case "split":   opNode = new SplitBlock(this, schemePane);
                     break;
-                case "custom":
-                    // TODO
+                case "in":      opNode = new InOutBlock(this, schemePane, true);
                     break;
+                case "out":     opNode = new InOutBlock(this, schemePane, false);
+                    break;
+                case "custom":
+                // TODO
+                break;
                 default:
                     System.err.println("Unknown block type for init");
                     Platform.exit();
@@ -126,13 +139,33 @@ public class Logic {
             }
             accNode = false;
             assert opNode != null : "Block was not initialised";
-            opNode.setVisuals(X,Y);
+            opNode.setVisuals(X, Y);
             opNode.setupPorts();
             opNode.set();
             opNode.createSave(elementContainer);
-            opNode = null;
+            blocks.add(opNode);
             accNode = true;
         });
+    }
+
+    public void executeAll() {
+        boolean skip;
+        executedBlocks.clear();
+        for (Block block: blocks) {
+            if (!executedBlocks.contains(block.getId())) {
+                skip = false;
+                for (OutputPort outP : block.getOutputPorts()) {
+                    if (outP.isConnected()) {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (!skip) {
+                    System.out.println(block.getId() + " executed from executeAll");
+                    block.execute();
+                }
+            }
+        }
     }
 
     public void blockClick(Block caller, MouseEvent e) {
@@ -144,6 +177,9 @@ public class Logic {
             case ADD_CON_2:
                 setSchemeState(State.DEFAULT);
             case DEFAULT:
+                if (caller instanceof InOutBlock && caller.getName().equals("In")) {
+                    caller.setData(new IntType(5.0));
+                }
                 break;
         }
         e.consume();
@@ -292,6 +328,7 @@ public class Logic {
         }
 
         schemePane.getChildren().clear();
+        blocks.clear();
         elementContainer.restore(this, schemePane);
 
     }
@@ -307,6 +344,14 @@ public class Logic {
         opNode = null;
         accNode = true;
         tmpCon = null;
+    }
+
+    public ArrayList<Block> getBlocks() {
+        return blocks;
+    }
+
+    public ArrayList<Integer> getExecutedBlocks() {
+        return executedBlocks;
     }
 
     public File getSchemeName() {
