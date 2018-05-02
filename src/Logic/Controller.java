@@ -55,7 +55,25 @@ public class Controller implements Initializable {
 
     // Top menu actions
     public void saveAsScheme(ActionEvent actionEvent) {
+        File schemaSave;
+        Stage stage = new Stage();
+        FileChooser saver = new FileChooser();
+        saver.setTitle("Save schema file");
 
+        // Setting extension
+        FileChooser.ExtensionFilter extF =
+                new FileChooser.ExtensionFilter("SCM files (*.scm)", "*.scm");
+        saver.getExtensionFilters().add(extF);
+
+        schemaSave = saver.showSaveDialog(stage);
+        if (schemaSave != null) {
+            String abs_path = schemaSave.getAbsolutePath();
+            if (!abs_path.endsWith(".scm")) {
+                schemaSave = new File(abs_path + ".scm");
+            }
+            appL.save(schemaSave);
+            appL.setSchemeName(schemaSave);
+        }
     }
 
     public void saveScheme(javafx.event.ActionEvent actionEvent) {
@@ -63,25 +81,7 @@ public class Controller implements Initializable {
             this.appL.save(this.appL.getSchemeName());
         }
         else {
-            File schemaSave;
-            Stage stage = new Stage();
-            FileChooser saver = new FileChooser();
-            saver.setTitle("Save schema file");
-
-            // Setting extension
-            FileChooser.ExtensionFilter extF =
-                    new FileChooser.ExtensionFilter("SCM files (*.scm)", "*.scm");
-            saver.getExtensionFilters().add(extF);
-
-            schemaSave = saver.showSaveDialog(stage);
-            if (schemaSave != null) {
-                String abs_path = schemaSave.getAbsolutePath();
-                if (!abs_path.endsWith(".scm")) {
-                    schemaSave = new File(abs_path + ".scm");
-                }
-                appL.save(schemaSave);
-                appL.setSchemeName(schemaSave);
-            }
+            saveAsScheme(actionEvent);
         }
     }
 
