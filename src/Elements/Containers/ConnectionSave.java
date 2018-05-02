@@ -1,15 +1,11 @@
 package Elements.Containers;
 
-import Elements.Connection;
-import Elements.InputPort;
-import Elements.OutputPort;
+import Elements.Ports.Connection;
 import Logic.Logic;
-import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 

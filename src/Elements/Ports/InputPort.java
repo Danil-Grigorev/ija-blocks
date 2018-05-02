@@ -1,25 +1,25 @@
-package Elements;
+package Elements.Ports;
 
+import Elements.Blocks.Block;
 import Elements.Containers.ItemContainer;
 import Elements.Containers.PortSave;
-import Logic.Logic;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
+import Logic.Logic;
 
 import java.io.IOException;
 
-public class OutputPort extends Port {
+public class InputPort extends Port {
 
-	public OutputPort(Block parent, Pane stack, Logic logic) {
+    public InputPort(Block parent, Pane stack, Logic logic) {
         this.logic = logic;
         this.stack = stack;
-		this.parent = parent;
+        this.parent = parent;
         this.conTo = null;
-        this.id = logic.generateId();
         this.layoutX = 0.0;
         this.layoutY = 0.0;
-	}
+
+        this.id = logic.generateId();
+    }
 
     public void createSave(ItemContainer container) {
         if (isConnected()) {
@@ -33,21 +33,15 @@ public class OutputPort extends Port {
         if (!isConnected()) {
             throw new IOException();
         }
-        else if (!this.parent.isValDefined()) {
-            throw new IOException();
-        }
         else {
-            return this.parent.getValue();
+            return this.conTo.getValue();
         }
     }
 
     @Override
     public void setConnection(Connection con) throws IOException {
-	    if (this.conTo != null) throw new IOException();
-	    con.setPortIn(this);
+        if (this.conTo != null) throw new IOException();
+        con.setPortOut(this);
         this.conTo = con;
     }
-
-
-
 }

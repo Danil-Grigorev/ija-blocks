@@ -1,14 +1,14 @@
 package Logic;
 
-import Elements.*;
+import Elements.Blocks.*;
 import Elements.Containers.ItemContainer;
-import Execute.Main;
+import Elements.Ports.Connection;
+import Elements.Ports.InputPort;
+import Elements.Ports.Port;
 import javafx.application.Platform;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -70,8 +70,8 @@ public class Logic {
                 schemeState = State.DEFAULT;
                 break;
             case REMOVE:
-                System.out.println("Remove block state");
-                // Some actions
+                System.out.println("Remove -> default block state");
+                setSchemeState(State.DEFAULT);
                 break;
             case ADD_CON_2:
                 System.out.println("ADD_CON_2 block state");
@@ -217,6 +217,9 @@ public class Logic {
                         e.getSceneX() - this.indentX,
                         e.getSceneY() - this.indentY);
                 caller.createSave(elementContainer);
+                break;
+            case REMOVE:
+                caller.remove();
                 break;
         }
         e.consume();

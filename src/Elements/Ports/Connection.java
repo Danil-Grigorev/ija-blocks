@@ -1,9 +1,12 @@
-package Elements;
+package Elements.Ports;
 
+import Elements.Blocks.Block;
 import Elements.Containers.ConnectionSave;
 import Elements.Containers.ItemContainer;
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
+import Elements.Ports.Port;
 import Logic.Logic;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -11,7 +14,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Connection {

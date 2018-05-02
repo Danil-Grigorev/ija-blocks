@@ -1,13 +1,14 @@
-package Elements;
+package Elements.Blocks;
 
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
 import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SubBlock extends Block{
+public class SubBlock extends Block {
 
 	public SubBlock(Logic logic, AnchorPane scheme) {
         this.scheme = scheme;

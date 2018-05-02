@@ -1,11 +1,9 @@
-package Elements;
+package Elements.Ports;
 
+import Elements.Blocks.Block;
 import Elements.Containers.ItemContainer;
-import Elements.Containers.PortSave;
 import Interface.SingConElm;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

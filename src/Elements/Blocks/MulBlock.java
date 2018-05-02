@@ -1,21 +1,19 @@
-package Elements;
+package Elements.Blocks;
 
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
+import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
-import Logic.Logic;
-import javafx.scene.text.Text;
+public class MulBlock extends Block {
 
-public class AddBlock extends Block {
-
-	public AddBlock(Logic logic, AnchorPane scheme) {
-	    this.scheme = scheme;
-	    this.logic = logic;
-		this.name = "+";
+	public MulBlock(Logic logic, AnchorPane scheme) {
+        this.scheme = scheme;
+        this.logic = logic;
+        this.name = "*";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.id = this.logic.generateId();
@@ -25,7 +23,7 @@ public class AddBlock extends Block {
         this.value = 0.0;
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
-    }
+	}
 
     @Override
     public void execute() {
@@ -44,7 +42,7 @@ public class AddBlock extends Block {
         }
         for (int i = 1; i < maxInPorts; i++) {
             try {
-                this.value += this.inputPorts.get(i).getValue();
+                this.value *= this.inputPorts.get(i).getValue();
             } catch (IOException e) {
                 this.value = 0.0;
                 this.valDefined = false;
@@ -53,4 +51,5 @@ public class AddBlock extends Block {
         }
         this.valDefined = true;
     }
+
 }

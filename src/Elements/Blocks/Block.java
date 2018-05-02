@@ -1,8 +1,10 @@
-package Elements;
+package Elements.Blocks;
 
 import Elements.Containers.BlockSave;
 import Elements.Containers.ItemContainer;
-import Elements.Containers.PortSave;
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
+import Elements.Ports.Port;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;

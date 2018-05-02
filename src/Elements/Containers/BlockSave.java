@@ -1,6 +1,8 @@
 package Elements.Containers;
 
-import Elements.*;
+import Elements.Blocks.*;
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
 import javafx.application.Platform;
 import javafx.scene.layout.AnchorPane;
 

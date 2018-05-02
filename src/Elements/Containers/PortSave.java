@@ -1,11 +1,10 @@
 package Elements.Containers;
 
-import Elements.Block;
-import Elements.InputPort;
-import Elements.OutputPort;
-import Elements.Port;
+import Elements.Blocks.Block;
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
+import Elements.Ports.Port;
 import Logic.Logic;
-import javafx.scene.layout.Pane;
 
 import java.io.Serializable;
 

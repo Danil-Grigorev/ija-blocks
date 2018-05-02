@@ -1,19 +1,22 @@
-package Elements;
+package Elements.Blocks;
 
-import Logic.Logic;
+import Elements.Ports.InputPort;
+import Elements.Ports.OutputPort;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SplitBlock extends Block {
+import Logic.Logic;
 
-    public SplitBlock(Logic logic, AnchorPane scheme) {
-        this.scheme = scheme;
-        this.logic = logic;
-        this.name = "-<";
-        this.maxInPorts = 1;
-        this.maxOutPorts = 2;
+public class AddBlock extends Block {
+
+	public AddBlock(Logic logic, AnchorPane scheme) {
+	    this.scheme = scheme;
+	    this.logic = logic;
+		this.name = "+";
+        this.maxInPorts = 2;
+        this.maxOutPorts = 1;
         this.id = this.logic.generateId();
         this.layoutX = 0.0;
         this.layoutY = 0.0;
@@ -33,10 +36,20 @@ public class SplitBlock extends Block {
         if (this.maxInPorts != this.inputPorts.size()) { return;}
         try {
             this.value = this.inputPorts.get(0).getValue();
-            this.valDefined = true;
         } catch (IOException e) {
             this.value = 0.0;
             this.valDefined = false;
+            return;
         }
+        for (int i = 1; i < maxInPorts; i++) {
+            try {
+                this.value += this.inputPorts.get(i).getValue();
+            } catch (IOException e) {
+                this.value = 0.0;
+                this.valDefined = false;
+                return;
+            }
+        }
+        this.valDefined = true;
     }
 }
