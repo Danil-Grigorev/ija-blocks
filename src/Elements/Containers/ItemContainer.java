@@ -16,11 +16,13 @@ public class ItemContainer implements Serializable {
     private ArrayList <ConnectionSave> connections;
     private ArrayList <PortSave> ports;
     private int id;
+    private String name;
 
     public ItemContainer() {
         blocks = new ArrayList<>();
         connections = new ArrayList<>();
         ports = new ArrayList<>();
+        name = null;
         id = 0;
     }
 
@@ -47,7 +49,6 @@ public class ItemContainer implements Serializable {
         else {
             this.blocks.add(save);
         }
-        show();
     }
 
     public void addConnection(ConnectionSave save) {
@@ -57,7 +58,6 @@ public class ItemContainer implements Serializable {
         else {
             this.connections.add(save);
         }
-        show();
     }
 
     public void addPort(PortSave save) {
@@ -67,7 +67,6 @@ public class ItemContainer implements Serializable {
         else {
             this.ports.add(save);
         }
-        show();
     }
 
     public void show() {
@@ -138,7 +137,6 @@ public class ItemContainer implements Serializable {
         this.connections.removeAll(consToRemove);
         this.ports.removeAll(portsToRemove);
         this.blocks.removeAll(blocksToRemove);
-        show();
     }
 
     public void restore(Logic logic, AnchorPane scheme) {
@@ -187,4 +185,11 @@ public class ItemContainer implements Serializable {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

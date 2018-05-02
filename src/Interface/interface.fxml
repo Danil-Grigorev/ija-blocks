@@ -16,6 +16,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem fx:id="svBtn1" mnemonicParsing="false" onAction="#saveScheme" text="Save" />
+                  <MenuItem fx:id="svAsBtn1" mnemonicParsing="false" onAction="#saveAsScheme" text="Save as" />
                   <MenuItem fx:id="openBtn" mnemonicParsing="false" onAction="#openScheme" text="Open" />
               <MenuItem fx:id="exitBtn1" mnemonicParsing="false" onAction="#exitApp" text="Close" />
             </items>
@@ -55,7 +56,7 @@
          <center>
             <ScrollPane fx:id="dispParent" fitToHeight="true" fitToWidth="true" focusTraversable="false" BorderPane.alignment="CENTER">
                <content>
-                  <AnchorPane fx:id="displayPane" onMouseClicked="#schemeAct" focusTraversable="true" mouseTransparent="false" prefWidth="1120.0" style="-fx-background-color: ghostwhite;" />
+                  <AnchorPane fx:id="displayPane" focusTraversable="true" mouseTransparent="false" onMouseClicked="#schemeAct" prefWidth="1120.0" style="-fx-background-color: ghostwhite;" />
                </content>
             </ScrollPane>
          </center>

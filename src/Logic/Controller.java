@@ -1,17 +1,25 @@
 package Logic;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class Controller implements Initializable {
 
@@ -35,6 +43,7 @@ public class Controller implements Initializable {
     public AnchorPane leftMenu;
     public MenuBar topMenu;
 
+
     private Logic appL;
 
 
@@ -45,15 +54,57 @@ public class Controller implements Initializable {
     }
 
     // Top menu actions
+    public void saveAsScheme(ActionEvent actionEvent) {
+
+    }
+
     public void saveScheme(javafx.event.ActionEvent actionEvent) {
-        appL.save("test.txt");
+        if (this.appL.getSchemeName() != null) {
+            this.appL.save(this.appL.getSchemeName());
+        }
+        else {
+            File schemaSave;
+            Stage stage = new Stage();
+            FileChooser saver = new FileChooser();
+            saver.setTitle("Save schema file");
+
+            // Setting extension
+            FileChooser.ExtensionFilter extF =
+                    new FileChooser.ExtensionFilter("SCM files (*.scm)", "*.scm");
+            saver.getExtensionFilters().add(extF);
+
+            schemaSave = saver.showSaveDialog(stage);
+            if (schemaSave != null) {
+                String abs_path = schemaSave.getAbsolutePath();
+                if (!abs_path.endsWith(".scm")) {
+                    schemaSave = new File(abs_path + ".scm");
+                }
+                appL.save(schemaSave);
+                appL.setSchemeName(schemaSave);
+            }
+        }
     }
 
     public void openScheme(javafx.event.ActionEvent actionEvent) {
-        appL.load("test.txt");
+        File schemaName;
+        Stage stage = new Stage();
+        FileChooser opener = new FileChooser();
+        opener.setTitle("Open schema file");
+
+        // Setting extension
+        FileChooser.ExtensionFilter extF =
+                new FileChooser.ExtensionFilter("SCM files (*.scm)", "*.scm");
+        opener.getExtensionFilters().add(extF);
+
+        schemaName = opener.showOpenDialog(stage);
+        if (schemaName != null) {
+            appL.load(schemaName);
+            appL.setSchemeName(schemaName);
+        }
     }
 
-    // Button click handler function
+    // Schema execution buttons handler
+
     public void nxClick(javafx.event.ActionEvent actionEvent) {
     }
 
@@ -95,8 +146,8 @@ public class Controller implements Initializable {
     }
 
     // TODO: add custom block
-
     // Main scheme area action
+
     public void schemeAct(MouseEvent mouseEvent) {
         appL.schemeAct(mouseEvent);
     }

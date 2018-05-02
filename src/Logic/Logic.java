@@ -31,10 +31,13 @@ public class Logic {
     private double indentX;
     private double indentY;
 
+    private File schemeName;
+
     // -----------------------
     public Logic(AnchorPane displayPane, double indentX, double indentY) {
         this.indentX = indentX;
         this.indentY = indentY;
+        schemeName = null;
         elementContainer = new ItemContainer();
         schemePane = displayPane;
         opNode = null;
@@ -254,7 +257,7 @@ public class Logic {
         e.consume();
     }
 
-    public void save(String name) {
+    public void save(File name) {
         try {
             FileOutputStream file = new FileOutputStream(name);
             ObjectOutputStream byteObj = new ObjectOutputStream(file);
@@ -267,24 +270,22 @@ public class Logic {
             Platform.exit();
             System.exit(99);
         }
+        schemeName = name;
     }
 
-    public void load(String name) {
+    public void load(File file) {
         try {
-            FileInputStream fileIn = new FileInputStream(name);
+            FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             elementContainer = (ItemContainer) in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException e) {
-            System.out.println("Error reading class from file");
-            e.printStackTrace();
-            Platform.exit();
-            System.exit(99);
+            System.out.println("Error reading class from file " + file);
+            return;
         } catch (ClassNotFoundException c) {
-            c.printStackTrace();
-            Platform.exit();
-            System.exit(99);
+            System.out.println("Error reading class from file " + file);
+            return;
         }
 
         schemePane.getChildren().clear();
@@ -303,6 +304,14 @@ public class Logic {
         opNode = null;
         accNode = true;
         tmpCon = null;
+    }
+
+    public File getSchemeName() {
+        return this.schemeName;
+    }
+
+    public void setSchemeName(File schemeName) {
+        this.schemeName = schemeName;
     }
 
     // State logic
