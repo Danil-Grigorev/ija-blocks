@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public abstract class Block {
 
     protected int id;
+    protected int accepted;
 
     protected ArrayList<InputPort> inputPorts;
     protected ArrayList<OutputPort> outputPorts;
@@ -102,6 +103,7 @@ public abstract class Block {
 
     public void setData(DataType data) {
         this.data = data;
+        this.accepted = 0;
         setActive();
     }
 
@@ -156,11 +158,7 @@ public abstract class Block {
         this.shape.setOnMouseEntered(e -> this.logic.elementHover(e));
         this.shape.setOnMouseExited(e -> this.logic.elementHover(e));
 
-        Label shText = new Label(this.name);
-        shText.setFont(Font.font("Arial", 16));
-
-        shText.setLayoutX(this.shape.getWidth() / 2 - shText.getWidth());
-        shText.setLayoutY(this.shape.getHeight() / 2 - shText.getHeight());
+        // TODO: add image
 
         this.layoutX = X;
         this.layoutY = Y;
@@ -169,7 +167,7 @@ public abstract class Block {
         this.stack.setPrefSize(this.shape.getWidth(), this.shape.getHeight());
         this.stack.setLayoutX(X - Block.this.shape.getWidth() / 2);
         this.stack.setLayoutY(Y - Block.this.shape.getHeight() / 2);
-        this.stack.getChildren().addAll(this.shape, shText);
+        this.stack.getChildren().add(this.shape);
         popupUpdate();
     }
 
@@ -200,7 +198,7 @@ public abstract class Block {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -229,31 +227,20 @@ public abstract class Block {
         container.addBlock(new BlockSave(this));
     }
 
-    public void dataAccepted() {
-        System.out.println("dataAccepted called");
-        if (this.data != null) {
+    public void dataAccepted(Port from) {
+        int acceptedNumExpect = 0;
+        for (OutputPort port : getOutputPorts()) {
+            if (port.isConnected()) acceptedNumExpect++;
+        }
+
+        this.accepted++;
+        if (acceptedNumExpect <= this.accepted && this.data != null) {
+            System.out.println("Setting inactive " + this.getId());
             this.data = null;
             setInactive();
         }
     }
 
-    public void execute() {
-        if (!this.logic.getExecutedBlocks().contains(getId())) {
-            this.logic.getExecutedBlocks().add(getId());
-        }
-        boolean doCalc = true;
-        for (InputPort in : this.inputPorts) {
-            if (doCalc && !in.isActive()) {
-                doCalc = false;
-            }
-            if (in.isConnected()) {
-                in.getConTo().getFrom().getParent().execute();
-            }
-        }
-        if (doCalc) {
-            calculate();
-        }
-    }
 
     public void popupUpdate() {
         String info = "";

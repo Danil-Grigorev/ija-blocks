@@ -19,7 +19,8 @@ public class OutputPort extends Port {
         this.id = logic.generateId();
         this.layoutX = 0.0;
         this.layoutY = 0.0;
-	}
+        this.blocked = false;
+    }
 
     public void createSave(ItemContainer container) {
         if (isConnected()) {

@@ -36,7 +36,6 @@ public class Logic {
     private boolean accNode;
     private Block opNode;
     private ArrayList<Block> blocks;
-    private ArrayList<Integer> executedBlocks;
 
     private Connection tmpCon;
 
@@ -58,7 +57,6 @@ public class Logic {
         accNode = true;
         tmpCon = null;
         blocks = new ArrayList<>();
-        executedBlocks = new ArrayList<>();
 
     }
 
@@ -159,21 +157,34 @@ public class Logic {
     }
 
     public void executeAll() {
-        boolean skip;
-        executedBlocks.clear();
+        boolean doCalc;
+        ArrayList<Block> blocksToExecute = new ArrayList<>();
         for (Block block: blocks) {
-            if (!executedBlocks.contains(block.getId())) {
-                skip = false;
-                for (OutputPort outP : block.getOutputPorts()) {
-                    if (outP.isConnected()) {
-                        skip = true;
-                        break;
-                    }
+            doCalc = true;
+            for (InputPort in : block.getInputPorts()) {
+                if (!in.isActive()) {
+                    doCalc = false;
+                    break;
                 }
-                if (!skip) {
-                    System.out.println(block.getId() + " executed from executeAll");
-                    block.execute();
-                }
+            }
+            if (block.getMaxInPorts() == 0 && block.getData() == null) {
+                continue;
+            }
+            if (doCalc) {
+                blocksToExecute.add(block);
+            }
+        }
+        // TODO: check if is zero length and stop execution
+        for (Block block : blocksToExecute) {
+            System.out.println("Calculating " + block.getId() + " name " + block.getName());
+            block.calculate();
+            for (OutputPort port : block.getOutputPorts()) {
+                port.block();
+            }
+        }
+        for (Block block : blocksToExecute) {
+            for (OutputPort port : block.getOutputPorts()) {
+                port.unblock();
             }
         }
     }
@@ -232,7 +243,7 @@ public class Logic {
     public void portClick(Port caller, MouseEvent e) {
         switch (getSchemeState()) {
             case REMOVE:
-                caller.remove();
+                caller.getParent().remove();
                 elementContainer.remove(caller);
                 break;
             case ADD_CON_2:
@@ -380,10 +391,6 @@ public class Logic {
 
     public ArrayList<Block> getBlocks() {
         return blocks;
-    }
-
-    public ArrayList<Integer> getExecutedBlocks() {
-        return executedBlocks;
     }
 
     public File getSchemeName() {

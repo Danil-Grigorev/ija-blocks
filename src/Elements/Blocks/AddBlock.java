@@ -30,6 +30,7 @@ public class AddBlock extends Block {
         this.layoutY = 0.0;
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
+        this.accepted = 0;
     }
 
     @Override
@@ -65,7 +66,4 @@ public class AddBlock extends Block {
         popupUpdate();
     }
 
-    public void dataAccepted() {
-        super.dataAccepted();
-    }
 }

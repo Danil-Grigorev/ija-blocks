@@ -30,7 +30,8 @@ public class MulBlock extends Block {
         this.layoutY = 0.0;
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
-	}
+        this.accepted = 0;
+    }
 
     @Override
     public void calculate() {
@@ -62,10 +63,6 @@ public class MulBlock extends Block {
         }
         this.data.setValue(value);
         setActive();
-    }
-
-    public void dataAccepted() {
-        super.dataAccepted();
     }
 
 }

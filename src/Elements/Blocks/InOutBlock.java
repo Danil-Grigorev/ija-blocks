@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class InOutBlock extends Block {
 
     private boolean typeIn;
+    private Label valLab;
 
     public InOutBlock(Logic logic, AnchorPane scheme, boolean typeIn) {
         this.scheme = scheme;
@@ -49,6 +50,19 @@ public class InOutBlock extends Block {
 
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
+
+        this.valLab = null;
+        this.accepted = 0;
+    }
+
+    public void setVisuals(double X, double Y) {
+        super.setVisuals(X, Y);
+
+        this.valLab = new Label();
+        this.valLab.setLayoutX(5);
+        this.valLab.setLayoutY(5);
+        getVisuals().getChildren().add(valLab);
+        popupUpdate();
     }
 
     @Override
@@ -58,8 +72,11 @@ public class InOutBlock extends Block {
         if (!this.typeIn) {
             if (this.getOnlyPort().isActive()) {
                 this.data = this.getOnlyPort().getData();
+                this.getOnlyPort().dataAccepted();
+                setActive();
             }
         }
+        popupUpdate();
     }
 
     public Port getOnlyPort() {
@@ -71,8 +88,12 @@ public class InOutBlock extends Block {
         }
     }
 
-    public void dataAccepted() {
-        super.dataAccepted();
+    @Override
+    public void popupUpdate() {
+        super.popupUpdate();
+        if (this.valLab != null) {
+            String value = this.data != null && this.data.getStrValue() != null ? this.data.getStrValue() : "?";
+            this.valLab.setText(value);
+        }
     }
-
 }

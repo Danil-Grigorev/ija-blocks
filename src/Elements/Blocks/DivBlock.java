@@ -29,20 +29,23 @@ public class DivBlock extends Block {
 		this.layoutY = 0.0;
 		this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
-	}
+        this.accepted = 0;
+    }
 
     @Override
     public void calculate() {
         int port_num;
+        double value;
         if (this.data == null) {
-            this.data = this.inputPorts.get(0).getData();
+            value = this.inputPorts.get(0).getData().getValue();
+            this.data = new IntType();
             port_num = 1;
         }
         else {
+            value = this.data.getValue();
             port_num = 0;
         }
 
-        double value = this.data.getValue();
         for (InputPort port = this.inputPorts.get(port_num);
             port_num < this.getMaxInPorts() - 1;
             port = this.inputPorts.get(++port_num)) {
@@ -64,14 +67,15 @@ public class DivBlock extends Block {
 
             // Executing
             value /= newData.getValue();
-            port.dataAccepted();
         }
         this.data.setValue(value);
+
+        for (InputPort prt : this.inputPorts) {
+            prt.dataAccepted();
+        }
+
         setActive();
         popupUpdate();
 	}
 
-    public void dataAccepted() {
-        super.dataAccepted();
-    }
 }

@@ -6,6 +6,7 @@ import Elements.DataTypes.FloatType;
 import Elements.DataTypes.IntType;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
+import Elements.Ports.Port;
 import Logic.Logic;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -29,18 +30,18 @@ public class SplitBlock extends Block {
         this.layoutY = 0.0;
         this.inputPorts = new ArrayList<InputPort>();
         this.outputPorts = new ArrayList<OutputPort>();
+        this.accepted = 0;
     }
 
     @Override
     public void calculate() {
-
-        Block bl =  this.inputPorts.get(0).getParent();
-        this.data = bl.getData();
-        setActive();
+        InputPort prt = this.inputPorts.get(0);
+        if (prt.isActive()) {
+            this.data = prt.getData();
+            prt.dataAccepted();
+            setActive();
+        }
         popupUpdate();
     }
 
-    public void dataAccepted() {
-        super.dataAccepted();
-    }
 }

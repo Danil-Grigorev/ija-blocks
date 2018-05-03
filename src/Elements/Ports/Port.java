@@ -21,6 +21,7 @@ public abstract class Port implements SingConElm, Serializable {
     protected Pane stack;
     protected Logic logic;
     protected int id;
+    protected boolean blocked;
 
     private int sizeX = 10;
     private int sizeY = 10;
@@ -43,6 +44,7 @@ public abstract class Port implements SingConElm, Serializable {
 
     public boolean isActive() {
         if (this.conTo == null) { return false; }
+        else if (this.blocked) { return false; }
         Block from = this.conTo.getFrom().getParent();
         return from.isActive();
     }
@@ -50,12 +52,14 @@ public abstract class Port implements SingConElm, Serializable {
     public DataType getData() {
         assert (this instanceof InputPort) : "Can getData only from Output ports";
         if (this.conTo == null) { return null; }
+        else if (this.blocked) { return null; }
         Block from = this.conTo.getFrom().getParent();
         return from.getData();
     }
 
     public void dataAccepted() {
-        this.conTo.getFrom().getParent().dataAccepted();
+        assert (this instanceof InputPort) : "Can accept data only from Output port";
+        this.conTo.getFrom().getParent().dataAccepted(this);
     }
 
     public void setActive() {
@@ -133,7 +137,7 @@ public abstract class Port implements SingConElm, Serializable {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -142,6 +146,14 @@ public abstract class Port implements SingConElm, Serializable {
 
     public void reposition() {
         if (isConnected()) this.conTo.reposition(this);
+    }
+
+    public void block() {
+        this.blocked = true;
+    }
+
+    public void unblock() {
+        this.blocked = false;
     }
 
     public void popupUpdate() {
