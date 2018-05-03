@@ -2,18 +2,24 @@ package Logic;
 
 import Elements.Blocks.*;
 import Elements.Containers.ItemContainer;
+import Elements.DataTypes.DataType;
 import Elements.DataTypes.IntType;
 import Elements.Ports.Connection;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,6 +29,7 @@ public class Logic {
     public State schemeState;
     private AnchorPane schemePane;
     private ItemContainer elementContainer;
+    private InBlockSetup inBlockSetup;
 
     // Synchronized block operations
     // -----------------------
@@ -38,6 +45,8 @@ public class Logic {
 
     private File schemeName;
 
+
+
     // -----------------------
     public Logic(AnchorPane displayPane, double indentX, double indentY) {
         this.indentX = indentX;
@@ -50,6 +59,7 @@ public class Logic {
         tmpCon = null;
         blocks = new ArrayList<>();
         executedBlocks = new ArrayList<>();
+
     }
 
     public State getSchemeState() {
@@ -168,6 +178,27 @@ public class Logic {
         }
     }
 
+    private void openSetInWind(Block caller) {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Interface/InBlockSetup.fxml"));
+        Scene newScene;
+        try {
+            newScene = new Scene(loader.load());
+        } catch (IOException e) {
+            System.err.println("Cant create new window");
+            e.printStackTrace();
+            return;
+        }
+
+        InBlockSetup setup = loader.getController();
+        setup.init(caller);
+
+        Stage setInStage = new Stage();
+        setInStage.setTitle("Set value for ID: " + caller.getId());
+        setInStage.setScene(newScene);
+        setInStage.show();
+
+    }
+
     public void blockClick(Block caller, MouseEvent e) {
         switch (getSchemeState()) {
             case REMOVE:
@@ -177,8 +208,9 @@ public class Logic {
             case ADD_CON_2:
                 setSchemeState(State.DEFAULT);
             case DEFAULT:
+                // TODO: do this in execute state
                 if (caller instanceof InOutBlock && caller.getName().equals("In")) {
-                    caller.setData(new IntType(5.0));
+                    openSetInWind(caller);
                 }
                 break;
         }

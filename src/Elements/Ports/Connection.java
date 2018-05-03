@@ -31,7 +31,7 @@ public class Connection {
     private boolean isSet;
 
     public Color stColor = Color.GRAY;
-    private Color actColor = Color.TURQUOISE;
+    private Color actColor = Color.TURQUOISE.darker();
 
 
     public Connection(Logic logic, AnchorPane scheme) {

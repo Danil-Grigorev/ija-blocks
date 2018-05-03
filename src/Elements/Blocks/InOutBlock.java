@@ -5,7 +5,14 @@ import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import Logic.Logic;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,8 +38,8 @@ public class InOutBlock extends Block {
             this.typeIn = false;
         }
 
-        this.sizeX = 50;
-        this.sizeY = 30;
+        this.sizeX = 80;
+        this.sizeY = 40;
 
         this.id = this.logic.generateId();
         this.layoutX = 0.0;

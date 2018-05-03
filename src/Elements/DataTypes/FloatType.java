@@ -11,7 +11,7 @@ public class FloatType extends DataType {
 
     public FloatType(double value) {
         this();
-        this.value = Double.parseDouble(this.format.format(value));
+        this.value = Math.floor(value * 10) / 10;
         this.isDefined = true;
     }
 
@@ -20,7 +20,7 @@ public class FloatType extends DataType {
     }
 
     public void setValue(double val) {
-        this.value = Double.parseDouble(this.format.format(val));
+        this.value = Math.floor(val * 10) / 10;
         if (!this.isDefined) {
             this.isDefined = true;
         }

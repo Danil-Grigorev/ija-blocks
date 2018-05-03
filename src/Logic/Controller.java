@@ -43,8 +43,10 @@ public class Controller implements Initializable {
     public AnchorPane leftMenu;
     public MenuBar topMenu;
 
-
     private Logic appL;
+
+//    @FXML
+//    InBlockSetup inBlockSetup;
 
 
     @Override

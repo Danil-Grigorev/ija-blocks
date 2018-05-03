@@ -11,7 +11,7 @@ public class DoubleType extends DataType {
 
     public DoubleType(double value) {
         this();
-        this.value = Double.parseDouble(this.format.format(value));
+        this.value = Math.floor(value * 10000) / 10000;
         this.isDefined = true;
     }
 
@@ -20,7 +20,7 @@ public class DoubleType extends DataType {
     }
 
     public void setValue(double val) {
-        this.value = Double.parseDouble(this.format.format(val));
+        this.value = Math.floor(val * 10000) / 10000;
         if (!this.isDefined) {
             this.isDefined = true;
         }

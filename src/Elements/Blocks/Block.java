@@ -39,10 +39,10 @@ public abstract class Block {
     protected double layoutX;
     protected double layoutY;
     protected Rectangle shape;
-    private Pane stack;
+    protected Pane stack;
 
     private Color stColor = Color.GRAY;
-    private Color actColor = Color.TURQUOISE;
+    private Color actColor = Color.TURQUOISE.darker();
 
     public boolean cycleCheck(int id) {
         System.out.println("Checking block " + getId() + " and " + id);
@@ -263,7 +263,7 @@ public abstract class Block {
             info += "Value: ?";
         }
         else {
-            info += "Value: " + this.data.getValue() + "\nType: " + this.data.getType() + "\n";
+            info += "Value: " + this.data.getStrValue() + "\nType: " + this.data.getType() + "\n";
         }
         Tooltip popupMsg = new Tooltip(info);
         Tooltip.install(this.shape, popupMsg);

@@ -11,7 +11,7 @@ public class IntType extends DataType  {
 
     public IntType(double value) {
         this();
-        this.value = Double.parseDouble(this.format.format(value));
+        this.value = Math.floor(value);
         this.isDefined = true;
     }
 
@@ -20,7 +20,7 @@ public class IntType extends DataType  {
     }
 
     public void setValue(double val) {
-        this.value = Double.parseDouble(this.format.format(val));
+        this.value = Math.floor(val);
         if (!this.isDefined) {
             this.isDefined = true;
         }

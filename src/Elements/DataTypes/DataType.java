@@ -35,4 +35,6 @@ public abstract class DataType {
     public abstract void setValue(double value);
 
     public abstract String getType();
+
+    public abstract String getStrValue();
 }

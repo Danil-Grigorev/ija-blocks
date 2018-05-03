@@ -29,7 +29,7 @@ public abstract class Port implements SingConElm, Serializable {
     private Rectangle shape;
 
     private Color stColor = Color.GRAY;
-    private Color actColor = Color.TURQUOISE;
+    private Color actColor = Color.TURQUOISE.darker();
 
     public boolean isConnected() {
 	    return this.conTo != null;
@@ -83,7 +83,7 @@ public abstract class Port implements SingConElm, Serializable {
     }
 
     public void setVisuals(double X, double Y) {
-        this.shape = new Rectangle(sizeX, sizeY, Color.GOLD);
+        this.shape = new Rectangle(this.sizeX, this.sizeY, Color.GOLD);
         this.shape.setStroke(stColor);
         this.shape.setStrokeWidth(2);
 

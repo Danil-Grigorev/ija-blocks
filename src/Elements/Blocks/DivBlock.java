@@ -44,19 +44,19 @@ public class DivBlock extends Block {
 
         double value = this.data.getValue();
         for (InputPort port = this.inputPorts.get(port_num);
-             port_num < this.getMaxInPorts() - 1;
-             port = this.inputPorts.get(++port_num)) {
+            port_num < this.getMaxInPorts() - 1;
+            port = this.inputPorts.get(++port_num)) {
             DataType newData = port.getData();
 
             // Retyping
-            switch (newData.getClass().getName()) {
-                case "DoubleType":
-                    if (!(this.data instanceof DoubleType)) {
+            switch (newData.getType()) {
+                case "Double":
+                    if (!this.data.getType().equals("Double")) {
                         this.data = new DoubleType(this.data.getValue());
                     }
                     break;
-                case "FloatType":
-                    if (this.data instanceof IntType) {
+                case "Float":
+                    if (this.data.getType().equals("Int")) {
                         this.data = new FloatType(this.data.getValue());
                     }
                     break;
