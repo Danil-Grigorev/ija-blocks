@@ -60,18 +60,18 @@ public class InOutBlock extends Block {
         super.setVisuals(X, Y);
 
         this.valLab = new Label();
-        this.valLab.setLayoutX(5);
-        this.valLab.setLayoutY(10);
-        this.valLab.setMaxWidth(this.shape.getWidth() - 10);
+        this.valLab.setLayoutX(7);
+        this.valLab.setLayoutY(18);
+        this.valLab.setMaxWidth(this.shape.getWidth() - 14);
         this.valLab.setOnMouseEntered(e -> this.logic.elementHover(e));
         this.valLab.setOnMouseExited(e -> this.logic.elementHover(e));
         getVisuals().getChildren().add(valLab);
+        this.valLab.setVisible(false);
         popupUpdate(this.shape);
     }
 
     @Override
     public void calculate() {
-        System.out.println("Block " + getName() + " ID " + getId() + " In - " + this.typeIn);
 
         if (!this.typeIn) {
             if (this.getOnlyPort().isActive()) {
@@ -99,6 +99,15 @@ public class InOutBlock extends Block {
             String value = this.data != null && this.data.getStrValue() != null ? this.data.getStrValue() : "?";
             this.valLab.setText(value);
             super.popupUpdate(this.valLab);
+        }
+    }
+
+    public void hideVal(boolean bool) {
+        if (bool) {
+            this.valLab.setVisible(false);
+        }
+        else {
+            this.valLab.setVisible(true);
         }
     }
 }

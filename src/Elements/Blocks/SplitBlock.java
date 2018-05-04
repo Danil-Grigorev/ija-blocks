@@ -23,7 +23,7 @@ public class SplitBlock extends Block {
 
         this.data = null;
 
-        this.name = "-<";
+        this.name = "split";
         this.maxInPorts = 1;
         this.maxOutPorts = 2;
         this.layoutX = 0.0;

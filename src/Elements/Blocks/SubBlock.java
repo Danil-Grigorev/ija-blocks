@@ -22,7 +22,7 @@ public class SubBlock extends Block {
 
         this.data = null;
 
-        this.name = "-";
+        this.name = "sub";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.layoutX = 0.0;

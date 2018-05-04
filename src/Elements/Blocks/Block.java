@@ -10,9 +10,11 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import javafx.scene.text.Font;
@@ -159,7 +161,33 @@ public abstract class Block {
         this.shape.setOnMouseEntered(e -> this.logic.elementHover(e));
         this.shape.setOnMouseExited(e -> this.logic.elementHover(e));
 
-        // TODO: add image
+        Image fill = null;
+        switch (getName()) {
+            case "add":
+                fill = new Image("Interface/ADD.png");
+                break;
+            case "sub":
+                fill = new Image("Interface/SUB.png");
+                break;
+            case "mul":
+                fill = new Image("Interface/MUL.png");
+                break;
+            case "div":
+                fill = new Image("Interface/DIV.png");
+                break;
+            case "split":
+                fill = new Image("Interface/SPLIT.png");
+                break;
+            case "In":
+                fill = new Image("Interface/IN.png");
+                break;
+            case "Out":
+                fill = new Image("Interface/OUT.png");
+                break;
+        }
+        if (fill != null) {
+            this.shape.setFill(new ImagePattern(fill));
+        }
 
         this.layoutX = X;
         this.layoutY = Y;

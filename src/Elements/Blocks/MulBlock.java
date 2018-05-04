@@ -23,7 +23,7 @@ public class MulBlock extends Block {
 
         this.data = null;
 
-        this.name = "*";
+        this.name = "mul";
         this.maxInPorts = 2;
         this.maxOutPorts = 1;
         this.layoutX = 0.0;

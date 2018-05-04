@@ -68,8 +68,26 @@ public class Logic {
 
     public void setSchemeState(State schemeState) {
         Platform.runLater( () -> {
-            if (schemeState == State.DEFAULT && this.schemeState != State.DEFAULT) {
-                tmpReset();
+            if (schemeState == State.DEFAULT) {
+                if (this.schemeState != State.DEFAULT) {
+                    tmpReset();
+                }
+                if (this.schemeState == State.EXECUTE) {
+                    for (Block bl : this.blocks) {
+                        if (bl instanceof InOutBlock) {
+                            ((InOutBlock) bl).hideVal(true);
+                        }
+                    }
+                }
+            }
+            else if (schemeState == State.EXECUTE) {
+                if (this.schemeState != State.EXECUTE) {
+                    for (Block bl : this.blocks) {
+                        if (bl instanceof InOutBlock) {
+                            ((InOutBlock) bl).hideVal(false);
+                        }
+                    }
+                }
             }
             this.schemeState = schemeState;
         });
@@ -124,9 +142,6 @@ public class Logic {
                     break;
                 case "out":     opNode = new InOutBlock(this, schemePane, false);
                     break;
-                case "custom":
-                // TODO
-                break;
                 default:
                     System.err.println("Unknown block type for init");
                     Platform.exit();
