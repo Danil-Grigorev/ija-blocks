@@ -46,7 +46,6 @@ public class DivBlock extends Block {
             port_num = 0;
         }
 
-        System.out.println("DIV executing ++++ " + value + " " + port_num + " < " + (getMaxInPorts()));
         for (; port_num < getMaxInPorts(); port_num++) {
 
             InputPort port = this.inputPorts.get(port_num);
@@ -65,14 +64,10 @@ public class DivBlock extends Block {
                     break;
             }
 
-            System.out.println("Now: " + value + " Expected: " + value + "/" + newData.getValue());
             // Executing
             value /= newData.getValue();
         }
         this.data.setValue(value);
-
-        System.out.println("++++ DIV executing");
-
 
         for (InputPort prt : this.inputPorts) {
             prt.dataAccepted();

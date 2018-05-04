@@ -46,10 +46,9 @@ public abstract class Block {
     protected Pane stack;
 
     private Color stColor = Color.GRAY;
-    private Color actColor = Color.TURQUOISE.darker();
+    private Color actColor = Color.CYAN.darker();
 
     public boolean cycleCheck(int id) {
-        System.out.println("Checking block " + getId() + " and " + id);
 
         if (getId() == id) { return true; }
         else {
@@ -264,7 +263,6 @@ public abstract class Block {
 
         this.accepted++;
         if (acceptedNumExpect <= this.accepted && this.data != null) {
-            System.out.println("Setting inactive " + this.getId());
             this.data = null;
             setInactive();
         }

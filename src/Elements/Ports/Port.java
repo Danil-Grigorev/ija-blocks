@@ -30,7 +30,7 @@ public abstract class Port implements SingConElm, Serializable {
     private Rectangle shape;
 
     private Color stColor = Color.GRAY;
-    private Color actColor = Color.TURQUOISE.darker();
+    private Color actColor = Color.CYAN.darker();
 
     public boolean isConnected() {
 	    return this.conTo != null;

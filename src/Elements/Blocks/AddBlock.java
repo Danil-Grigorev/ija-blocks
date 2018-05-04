@@ -35,12 +35,21 @@ public class AddBlock extends Block {
 
     @Override
     public void calculate() {
+        int port_num;
+        double value;
         if (this.data == null) {
-            this.data = new IntType(0.0);
+            value = this.inputPorts.get(0).getData().getValue();
+            this.data = new IntType(value);
+            port_num = 1;
+        }
+        else {
+            value = this.data.getValue();
+            port_num = 0;
         }
 
-        double value = this.data.getValue();
-        for (InputPort port : this.inputPorts) {
+        for (; port_num < getMaxInPorts(); port_num++) {
+
+            InputPort port = this.inputPorts.get(port_num);
             DataType newData = port.getData();
 
             // Retyping
@@ -59,9 +68,13 @@ public class AddBlock extends Block {
 
             // Executing
             value += newData.getValue();
-            port.dataAccepted();
         }
         this.data.setValue(value);
+
+        for (InputPort prt : this.inputPorts) {
+            prt.dataAccepted();
+        }
+
         setActive();
         popupUpdate(this.shape);
     }

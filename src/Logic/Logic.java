@@ -23,6 +23,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Logic {
 
     private File schemeName;
 
-
+    private boolean blockNewSetInWind;
 
     // -----------------------
     public Logic(AnchorPane displayPane, double indentX, double indentY) {
@@ -59,7 +60,7 @@ public class Logic {
         accNode = true;
         tmpCon = null;
         blocks = new ArrayList<>();
-
+        blockNewSetInWind = false;
     }
 
     public State getSchemeState() {
@@ -189,9 +190,7 @@ public class Logic {
                 blocksToExecute.add(block);
             }
         }
-        // TODO: check if is zero length and stop execution
         for (Block block : blocksToExecute) {
-            System.out.println("Calculating " + block.getId() + " name " + block.getName());
             block.calculate();
             for (OutputPort port : block.getOutputPorts()) {
                 port.block();
@@ -205,24 +204,27 @@ public class Logic {
     }
 
     private void openSetInWind(Block caller) {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Interface/InBlockSetup.fxml"));
-        Scene newScene;
-        try {
-            newScene = new Scene(loader.load());
-        } catch (IOException e) {
-            System.err.println("Cant create new window");
-            e.printStackTrace();
-            return;
+        if (!blockNewSetInWind) {
+            blockNewSetInWind = true;
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Interface/InBlockSetup.fxml"));
+            Scene newScene;
+            try {
+                newScene = new Scene(loader.load());
+            } catch (IOException e) {
+                System.err.println("Cant create new window");
+                e.printStackTrace();
+                return;
+            }
+
+            InBlockSetup setup = loader.getController();
+            setup.init(caller);
+
+            Stage setInStage = new Stage();
+            setInStage.setTitle("Set value for ID: " + caller.getId());
+            setInStage.setScene(newScene);
+            setInStage.showAndWait();
+            blockNewSetInWind = false;
         }
-
-        InBlockSetup setup = loader.getController();
-        setup.init(caller);
-
-        Stage setInStage = new Stage();
-        setInStage.setTitle("Set value for ID: " + caller.getId());
-        setInStage.setScene(newScene);
-        setInStage.show();
-
     }
 
     public void blockClick(Block caller, MouseEvent e) {
