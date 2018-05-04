@@ -5,6 +5,7 @@ import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import Logic.Logic;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -60,14 +61,17 @@ public class InOutBlock extends Block {
 
         this.valLab = new Label();
         this.valLab.setLayoutX(5);
-        this.valLab.setLayoutY(5);
+        this.valLab.setLayoutY(10);
+        this.valLab.setMaxWidth(this.shape.getWidth() - 10);
+        this.valLab.setOnMouseEntered(e -> this.logic.elementHover(e));
+        this.valLab.setOnMouseExited(e -> this.logic.elementHover(e));
         getVisuals().getChildren().add(valLab);
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
     @Override
     public void calculate() {
-        if (this.data == null) { return; }
+        System.out.println("Block " + getName() + " ID " + getId() + " In - " + this.typeIn);
 
         if (!this.typeIn) {
             if (this.getOnlyPort().isActive()) {
@@ -76,7 +80,7 @@ public class InOutBlock extends Block {
                 setActive();
             }
         }
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
     public Port getOnlyPort() {
@@ -89,11 +93,12 @@ public class InOutBlock extends Block {
     }
 
     @Override
-    public void popupUpdate() {
-        super.popupUpdate();
+    public void popupUpdate(Node nd) {
+        super.popupUpdate(nd);
         if (this.valLab != null) {
             String value = this.data != null && this.data.getStrValue() != null ? this.data.getStrValue() : "?";
             this.valLab.setText(value);
+            super.popupUpdate(this.valLab);
         }
     }
 }

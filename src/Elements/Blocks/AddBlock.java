@@ -63,7 +63,7 @@ public class AddBlock extends Block {
         }
         this.data.setValue(value);
         setActive();
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
 }

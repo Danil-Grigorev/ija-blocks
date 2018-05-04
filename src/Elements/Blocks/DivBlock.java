@@ -38,7 +38,7 @@ public class DivBlock extends Block {
         double value;
         if (this.data == null) {
             value = this.inputPorts.get(0).getData().getValue();
-            this.data = new IntType();
+            this.data = new IntType(value);
             port_num = 1;
         }
         else {
@@ -46,36 +46,40 @@ public class DivBlock extends Block {
             port_num = 0;
         }
 
-        for (InputPort port = this.inputPorts.get(port_num);
-            port_num < this.getMaxInPorts() - 1;
-            port = this.inputPorts.get(++port_num)) {
-            DataType newData = port.getData();
+        System.out.println("DIV executing ++++ " + value + " " + port_num + " < " + (getMaxInPorts()));
+        for (; port_num < getMaxInPorts(); port_num++) {
 
+            InputPort port = this.inputPorts.get(port_num);
+            DataType newData = port.getData();
             // Retyping
             switch (newData.getType()) {
                 case "Double":
                     if (!this.data.getType().equals("Double")) {
-                        this.data = new DoubleType(this.data.getValue());
+                        this.data = new DoubleType();
                     }
                     break;
                 case "Float":
                     if (this.data.getType().equals("Int")) {
-                        this.data = new FloatType(this.data.getValue());
+                        this.data = new FloatType();
                     }
                     break;
             }
 
+            System.out.println("Now: " + value + " Expected: " + value + "/" + newData.getValue());
             // Executing
             value /= newData.getValue();
         }
         this.data.setValue(value);
+
+        System.out.println("++++ DIV executing");
+
 
         for (InputPort prt : this.inputPorts) {
             prt.dataAccepted();
         }
 
         setActive();
-        popupUpdate();
+        popupUpdate(this.shape);
 	}
 
 }

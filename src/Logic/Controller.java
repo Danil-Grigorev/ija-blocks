@@ -1,58 +1,88 @@
 package Logic;
 
+import Elements.Blocks.Block;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 
 public class Controller implements Initializable {
 
     // Top menu buttons
+    public MenuItem newBtn1;
+    public MenuItem svBtn1;
+    public MenuItem svAsBtn1;
+    public MenuItem openBtn;
     public MenuItem exitBtn1;
 
-    public Button rstBtn1;  // Reset button
-    public Button nxBtn1;   // Next button
-
-    public Button remBtn1;  // Remove button
+    // Down menu buttons
+    public Button strtStpBtn1; // Start or stop execution button
+    public Button stpBtn1;     // Next button
 
     // Block creating buttons
     public MenuItem addBlBtn1;
     public MenuItem subBlBtn1;
     public MenuItem mulBlBtn1;
     public MenuItem divBlBtn;
+    public MenuItem splBlBtn1;
+    public MenuItem outBlBtn1;
+    public MenuItem inBlBtn1;
+
+    public Button remBtn1;  // Remove button
 
     // Elements with scheme content
     public AnchorPane displayPane;
     public ScrollPane dispParent;
     public AnchorPane leftMenu;
     public MenuBar topMenu;
+    public BorderPane borderLayout;
 
     private Logic appL;
+    private ArrayList<Node> leftMenuNodes;
 
-//    @FXML
-//    InBlockSetup inBlockSetup;
+    private Image startImg;
+    private Image stopImg;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         appL = new Logic(displayPane, leftMenu.getPrefWidth(), topMenu.getPrefHeight());
         appL.setSchemeState(Logic.State.DEFAULT);
+        this.leftMenuNodes = new ArrayList<>();
+        startImg = new Image(getClass().getResourceAsStream("../Interface/start.png"));
+        stopImg  = new Image(getClass().getResourceAsStream("../Interface/stop.png"));
+    }
+
+    public void initKeyListeners() {
+        this.getDisplayPane().getScene().addEventFilter(KeyEvent.KEY_PRESSED,
+                event -> {
+                    switch (event.getCode()) {
+                        case ESCAPE:
+                            appL.setSchemeState(Logic.State.DEFAULT);
+                            break;
+                    }
+                });
     }
 
     // Top menu actions
@@ -105,15 +135,6 @@ public class Controller implements Initializable {
         }
     }
 
-    // Schema execution buttons handler
-
-    public void nxClick(javafx.event.ActionEvent actionEvent) {
-        appL.executeAll();
-    }
-
-    public void rsClick(javafx.event.ActionEvent actionEvent) {
-        // TODO: reset all inBlocks
-    }
 
     public void remClick(javafx.event.ActionEvent actionEvent) {
         if (appL.getSchemeState() == Logic.State.REMOVE) {
@@ -166,6 +187,14 @@ public class Controller implements Initializable {
         appL.schemeAct(mouseEvent);
     }
 
+    public void schemeKeyAct(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+            case ESCAPE:
+                appL.setSchemeState(Logic.State.DEFAULT);
+                break;
+        }
+    }
+
     public void exitApp(javafx.event.ActionEvent actionEvent) {
         Platform.exit();
     }
@@ -173,4 +202,62 @@ public class Controller implements Initializable {
     public AnchorPane getDisplayPane() {
         return displayPane;
     }
+
+    public void newScheme(ActionEvent actionEvent) {
+        appL.reset();
+    }
+
+    // Schema execution buttons handler
+
+    public void nxClick(javafx.event.ActionEvent actionEvent) {
+        appL.executeAll();
+    }
+
+    public void startStopClick(ActionEvent actionEvent) {
+        if (appL.getSchemeState() != Logic.State.EXECUTE) {
+            newBtn1.setDisable(true);
+            svBtn1.setDisable(true);
+            svAsBtn1.setDisable(true);
+            openBtn.setDisable(true);
+
+            leftMenu.setDisable(true);
+            leftMenu.setMaxWidth(0);
+            for (Node nd : leftMenu.getChildren()) {
+                this.leftMenuNodes.add(nd);
+            }
+            leftMenu.getChildren().clear();
+
+            ImageView tmp = (ImageView) strtStpBtn1.getGraphic();
+            tmp.setImage(stopImg);
+
+            stpBtn1.setVisible(true);
+            appL.setSchemeState(Logic.State.EXECUTE);
+        }
+        else {
+            newBtn1.setDisable(false);
+            svBtn1.setDisable(false);
+            svAsBtn1.setDisable(false);
+            openBtn.setDisable(false);
+
+            leftMenu.setDisable(false);
+            leftMenu.setMaxWidth(160.0);
+            for (Node nd : this.leftMenuNodes) {
+                leftMenu.getChildren().add(nd);
+            }
+            this.leftMenuNodes.clear();
+
+            ImageView tmp = (ImageView) strtStpBtn1.getGraphic();
+            tmp.setImage(startImg);
+            for (Block bl : appL.getBlocks()) {
+                bl.setData(null);
+                bl.setInactive();
+            }
+
+            stpBtn1.setVisible(false);
+            appL.setSchemeState(Logic.State.DEFAULT);
+        }
+
+    }
+
 }
+

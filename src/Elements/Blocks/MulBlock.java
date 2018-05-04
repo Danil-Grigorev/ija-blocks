@@ -63,6 +63,7 @@ public class MulBlock extends Block {
         }
         this.data.setValue(value);
         setActive();
+        popupUpdate(this.shape);
     }
 
 }

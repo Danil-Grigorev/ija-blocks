@@ -41,7 +41,7 @@ public class SplitBlock extends Block {
             prt.dataAccepted();
             setActive();
         }
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
 }

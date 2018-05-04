@@ -62,7 +62,7 @@ public class SubBlock extends Block {
         }
         this.data.setValue(value);
         setActive();
-        popupUpdate();
+        popupUpdate(this.shape);
 	}
 
 

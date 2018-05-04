@@ -11,10 +11,13 @@ import Elements.Ports.Port;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -29,7 +32,6 @@ public class Logic {
     public State schemeState;
     private AnchorPane schemePane;
     private ItemContainer elementContainer;
-    private InBlockSetup inBlockSetup;
 
     // Synchronized block operations
     // -----------------------
@@ -78,19 +80,17 @@ public class Logic {
 
             switch (getSchemeState()) {
                 case DEFAULT:
-                    System.out.println("DEFAULT block state");
                     break;
                 case PUT_BLOCK:
-                    System.out.println("PUT block state");
                     putBl(mouseEvent.getX(), mouseEvent.getY());
                     setSchemeState(State.DEFAULT);
                     break;
                 case REMOVE:
-                    System.out.println("Remove -> default block state");
                     setSchemeState(State.DEFAULT);
                     break;
                 case ADD_CON_2:
-                    System.out.println("ADD_CON_2 block state");
+                    break;
+                case EXECUTE:
                     break;
                 default:
                     System.out.println("Unknown state");
@@ -215,11 +215,13 @@ public class Logic {
             case REMOVE:
                 caller.remove();
                 elementContainer.remove(caller);
+                blocks.remove(caller);
                 break;
             case ADD_CON_2:
                 setSchemeState(State.DEFAULT);
             case DEFAULT:
-                // TODO: do this in execute state
+                break;
+            case EXECUTE:
                 if (caller instanceof InOutBlock && caller.getName().equals("In")) {
                     openSetInWind(caller);
                 }
@@ -327,7 +329,23 @@ public class Logic {
     }
 
     public void elementHover(MouseEvent e) {
-        Shape object = (Shape) e.getSource();
+        Shape object = null;
+        if (e.getSource() instanceof Label) {
+            Pane tmp = (Pane) ((Label) e.getSource()).getParent();
+            for (Node nd : tmp.getChildren()) {
+                if (nd instanceof Rectangle) {
+                    object = (Shape) nd;
+                    break;
+                }
+            }
+            if (object == null) {
+                Platform.exit();
+                System.exit(99);
+            }
+        }
+        else {
+            object = (Shape) e.getSource();
+        }
         Color color = (Color) object.getStroke();
 
         if (e.getEventType() == MouseEvent.MOUSE_ENTERED) {
@@ -389,6 +407,13 @@ public class Logic {
         tmpCon = null;
     }
 
+    public void reset() {
+        schemePane.getChildren().clear();
+        blocks.clear();
+        elementContainer = new ItemContainer();
+        setSchemeState(State.DEFAULT);
+    }
+
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
@@ -407,5 +432,6 @@ public class Logic {
         PUT_BLOCK,
         REMOVE,
         ADD_CON_2,
+        EXECUTE
     }
 }

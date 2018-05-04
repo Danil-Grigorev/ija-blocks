@@ -1,4 +1,5 @@
 
+import Logic.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,11 +11,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/interface.fxml"));
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Interface/interface.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Block scheme application");
         primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
+        ((Controller) loader.getController()).initKeyListeners();
 
     }
 

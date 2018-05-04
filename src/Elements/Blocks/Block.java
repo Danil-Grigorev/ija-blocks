@@ -7,6 +7,7 @@ import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -114,7 +115,7 @@ public abstract class Block {
         for (OutputPort port : this.outputPorts) {
             port.setActive();
         }
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
     public void setInactive() {
@@ -124,7 +125,7 @@ public abstract class Block {
         for (OutputPort port : this.outputPorts) {
             port.setInactive();
         }
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
     public void remove() {
@@ -168,7 +169,7 @@ public abstract class Block {
         this.stack.setLayoutX(X - Block.this.shape.getWidth() / 2);
         this.stack.setLayoutY(Y - Block.this.shape.getHeight() / 2);
         this.stack.getChildren().add(this.shape);
-        popupUpdate();
+        popupUpdate(this.shape);
     }
 
     public void reposition(double X, double Y) {
@@ -242,7 +243,7 @@ public abstract class Block {
     }
 
 
-    public void popupUpdate() {
+    public void popupUpdate(Node nd) {
         String info = "";
         info += "ID: " + getId() + "\n";
         info += "Name: " + getName() + "\n";
@@ -253,7 +254,7 @@ public abstract class Block {
             info += "Value: " + this.data.getStrValue() + "\nType: " + this.data.getType() + "\n";
         }
         Tooltip popupMsg = new Tooltip(info);
-        Tooltip.install(this.shape, popupMsg);
+        Tooltip.install(nd, popupMsg);
     }
 
     public abstract void calculate();
