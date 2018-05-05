@@ -61,7 +61,7 @@
                            <Rectangle2D />
                         </viewport>
                         <image>
-                           <Image url="@next.png" />
+                           <Image url="@../images/next.png" />
                         </image>
                      </ImageView>
                   </graphic>
@@ -75,7 +75,7 @@
                            <Rectangle2D />
                         </viewport>
                         <image>
-                           <Image url="@start.png" />
+                           <Image url="@../images/start.png" />
                         </image>
                      </ImageView>
                   </graphic>

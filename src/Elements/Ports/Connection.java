@@ -52,7 +52,6 @@ public class Connection {
 
     public void setPortIn(OutputPort port) throws IOException {
         if (this.from != null) {
-            System.out.println(this.from);
             throw new IOException();
         }
         this.from = port;
@@ -234,6 +233,13 @@ public class Connection {
         if (this.from != null && this.from.getParent().isActive()) {
             setActive();
         }
+
+        if (this.from != null) {
+            this.from.makeSelected(false);
+        }
+        if (this.to != null) {
+            this.to.makeSelected(false);
+        }
         popupUpdate();
     }
 
@@ -266,8 +272,14 @@ public class Connection {
     }
 
     public void remove() {
-        if (this.from   != null) { this.from.removeConnection(); }
-        if (this.to     != null) { this.to.removeConnection(); }
+        if (this.from != null) {
+            this.from.makeSelected(false);
+            this.from.removeConnection();
+        }
+        if (this.to != null) {
+            this.to.makeSelected(false);
+            this.to.removeConnection();
+        }
         Platform.runLater(() -> {
             this.scheme.getChildren().removeAll(this.lines);
             this.scheme.getChildren().removeAll(this.joints);

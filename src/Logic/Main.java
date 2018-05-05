@@ -1,3 +1,4 @@
+package Logic;
 
 import Logic.Controller;
 import javafx.application.Application;

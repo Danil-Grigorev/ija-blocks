@@ -3,16 +3,9 @@ package Logic;
 import Elements.Blocks.Block;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -70,8 +63,8 @@ public class Controller implements Initializable {
         appL = new Logic(displayPane, leftMenu.getPrefWidth(), topMenu.getPrefHeight());
         appL.setSchemeState(Logic.State.DEFAULT);
         this.leftMenuNodes = new ArrayList<>();
-        startImg = new Image(getClass().getResourceAsStream("../Interface/start.png"));
-        stopImg  = new Image(getClass().getResourceAsStream("../Interface/stop.png"));
+        startImg = new Image("images/start.png");
+        stopImg  = new Image("images/stop.png");
     }
 
     public void initKeyListeners() {
@@ -180,8 +173,7 @@ public class Controller implements Initializable {
         appL.setSchemeState(Logic.State.PUT_BLOCK);
     }
 
-    // TODO: add custom block
-    // Main scheme area action
+    // Scheme area action
 
     public void schemeAct(MouseEvent mouseEvent) {
         appL.schemeAct(mouseEvent);

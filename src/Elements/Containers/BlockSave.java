@@ -66,24 +66,19 @@ public class BlockSave implements Serializable {
     public Block restore(Logic logic, AnchorPane scheme) {
         Block newBl;
         switch (this.name) {
-            case "+":
+            case "add":
                 newBl = new AddBlock(logic, scheme);
-                // TODO: test and remove
-                if (!(newBl instanceof AddBlock)) {
-                    Platform.exit();
-                    System.exit(99);
-                }
                 break;
-            case "-":
+            case "sub":
                 newBl = new SubBlock(logic, scheme);
                 break;
-            case "*":
+            case "mul":
                 newBl = new MulBlock(logic, scheme);
                 break;
-            case "/":
+            case "div":
                 newBl = new DivBlock(logic, scheme);
                 break;
-            case "-<":
+            case "split":
                 newBl = new SplitBlock(logic, scheme);
                 break;
             case "In":

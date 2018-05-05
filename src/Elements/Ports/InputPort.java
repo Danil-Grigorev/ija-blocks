@@ -20,6 +20,7 @@ public class InputPort extends Port {
         this.layoutY = 0.0;
         this.id = logic.generateId();
         this.blocked = false;
+        this.selected = false;
     }
 
     public void createSave(ItemContainer container) {

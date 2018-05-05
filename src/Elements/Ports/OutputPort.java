@@ -20,6 +20,7 @@ public class OutputPort extends Port {
         this.layoutX = 0.0;
         this.layoutY = 0.0;
         this.blocked = false;
+        this.selected = false;
     }
 
     public void createSave(ItemContainer container) {

@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public abstract class Port implements SingConElm, Serializable {
     protected Logic logic;
     protected int id;
     protected boolean blocked;
+    protected boolean selected;
 
     private int sizeX = 10;
     private int sizeY = 10;
@@ -31,9 +33,31 @@ public abstract class Port implements SingConElm, Serializable {
 
     private Color stColor = Color.GRAY;
     private Color actColor = Color.CYAN.darker();
+    private Color selColor = Color.RED;
 
     public boolean isConnected() {
 	    return this.conTo != null;
+    }
+
+    public boolean isSelected() {
+        return this.selected;
+    }
+
+    public void makeSelected(boolean bool) {
+        double strokeWidth = this.shape.getStrokeWidth();
+        if (bool) {
+            if (!isSelected()) {
+                this.shape.setStroke(selColor);
+                this.selected = true;
+            }
+        }
+        else{
+            if (isSelected()) {
+                this.shape.setStroke(stColor);
+                this.selected = false;
+            }
+        }
+        this.shape.setStrokeWidth(strokeWidth);
     }
 
 	abstract public void setConnection(Connection con) throws IOException;

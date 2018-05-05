@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -268,7 +269,6 @@ public class Logic {
             case ADD_CON_2:
                 try {
                     caller.setConnection(tmpCon);
-                    System.out.println("Connected second");
                 } catch (IOException ex) { break; }
                 if (caller instanceof InputPort) {
                     tmpCon.setEndPoint(0,
@@ -290,7 +290,7 @@ public class Logic {
                 }
                 try {
                     caller.setConnection(tmpCon);
-                    System.out.println("Connected first");
+                    caller.makeSelected(true);
                 } catch (IOException ex) { break; }
                 if (caller instanceof InputPort) {
                     tmpCon.setEndPoint(0,
@@ -381,13 +381,13 @@ public class Logic {
             byteObj.writeObject(elementContainer);
             byteObj.close();
             file.close();
-        } catch (IOException e) {
-            System.err.println("Error while writing scheme to file");
-            e.printStackTrace();
-            Platform.exit();
-            System.exit(99);
+            schemeName = name;
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Can't save scheme");
+            alert.setContentText("An error occurred while saving schema");
+            alert.showAndWait();
         }
-        schemeName = name;
     }
 
     public void load(File file) {
@@ -397,17 +397,16 @@ public class Logic {
             elementContainer = (ItemContainer) in.readObject();
             in.close();
             fileIn.close();
-        } catch (IOException e) {
-            System.out.println("Error reading class from file " + file);
-            return;
-        } catch (ClassNotFoundException c) {
-            System.out.println("Error reading class from file " + file);
-            return;
+            schemePane.getChildren().clear();
+            blocks.clear();
+            elementContainer.restore(this, schemePane);
+        } catch (Exception x) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Can't open scheme");
+            alert.setContentText("An error occurred while opening scheme");
+            alert.showAndWait();
         }
 
-        schemePane.getChildren().clear();
-        blocks.clear();
-        elementContainer.restore(this, schemePane);
 
     }
 

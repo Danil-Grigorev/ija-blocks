@@ -8,7 +8,6 @@ import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import javafx.application.Platform;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -17,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
-import javafx.scene.text.Font;
 
 
 import java.util.ArrayList;
@@ -163,25 +161,25 @@ public abstract class Block {
         Image fill = null;
         switch (getName()) {
             case "add":
-                fill = new Image("Interface/ADD.png");
+                fill = new Image("images/ADD.png");
                 break;
             case "sub":
-                fill = new Image("Interface/SUB.png");
+                fill = new Image("images/SUB.png");
                 break;
             case "mul":
-                fill = new Image("Interface/MUL.png");
+                fill = new Image("images/MUL.png");
                 break;
             case "div":
-                fill = new Image("Interface/DIV.png");
+                fill = new Image("images/DIV.png");
                 break;
             case "split":
-                fill = new Image("Interface/SPLIT.png");
+                fill = new Image("images/SPLIT.png");
                 break;
             case "In":
-                fill = new Image("Interface/IN.png");
+                fill = new Image("images/IN.png");
                 break;
             case "Out":
-                fill = new Image("Interface/OUT.png");
+                fill = new Image("images/OUT.png");
                 break;
         }
         if (fill != null) {
