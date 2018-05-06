@@ -8,17 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/project_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/Port.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/Port.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/InBlockSetup.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/InterfaceElm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/SingConElm.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/interface.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/InBlockSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/InBlockSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Main.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -120,7 +113,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Port.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Port.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
@@ -128,6 +121,22 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build2.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build2.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-540" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build1.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build1.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="738">
+              <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -694,7 +703,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525544832506</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Cant create ant...">
+      <created>1525607245310</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1525607245311</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -702,6 +718,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -711,9 +728,9 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32857144" />
       <window_info anchor="right" id="Maven Projects" order="4" weight="0.32959402" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35352424" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35352424" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32929516" />
-      <window_info anchor="bottom" id="Terminal" order="13" weight="0.33114034" />
+      <window_info anchor="bottom" id="Terminal" order="13" weight="0.33039647" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.13942307" />
@@ -808,7 +825,6 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Added scroll pane for schema anchor pane. Now it is resizable." />
     <MESSAGE value="Beta &quot;Add connection&quot; implementation." />
     <MESSAGE value="Viki: Added blocks and ports initial logic." />
     <MESSAGE value="Rewritten block logic. Added connections, ports initial implementation&#10;(in progress)" />
@@ -833,7 +849,8 @@
     <MESSAGE value="Some fixes." />
     <MESSAGE value="Pictures added." />
     <MESSAGE value="Added alert box for fail while scheme saving or loading.&#10;Added color change after click on port.&#10;But i can't complile... Hate this. Ant is ridiculous..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added alert box for fail while scheme saving or loading.&#10;Added color change after click on port.&#10;But i can't complile... Hate this. Ant is ridiculous..." />
+    <MESSAGE value="Cant create ant..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cant create ant..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -845,14 +862,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="55" lean-forward="true" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Main.java" />
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1692">
@@ -1175,6 +1184,18 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-540" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
         </state>
       </provider>
     </entry>

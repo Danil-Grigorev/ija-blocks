@@ -1,0 +1,64 @@
+<project name="IJA_Blocks" default="compile" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <description>
+        IJA Project
+        Danil Grigorev, xgrigo02
+        Viktoria Cervenanska, xcerve23
+    </description>
+
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build/"/>
+    <property name="dest.client.dir" location="dest-client/"/>
+    <property name="doc.dir" value="doc/"/>
+
+    <!-- COMPILE -->
+    <target name="compile" description="compile the production">
+        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant"
+                 classpath="lib/ant-javafx.jar"/>
+                 
+        <!-- COPY FXML FILES TO BUILD DIRECTORY -->
+        <copy todir="${build.dir}/production/FXML_src">
+            <fileset dir="${src.dir}/FXML_src"/>
+        </copy>
+
+        <!-- COPY IMAGES TO BUILD DIRECTORY -->
+        <copy todir="${build.dir}/production/images">
+            <fileset dir="${src.dir}/images"/>
+        </copy>
+
+        <!-- COMPILE APPLICATION -->
+        <javac includeantruntime="false"
+               srcdir="${src.dir}"
+               destdir="${build.dir}"
+               fork="yes"
+               executable="javac"
+               source="1.8"
+               debug="on">
+        </javac>
+
+        <!-- CREATE JAR -->
+        <!-- <fx:application id="ijaBlocks" name="IJA Blocks" mainClass="application.gui.Main"/> -->
+        <!-- <fx:resources id="appRes"> -->
+            <!-- <fx:fileset dir="${dest.client.dir}" includes="ija-client.jar"/> -->
+        <!-- </fx:resources> -->
+        <!-- <fx:jar destfile="${dest.client.dir}/ija-client.jar"> -->
+            <!-- <fx:application refid="ijaBlocks"/> -->
+            <!-- <fx:resources refid="appRes"/> -->
+            <!-- <fileset dir="${build.dir}"/> -->
+        <!-- </fx:jar> -->
+    </target>
+
+    <!-- RUN -->
+    <!-- <target name="run" depends="compile"> -->
+        <!-- <java jar="${dest.client.dir}/ija-client.jar" fork="true"/> -->
+    <!-- </target> -->
+
+    <!-- CLEAN -->
+    <target name="clean" description="clean up">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${build.dir}" includes="**/*" excludes=".gitkeep"/>
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${dest.client.dir}" includes="**/*" excludes=".gitkeep"/>
+        </delete>
+    </target>
+</project>
