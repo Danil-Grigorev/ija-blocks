@@ -177,7 +177,7 @@ public abstract class Port implements Serializable {
 
     /**
      * Getter for port connection.
-     * @return
+     * @return Connection ports connection
      */
     public Connection getConTo() {
         return this.conTo;

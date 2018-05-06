@@ -8,30 +8,13 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/AddBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/AddBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/InOutBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/InOutBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/MulBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/MulBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/SplitBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/SplitBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/SubBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/SubBlock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Containers/BlockSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Containers/BlockSave.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Containers/PortSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Containers/PortSave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/DataTypes/DataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/DataTypes/DataType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/DataTypes/DoubleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/DataTypes/DoubleType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/DataTypes/FloatType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/DataTypes/FloatType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/DataTypes/IntType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/DataTypes/IntType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/InputPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/InputPort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/OutputPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/OutputPort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Ports/Port.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/Port.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/InBlockSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/InBlockSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Main.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,11 +80,8 @@
       <file leaf-file-name="BlockSave.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Containers/BlockSave.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="817">
-              <caret line="51" column="7" lean-forward="true" selection-start-line="48" selection-start-column="4" selection-end-line="51" selection-end-column="7" />
-              <caret line="59" column="7" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="59" selection-end-column="7" />
-              <caret line="67" column="7" lean-forward="true" selection-start-line="64" selection-start-column="4" selection-end-line="67" selection-end-column="7" />
-              <caret line="75" column="7" lean-forward="true" selection-start-line="72" selection-start-column="4" selection-end-line="75" selection-end-column="7" />
+            <state relative-caret-position="691">
+              <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
               <folding>
                 <element signature="e#1151#1152#0" expanded="true" />
                 <element signature="e#1186#1187#0" expanded="true" />
@@ -125,8 +105,8 @@
       <file leaf-file-name="ItemContainer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="565">
-              <caret line="218" column="30" selection-start-line="218" selection-start-column="30" selection-end-line="218" selection-end-column="30" />
+            <state relative-caret-position="738">
+              <caret line="227" column="38" selection-start-line="227" selection-start-column="38" selection-end-line="227" selection-end-column="38" />
               <folding>
                 <element signature="e#967#968#0" expanded="true" />
                 <element signature="e#994#995#0" expanded="true" />
@@ -145,48 +125,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/Block.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="391" column="30" selection-start-line="391" selection-start-column="30" selection-end-line="391" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DivBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SubBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/SubBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InOutBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/InOutBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="934">
-              <caret line="109" column="36" selection-start-line="109" selection-start-column="36" selection-end-line="109" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ConnectionSave.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="835">
-              <caret line="116" column="29" lean-forward="true" selection-start-line="113" selection-start-column="4" selection-end-line="116" selection-end-column="29" />
-              <caret line="129" column="7" lean-forward="true" selection-start-line="126" selection-start-column="4" selection-end-line="129" selection-end-column="7" />
+            <state relative-caret-position="828">
+              <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
               <folding>
                 <element signature="e#1452#1453#0" expanded="true" />
                 <element signature="e#1482#1483#0" expanded="true" />
@@ -205,11 +148,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PortSave.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Port.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="179" column="42" selection-start-line="179" selection-start-column="42" selection-end-line="179" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2194#2195#0" expanded="true" />
+                <element signature="e#2227#2228#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PortSave.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Containers/PortSave.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="745">
-              <caret line="118" column="39" selection-start-line="118" selection-start-column="39" selection-end-line="118" selection-end-column="39" />
+            <state relative-caret-position="727">
+              <caret line="120" column="28" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
               <folding>
                 <element signature="e#986#987#0" expanded="true" />
                 <element signature="e#1021#1022#0" expanded="true" />
@@ -228,8 +185,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MulBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/MulBlock.java">
+      <file leaf-file-name="InBlockSetup.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/FXML_src/InBlockSetup.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="AddBlock.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/AddBlock.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
               <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
@@ -237,13 +200,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplitBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/SplitBlock.java">
+      <file leaf-file-name="Block.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/Block.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
+            <state relative-caret-position="466">
+              <caret line="324" column="23" selection-start-line="324" selection-start-column="23" selection-end-line="324" selection-end-column="23" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DivBlock.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="interface.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/FXML_src/interface.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -358,17 +336,17 @@
         <option value="$PROJECT_DIR$/src/Elements/Blocks/MulBlock.java" />
         <option value="$PROJECT_DIR$/src/Elements/Blocks/SubBlock.java" />
         <option value="$PROJECT_DIR$/src/Elements/Blocks/InOutBlock.java" />
-        <option value="$PROJECT_DIR$/src/Elements/Blocks/Block.java" />
         <option value="$PROJECT_DIR$/src/Elements/Blocks/SplitBlock.java" />
         <option value="$PROJECT_DIR$/src/Logic/Logic.java" />
-        <option value="$PROJECT_DIR$/src/Elements/Ports/Port.java" />
         <option value="$PROJECT_DIR$/src/Elements/DataTypes/IntType.java" />
         <option value="$PROJECT_DIR$/src/Elements/Ports/InputPort.java" />
         <option value="$PROJECT_DIR$/src/Elements/Ports/OutputPort.java" />
-        <option value="$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java" />
+        <option value="$PROJECT_DIR$/src/Elements/Blocks/Block.java" />
         <option value="$PROJECT_DIR$/src/Elements/Containers/BlockSave.java" />
         <option value="$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java" />
+        <option value="$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java" />
         <option value="$PROJECT_DIR$/src/Elements/Containers/PortSave.java" />
+        <option value="$PROJECT_DIR$/src/Elements/Ports/Port.java" />
       </list>
     </option>
   </component>
@@ -862,7 +840,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525623028770</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Documentation added">
+      <created>1525642021202</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1525642021202</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -977,7 +962,6 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Rewritten block logic. Added connections, ports initial implementation&#10;(in progress)" />
     <MESSAGE value="Added interface integration to block class." />
     <MESSAGE value="New interfaces for schema elements." />
     <MESSAGE value="Added Port implementation and interface." />
@@ -1002,7 +986,8 @@
     <MESSAGE value="Cant create ant..." />
     <MESSAGE value="Ant done, documentation is coming..." />
     <MESSAGE value="Build.xml, added doc." />
-    <option name="LAST_COMMIT_MESSAGE" value="Build.xml, added doc." />
+    <MESSAGE value="Documentation added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1014,13 +999,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1692">
-          <caret line="106" column="20" lean-forward="true" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Elements/README" />
     <entry file="file://$PROJECT_DIR$/src/Elements/Ports/InputPort.java" />
     <entry file="jar:///usr/java/jdk1.8.0_161/javafx-src.zip!/javafx/scene/input/InputEvent.java">
@@ -1177,10 +1155,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FXML_src/InBlockSetup.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Logic/InBlockSetup.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
@@ -1250,39 +1224,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4752">
-          <caret line="290" column="30" selection-start-line="290" selection-start-column="30" selection-end-line="290" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2194#2195#0" expanded="true" />
-            <element signature="e#2227#2228#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/AddBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/Block.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="391" column="30" selection-start-line="391" selection-start-column="30" selection-end-line="391" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/InOutBlock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="934">
@@ -1311,34 +1252,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java">
+    <entry file="file://$PROJECT_DIR$/src/FXML_src/interface.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FXML_src/InBlockSetup.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/AddBlock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="218" column="30" selection-start-line="218" selection-start-column="30" selection-end-line="218" selection-end-column="30" />
-          <folding>
-            <element signature="e#967#968#0" expanded="true" />
-            <element signature="e#994#995#0" expanded="true" />
-            <element signature="e#1041#1042#0" expanded="true" />
-            <element signature="e#1070#1071#0" expanded="true" />
-            <element signature="e#1115#1116#0" expanded="true" />
-            <element signature="e#1143#1144#0" expanded="true" />
-            <element signature="e#1200#1201#0" expanded="true" />
-            <element signature="e#1234#1235#0" expanded="true" />
-            <element signature="e#6513#6514#0" expanded="true" />
-            <element signature="e#6540#6541#0" expanded="true" />
-            <element signature="e#6643#6644#0" expanded="true" />
-            <element signature="e#6675#6676#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="198">
+          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/Block.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="324" column="23" selection-start-line="324" selection-start-column="23" selection-end-line="324" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Elements/Containers/BlockSave.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="51" column="7" lean-forward="true" selection-start-line="48" selection-start-column="4" selection-end-line="51" selection-end-column="7" />
-          <caret line="59" column="7" lean-forward="true" selection-start-line="56" selection-start-column="4" selection-end-line="59" selection-end-column="7" />
-          <caret line="67" column="7" lean-forward="true" selection-start-line="64" selection-start-column="4" selection-end-line="67" selection-end-column="7" />
-          <caret line="75" column="7" lean-forward="true" selection-start-line="72" selection-start-column="4" selection-end-line="75" selection-end-column="7" />
+        <state relative-caret-position="691">
+          <caret line="153" column="28" selection-start-line="153" selection-start-column="28" selection-end-line="153" selection-end-column="28" />
           <folding>
             <element signature="e#1151#1152#0" expanded="true" />
             <element signature="e#1186#1187#0" expanded="true" />
@@ -1360,9 +1306,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="116" column="29" lean-forward="true" selection-start-line="113" selection-start-column="4" selection-end-line="116" selection-end-column="29" />
-          <caret line="129" column="7" lean-forward="true" selection-start-line="126" selection-start-column="4" selection-end-line="129" selection-end-column="7" />
+        <state relative-caret-position="828">
+          <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
           <folding>
             <element signature="e#1452#1453#0" expanded="true" />
             <element signature="e#1482#1483#0" expanded="true" />
@@ -1380,10 +1325,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="227" column="38" selection-start-line="227" selection-start-column="38" selection-end-line="227" selection-end-column="38" />
+          <folding>
+            <element signature="e#967#968#0" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1041#1042#0" expanded="true" />
+            <element signature="e#1070#1071#0" expanded="true" />
+            <element signature="e#1115#1116#0" expanded="true" />
+            <element signature="e#1143#1144#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1234#1235#0" expanded="true" />
+            <element signature="e#6513#6514#0" expanded="true" />
+            <element signature="e#6540#6541#0" expanded="true" />
+            <element signature="e#6643#6644#0" expanded="true" />
+            <element signature="e#6675#6676#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Elements/Containers/PortSave.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="745">
-          <caret line="118" column="39" selection-start-line="118" selection-start-column="39" selection-end-line="118" selection-end-column="39" />
+        <state relative-caret-position="727">
+          <caret line="120" column="28" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
           <folding>
             <element signature="e#986#987#0" expanded="true" />
             <element signature="e#1021#1022#0" expanded="true" />
@@ -1397,6 +1363,18 @@
             <element signature="e#1657#1658#0" expanded="true" />
             <element signature="e#2389#2390#0" expanded="true" />
             <element signature="e#2424#2425#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="179" column="42" selection-start-line="179" selection-start-column="42" selection-end-line="179" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2194#2195#0" expanded="true" />
+            <element signature="e#2227#2228#0" expanded="true" />
           </folding>
         </state>
       </provider>

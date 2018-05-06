@@ -151,7 +151,7 @@ public class BlockSave implements Serializable {
 
     /**
      * Hash code generator for BlockSave
-     * @return
+     * @return int Hash code
      */
     @Override
     public int hashCode() {

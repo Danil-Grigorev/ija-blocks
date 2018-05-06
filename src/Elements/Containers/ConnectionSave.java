@@ -126,7 +126,7 @@ public class ConnectionSave implements Serializable {
 
     /**
      * Hash code generator for ConnectionSave
-     * @return
+     * @return int Hash save
      */
     @Override
     public int hashCode() {

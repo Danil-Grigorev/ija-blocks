@@ -225,7 +225,7 @@ public class ItemContainer implements Serializable {
 
     /**
      * Setter for scheme save name
-     * @param name
+     * @param name name of scheme save
      */
     public void setName(String name) {
         this.name = name;

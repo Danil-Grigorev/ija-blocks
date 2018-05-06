@@ -85,6 +85,7 @@ public class PortSave implements Serializable {
     /**
      * Restores Port from PortSave, and puts it on scheme
      * @param logic     Logic for scheme
+     * @param parent    Block port belongs to
      * @return          Port restored one
      */
     public Port restore(Logic logic, Block parent) {
@@ -117,7 +118,7 @@ public class PortSave implements Serializable {
 
     /**
      * Hash code generator for PortSave
-     * @return
+     * @return int Hash code
      */
     @Override
     public int hashCode() {

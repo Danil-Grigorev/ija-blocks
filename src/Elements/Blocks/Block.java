@@ -313,7 +313,7 @@ public abstract class Block {
     /**
      * Block ID getter.
      *
-     * @return
+     * @return int ID
      */
     public int getId() {
         return id;
@@ -322,7 +322,7 @@ public abstract class Block {
     /**
      * Block ID setter.
      *
-     * @param id
+     * @param id int ID
      */
     public void setId(int id) {
         this.id = id;
