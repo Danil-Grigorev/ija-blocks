@@ -1,31 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="JavaFXApp" />
+      <artifact name="project:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rozdeleni.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/project_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Blocks/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Containers/BlockSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Containers/BlockSave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/InputPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/InputPort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elements/Ports/OutputPort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/OutputPort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Elements/Ports/Port.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elements/Ports/Port.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/ADD.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/ADD.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/DIV.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/DIV.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/IN.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/IN.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/MUL.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/MUL.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/OUT.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/OUT.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/SPLIT.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/SPLIT.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/SUB.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/SUB.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/interface.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interface/interface.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/next.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/next.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/start.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/start.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interface/stop.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/images/stop.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Logic/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/InBlockSetup.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/InterfaceElm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/SingConElm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Interface/interface.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Logic/InBlockSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/InBlockSetup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Logic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Logic/Main.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,30 +90,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DivBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/DivBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="71" column="8" selection-start-line="71" selection-start-column="8" selection-end-line="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Logic.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Logic/Logic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-522">
-              <caret line="384" column="26" selection-start-line="384" selection-start-column="26" selection-end-line="384" selection-end-column="26" />
+            <state relative-caret-position="6390">
+              <caret line="379" column="26" selection-start-line="379" selection-start-column="26" selection-end-line="379" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#13599#13600#0" expanded="true" />
-                <element signature="e#13651#13652#0" expanded="true" />
-                <element signature="e#14074#14075#0" expanded="true" />
-                <element signature="e#14103#14104#0" expanded="true" />
-                <element signature="e#14138#14139#0" expanded="true" />
-                <element signature="e#14176#14177#0" expanded="true" />
-                <element signature="e#14226#14227#0" expanded="true" />
-                <element signature="e#14270#14271#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -129,62 +105,29 @@
       <file leaf-file-name="Connection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Connection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3006">
+            <state relative-caret-position="6">
               <caret line="281" column="8" selection-start-line="281" selection-start-column="8" selection-end-line="281" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InBlockSetup.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Logic/InBlockSetup.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Port.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
               <folding>
-                <element signature="e#7555#7556#0" expanded="true" />
-                <element signature="e#7588#7589#0" expanded="true" />
-                <element signature="e#7618#7619#0" expanded="true" />
-                <element signature="e#7660#7661#0" expanded="true" />
-                <element signature="e#7689#7690#0" expanded="true" />
-                <element signature="e#7721#7722#0" expanded="true" />
-                <element signature="e#7748#7749#0" expanded="true" />
-                <element signature="e#7778#7779#0" expanded="true" />
-                <element signature="e#7804#7805#0" expanded="true" />
-                <element signature="e#7829#7830#0" expanded="true" />
-                <element signature="e#7862#7863#0" expanded="true" />
-                <element signature="e#7890#7891#0" expanded="true" />
-                <element signature="e#7937#7938#0" expanded="true" />
-                <element signature="e#7971#7972#0" expanded="true" />
-                <element signature="e#9441#9442#0" expanded="true" />
-                <element signature="e#9506#9507#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="143" selection-start-column="143" selection-end-column="143" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InOutBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/InOutBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="936">
-              <caret line="68" column="36" selection-start-line="68" selection-start-column="36" selection-end-line="68" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MulBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/MulBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="75" selection-start-line="75" selection-end-line="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SplitBlock.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Elements/Blocks/SplitBlock.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -201,7 +144,7 @@
       <file leaf-file-name="ConnectionSave.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
+            <state relative-caret-position="972">
               <caret line="71" selection-start-line="71" selection-end-line="71" />
             </state>
           </provider>
@@ -305,7 +248,6 @@
         <option value="$PROJECT_DIR$/src/Elements/Containers/ItemContainer.java" />
         <option value="$PROJECT_DIR$/src/Interface/InBlockSetup.java" />
         <option value="$PROJECT_DIR$/src/Interface/InBlockSetup.fxml" />
-        <option value="$PROJECT_DIR$/src/Logic/InBlockSetup.java" />
         <option value="$PROJECT_DIR$/src/Elements/DataTypes/DataType.java" />
         <option value="$PROJECT_DIR$/src/Elements/DataTypes/FloatType.java" />
         <option value="$PROJECT_DIR$/src/Elements/DataTypes/IntType.java" />
@@ -320,7 +262,6 @@
         <option value="$PROJECT_DIR$/src/Elements/Blocks/SubBlock.java" />
         <option value="$PROJECT_DIR$/src/Elements/Ports/InputPort.java" />
         <option value="$PROJECT_DIR$/src/Elements/Ports/OutputPort.java" />
-        <option value="$PROJECT_DIR$/src/Elements/Ports/Port.java" />
         <option value="$PROJECT_DIR$/src/Elements/Blocks/Block.java" />
         <option value="$PROJECT_DIR$/readme.txt" />
         <option value="$PROJECT_DIR$/rozdeleni.txt" />
@@ -329,7 +270,9 @@
         <option value="$PROJECT_DIR$/src/Elements/Containers/BlockSave.java" />
         <option value="$PROJECT_DIR$/src/Logic/Logic.java" />
         <option value="$PROJECT_DIR$/src/Elements/Ports/Connection.java" />
+        <option value="$PROJECT_DIR$/src/Logic/InBlockSetup.java" />
         <option value="$PROJECT_DIR$/build.xml" />
+        <option value="$PROJECT_DIR$/src/Elements/Ports/Port.java" />
       </list>
     </option>
   </component>
@@ -355,9 +298,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -370,6 +313,12 @@
               <item name="project" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Logic" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -377,6 +326,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.generateSingleFile" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="build" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
@@ -387,8 +338,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib2" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -424,7 +375,10 @@
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application">
+    <configuration name="Main" type="Application" factoryName="Application" activateToolWindowBeforeRun="false">
+      <option name="ALTERNATIVE_JRE_PATH" value="/usr/java/jdk1.8.0_161/jre" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="Logic.Main" />
       <module name="project" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -436,6 +390,13 @@
       </extension>
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="JavaFXApp" />
+          <artifact name="project:jar" />
+        </option>
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -726,7 +687,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525514900299</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Added alert box for fail while scheme saving or loading.&#10;Added color change after click on port.&#10;But i can't complile... Hate this. Ant is ridiculous...">
+      <created>1525544832506</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1525544832506</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -734,7 +702,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1920" height="1053" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -744,39 +711,39 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32857144" />
       <window_info anchor="right" id="Maven Projects" order="4" weight="0.32959402" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32967034" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35352424" />
-      <window_info anchor="bottom" id="Terminal" order="13" weight="0.33186814" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32929516" />
+      <window_info anchor="bottom" id="Terminal" order="13" weight="0.33114034" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.13621795" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32929516" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.13942307" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39977974" />
+      <window_info id="Favorites" order="5" side_tool="true" />
       <window_info anchor="right" id="JetGradle" order="6" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Problems" order="12" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32929516" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Database" order="5" />
-      <window_info anchor="bottom" id="Profiler" order="9" />
-      <window_info anchor="bottom" id="Problems" order="12" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Application Servers" order="8" />
       <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.32959402" />
+      <window_info anchor="bottom" id="Profiler" order="9" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Application Servers" order="8" />
     </layout>
     <layout-to-restore>
       <window_info anchor="bottom" id="Application Servers" order="8" />
       <window_info id="Designer" order="3" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="JetGradle" order="6" />
+      <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.35352424" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="JetGradle" order="6" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
       <window_info anchor="bottom" id="Profiler" order="9" />
@@ -786,21 +753,21 @@
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" weight="0.32857144" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.32747254" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.13621795" />
       <window_info anchor="bottom" id="Problems" order="12" />
-      <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32967034" />
       <window_info anchor="right" id="Maven Projects" order="4" weight="0.32959402" />
       <window_info anchor="bottom" id="Terminal" order="13" weight="0.33186814" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.13621795" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Coverage" order="10" side_tool="true" weight="0.32959402" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32929516" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39977974" />
@@ -841,7 +808,6 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <MESSAGE value="Blank package for blocks and connections implementation.&#10;Changed workspace." />
     <MESSAGE value="Added scroll pane for schema anchor pane. Now it is resizable." />
     <MESSAGE value="Beta &quot;Add connection&quot; implementation." />
     <MESSAGE value="Viki: Added blocks and ports initial logic." />
@@ -866,7 +832,8 @@
     <MESSAGE value="Added images to blocks + execution interface changes." />
     <MESSAGE value="Some fixes." />
     <MESSAGE value="Pictures added." />
-    <option name="LAST_COMMIT_MESSAGE" value="Pictures added." />
+    <MESSAGE value="Added alert box for fail while scheme saving or loading.&#10;Added color change after click on port.&#10;But i can't complile... Hate this. Ant is ridiculous..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added alert box for fail while scheme saving or loading.&#10;Added color change after click on port.&#10;But i can't complile... Hate this. Ant is ridiculous..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -878,6 +845,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="55" lean-forward="true" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java" />
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -948,20 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Interface/InterfaceElm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Interface/SingConElm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/java/jdk1.8.0_161/src.zip!/java/lang/Double.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -1011,9 +971,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/images/stop.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="jar:///usr/java/jdk1.8.0_161/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -1035,24 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="123" column="62" selection-start-line="123" selection-start-column="53" selection-end-line="123" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Interface/interface.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="77" column="43" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="43" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -1060,9 +999,6 @@
           <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="27" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/images/start.png">
-      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/rozdeleni.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -1089,13 +1025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Logic/InBlockSetup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="46" column="32" lean-forward="true" selection-start-line="43" selection-start-column="11" selection-end-line="46" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1188,7 +1117,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Elements/Containers/ConnectionSave.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
+        <state relative-caret-position="972">
           <caret line="71" selection-start-line="71" selection-end-line="71" />
         </state>
       </provider>
@@ -1202,51 +1131,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Logic/Logic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-522">
-          <caret line="384" column="26" selection-start-line="384" selection-start-column="26" selection-end-line="384" selection-end-column="26" />
+        <state relative-caret-position="6390">
+          <caret line="379" column="26" selection-start-line="379" selection-start-column="26" selection-end-line="379" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#13599#13600#0" expanded="true" />
-            <element signature="e#13651#13652#0" expanded="true" />
-            <element signature="e#14074#14075#0" expanded="true" />
-            <element signature="e#14103#14104#0" expanded="true" />
-            <element signature="e#14138#14139#0" expanded="true" />
-            <element signature="e#14176#14177#0" expanded="true" />
-            <element signature="e#14226#14227#0" expanded="true" />
-            <element signature="e#14270#14271#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Connection.java">
+    <entry file="file://$PROJECT_DIR$/src/Interface/InterfaceElm.java" />
+    <entry file="file://$PROJECT_DIR$/src/Interface/SingConElm.java" />
+    <entry file="file://$PROJECT_DIR$/src/Logic/InBlockSetup.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3006">
-          <caret line="281" column="8" selection-start-line="281" selection-start-column="8" selection-end-line="281" selection-end-column="8" />
-          <folding>
-            <element signature="e#7555#7556#0" expanded="true" />
-            <element signature="e#7588#7589#0" expanded="true" />
-            <element signature="e#7618#7619#0" expanded="true" />
-            <element signature="e#7660#7661#0" expanded="true" />
-            <element signature="e#7689#7690#0" expanded="true" />
-            <element signature="e#7721#7722#0" expanded="true" />
-            <element signature="e#7748#7749#0" expanded="true" />
-            <element signature="e#7778#7779#0" expanded="true" />
-            <element signature="e#7804#7805#0" expanded="true" />
-            <element signature="e#7829#7830#0" expanded="true" />
-            <element signature="e#7862#7863#0" expanded="true" />
-            <element signature="e#7890#7891#0" expanded="true" />
-            <element signature="e#7937#7938#0" expanded="true" />
-            <element signature="e#7971#7972#0" expanded="true" />
-            <element signature="e#9441#9442#0" expanded="true" />
-            <element signature="e#9506#9507#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="252">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="143" selection-start-column="143" selection-end-column="143" />
+        <state relative-caret-position="666">
+          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Connection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6">
+          <caret line="281" column="8" selection-start-line="281" selection-start-column="8" selection-end-line="281" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Elements/Ports/Port.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1256,7 +1184,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>JavaFXApp</last-edited>
+          <last-edited>project:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

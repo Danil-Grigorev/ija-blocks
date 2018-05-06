@@ -3,20 +3,17 @@ package Elements.Ports;
 import Elements.Blocks.Block;
 import Elements.Containers.ItemContainer;
 import Elements.DataTypes.DataType;
-import Interface.SingConElm;
 import javafx.application.Platform;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import Logic.Logic;
 import java.io.IOException;
 import java.io.Serializable;
 
-public abstract class Port implements SingConElm, Serializable {
+public abstract class Port implements Serializable {
 
-    // TODO: rewrite to "dataType"
     protected Connection conTo;
     protected Block parent;
     protected Pane stack;

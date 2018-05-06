@@ -2,17 +2,13 @@ package Logic;
 
 import Elements.Blocks.*;
 import Elements.Containers.ItemContainer;
-import Elements.DataTypes.DataType;
-import Elements.DataTypes.IntType;
 import Elements.Ports.Connection;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -24,7 +20,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -207,7 +202,7 @@ public class Logic {
     private void openSetInWind(Block caller) {
         if (!blockNewSetInWind) {
             blockNewSetInWind = true;
-            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Interface/InBlockSetup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML_src/InBlockSetup.fxml"));
             Scene newScene;
             try {
                 newScene = new Scene(loader.load());

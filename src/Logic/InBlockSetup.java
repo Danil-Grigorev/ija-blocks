@@ -5,7 +5,6 @@ import Elements.DataTypes.DataType;
 import Elements.DataTypes.DoubleType;
 import Elements.DataTypes.FloatType;
 import Elements.DataTypes.IntType;
-import com.sun.org.apache.bcel.internal.generic.LoadClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -13,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
