@@ -1,8 +1,8 @@
 <project name="project" default="compile" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
     <description>
-        IJA Project
-        Danil Grigorev, xgrigo02
-        Viktoria Cervenanska, xcerve23
+        Schema application
+        Danil Grigorev - xgrigo02
+        Viktoria Cervenanska - xcerve23
     </description>
 
     <property name="src.dir" value="src"/>
@@ -10,7 +10,7 @@
     <property name="dest.dir" location="dest-client/"/>
     <property name="dest.serv.dir" location="dest-server"/>
     <property name="doc.dir" value="doc/"/>
-    <property name="classes.dir" value="./build"/>
+    <property name="lib.dir" value="lib/"/>
 
     <!-- COMPILE -->
     <target name="compile" depends="clean, doc">
@@ -24,7 +24,7 @@
 
         <!-- COPY IMAGES TO BUILD DIRECTORY -->
         <copy todir="${build.dir}/images">
-            <fileset dir="${src.dir}/images"/>
+            <fileset dir="${lib.dir} "/>
         </copy>
 
         <!-- SETTING ANT PATH -->
