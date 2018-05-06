@@ -3,9 +3,6 @@ package Elements.Ports;
 import Elements.Blocks.Block;
 import Elements.Containers.ConnectionSave;
 import Elements.Containers.ItemContainer;
-import Elements.Ports.InputPort;
-import Elements.Ports.OutputPort;
-import Elements.Ports.Port;
 import Logic.Logic;
 import javafx.application.Platform;
 import javafx.scene.control.Tooltip;
@@ -17,6 +14,9 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author xgrigo02
+ */
 public class Connection {
 
     private OutputPort from;
@@ -33,7 +33,12 @@ public class Connection {
     public Color stColor = Color.GRAY;
     private Color actColor = Color.CYAN.darker();
 
-
+    /**
+     * Connection constructor.
+     *
+     * @param logic  scheme Logic instance
+     * @param scheme scheme pane
+     */
     public Connection(Logic logic, AnchorPane scheme) {
         this.logic = logic;
         this.scheme = scheme;
@@ -50,6 +55,12 @@ public class Connection {
         this.lines.add(tmp);
     }
 
+    /**
+     * Set Input port for connection.
+     *
+     * @param port          port to set.
+     * @throws IOException  trows when cycle was detected or connected with Input port.
+     */
     public void setPortIn(OutputPort port) throws IOException {
         if (this.from != null) {
             throw new IOException();
@@ -63,6 +74,12 @@ public class Connection {
         popupUpdate();
     }
 
+    /**
+     * Set Output port for connection.
+     *
+     * @param port          port to set.
+     * @throws IOException  trows when cycle was detected or connected with Output port.
+     */
     public void setPortOut(InputPort port) throws IOException {
         if (this.to != null) throw new IOException();
         this.to = port;
@@ -74,6 +91,13 @@ public class Connection {
         popupUpdate();
     }
 
+    /**
+     * Creates new joint on connection and makes it's setup.
+     *
+     * @param toLine    to which line showld it depend
+     * @param X         On position X
+     * @param Y         On position Y
+     */
     public void addJoint(Line toLine, double X, double Y) {
         int index = this.lines.indexOf(toLine);
 
@@ -114,6 +138,13 @@ public class Connection {
         popupUpdate();
     }
 
+    /**
+     * Drags joint to specified position X, Y.
+     *
+     * @param joint     reference to joint, which should be dragged.
+     * @param X         on position X
+     * @param Y         on position Y
+     */
     public void repositionJoint(Rectangle joint, double X, double Y) {
         int index = this.joints.indexOf(joint);
 
@@ -143,6 +174,11 @@ public class Connection {
         }
     }
 
+    /**
+     * Removes joint from schema and connection.
+
+     * @param joint reference to joint
+     */
     public void removeJoint(Rectangle joint) {
         int index = this.joints.indexOf(joint);
         Line lineLeft = this.lines.get(index);
@@ -157,6 +193,9 @@ public class Connection {
         this.scheme.getChildren().removeAll(joint, next);
     }
 
+    /**
+     * Sets joint active when new value on block was detected, and repaints it.
+     */
     public void setActive() {
         double strokeWidth;
         for (Line ln : this.lines) {
@@ -173,6 +212,9 @@ public class Connection {
         popupUpdate();
     }
 
+    /**
+     * Sets joint inactive when value disappears, and repaints it.
+     */
     public void setInactive() {
         double strokeWidth;
         if (this.from == null || this.to == null) { return; }
@@ -190,6 +232,12 @@ public class Connection {
         popupUpdate();
     }
 
+    /**
+     * Returns specified line form lines list.
+     *
+     * @param lineNum   number of line to be returned
+     * @return          Line found or null
+     */
     public Line getLine(int lineNum) {
         if (this.lines.size() == 0) { return null; }
         if (lineNum < -1 || lineNum > this.lines.size() - 1) { return null; }
@@ -197,6 +245,13 @@ public class Connection {
         else { return this.lines.get(lineNum); }
     }
 
+    /**
+     * Sets starting point of specified line.
+     *
+     * @param lineNumber    number of line
+     * @param X             new X
+     * @param Y             new Y
+     */
     public void setStartPoint(int lineNumber, double X, double Y) {
         assert lineNumber < this.lines.size() && lineNumber >= -1: "Line number out of range";
         Line tmp;
@@ -207,6 +262,13 @@ public class Connection {
         tmp.toBack();
     }
 
+    /**
+     * Sets ending point of specified line.
+     *
+     * @param lineNumber    number of line
+     * @param X             new X
+     * @param Y             new Y
+     */
     public void setEndPoint(int lineNumber, double X, double Y) {
         assert lineNumber < this.lines.size() && lineNumber >= -1: "Line number out of range";
         Line tmp;
@@ -217,6 +279,9 @@ public class Connection {
         tmp.toBack();
     }
 
+    /**
+     * New line setup and adding to the pane.
+     */
     public void set() {
         this.isSet = true;
         Line tmp;
@@ -243,34 +308,72 @@ public class Connection {
         popupUpdate();
     }
 
+    /**
+     * Getter for line set state.
+     *
+     * @return boolean, was line set
+     */
     public boolean isSet() {
         return this.isSet;
     }
 
+    /**
+     * Getter for block, which is connected to the end port of connection.
+     *
+     * @return Block, next block
+     */
     public Block getNext() {
         return this.to.getParent();
     }
 
+    /**
+     * Getter for Output port "from".
+     *
+     * @return Port, starting one
+     */
     public Port getFrom() {
         return this.from;
     }
 
+    /**
+     * Getter for Input port "to".
+     *
+     * @return Port, ending one
+     */
     public Port getTo() {
         return this.to;
     }
 
+    /**
+     * Getter for Connection ID.
+     *
+     * @return int ID of connection
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setter for Connection ID.
+     *
+     * @param id new ID to be set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Getter for connection joints as list.
+     *
+     * @return ArrayList of joints
+     */
     public ArrayList<Rectangle> getJoints() {
         return this.joints;
     }
 
+    /**
+     * Removes connection from pane and data structures.
+     */
     public void remove() {
         if (this.from != null) {
             this.from.makeSelected(false);
@@ -286,6 +389,11 @@ public class Connection {
         });
     }
 
+    /**
+     * Moves to new position, dictated by source port, which was moved.
+     *
+     * @param caller    reference to the source port
+     */
     public void reposition(Port caller) {
         if (this.from == caller) {
             setStartPoint(0, caller.getCenterX(), caller.getCenterY() );
@@ -295,6 +403,9 @@ public class Connection {
         }
     }
 
+    /**
+     * Updates popup message window.
+     */
     public void popupUpdate() {
         String info = "";
         info += "ID: " + getId() + "\n";
@@ -318,6 +429,11 @@ public class Connection {
 
     }
 
+    /**
+     * Creates save for this Connection.
+     *
+     * @param container ItemContainer to put save in
+     */
     public void createSave(ItemContainer container) {
         container.addConnection(new ConnectionSave(this));
     }

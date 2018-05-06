@@ -11,12 +11,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author xgrigo02
+ */
 public class InBlockSetup implements Initializable {
 
 
@@ -27,10 +31,33 @@ public class InBlockSetup implements Initializable {
     public AnchorPane inBlockSetup;
     private Block caller;
 
+    /**
+     * Keyboard key listeners setup. Allows to use escape and enter keys.
+     *
+     * @param caller    reference to clicked in block
+     */
     public void init(Block caller) {
         this.caller = caller;
+        inBlockSetup.getScene().addEventFilter(KeyEvent.KEY_PRESSED,
+                event -> {
+                    switch (event.getCode()) {
+                        case ESCAPE:
+                            cancelClick(null);
+                            event.consume();
+                            break;
+                        case ENTER:
+                            okClick(null);
+                            event.consume();
+                            break;
+                    }
+                });
     }
 
+    /**
+     * OK button click handler, saves new value to IN block.
+     *
+     * @param actionEvent   mouse click on ok button
+     */
     public void okClick(ActionEvent actionEvent) {
         Stage tmpWind = (Stage) inBlockSetup.getScene().getWindow();
         DataType newData;
@@ -67,13 +94,26 @@ public class InBlockSetup implements Initializable {
         }
         caller.setData(newData);
         tmpWind.close();
+        actionEvent.consume();
     }
 
+    /**
+     * Cancle button click handler, returns to scheme without changes.
+     *
+     * @param actionEvent   mouse click
+     */
     public void cancelClick(ActionEvent actionEvent) {
         Stage tmpWind = (Stage) inBlockSetup.getScene().getWindow();
         tmpWind.close();
+        actionEvent.consume();
     }
 
+    /**
+     * Initializable implementation.
+     *
+     * @param location  URL for file position
+     * @param resources additional resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

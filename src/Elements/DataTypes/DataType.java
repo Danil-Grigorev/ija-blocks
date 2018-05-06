@@ -2,13 +2,22 @@ package Elements.DataTypes;
 
 import java.text.DecimalFormat;
 
+/**
+ * @author xgrigo02
+ */
 public abstract class DataType {
 
     protected double value;
     protected boolean isDefined;
     protected DecimalFormat format;
+    protected String type;
 
-
+    /**
+     * Compares two data types
+     *
+     * @param obj object to compare
+     * @return <code>true</code> if objects are equal, else <code>false</code>
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) { return false; }
@@ -21,20 +30,47 @@ public abstract class DataType {
         }
     }
 
+    /**
+     *  Generates hash code
+     *
+     * @return <code>int</code> hash for DataType
+     */
     @Override
     public int hashCode() {
         return (int) this.value;
     }
 
-    public boolean isDefined() {
-        return this.isDefined;
+    /**
+     * Returns DataType value
+     *
+     * @return double DataType value
+     */
+    public double getValue() {
+        return this.value;
     }
 
-    public abstract double getValue();
-
+    /**
+     * Sets DataType value
+     *
+     * @param value values to set
+     */
     public abstract void setValue(double value);
 
-    public abstract String getType();
+    /**
+     * Type getter
+     *
+     * @return String representation of DataType type.
+     */
+    public String getType() {
+        return this.type;
+    }
 
-    public abstract String getStrValue();
+    /**
+     * Getter for string representation of value.
+     *
+     * @return String representation of DataType value
+     */
+    public String getStrValue() {
+        return this.format.format(this.value);
+    }
 }

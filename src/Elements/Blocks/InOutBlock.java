@@ -1,21 +1,13 @@
 package Elements.Blocks;
 
-import Elements.Containers.BlockSave;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Elements.Ports.Port;
 import Logic.Logic;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class InOutBlock extends Block {
@@ -23,6 +15,13 @@ public class InOutBlock extends Block {
     private boolean typeIn;
     private Label valLab;
 
+    /**
+     * IN or OUt block constructor.
+     *
+     * @param logic     Logic of current scheme
+     * @param scheme    Pane to put block on
+     * @param typeIn    specifies whether is IN type or not.
+     */
     public InOutBlock(Logic logic, AnchorPane scheme, boolean typeIn) {
         this.scheme = scheme;
         this.logic = logic;
@@ -70,6 +69,9 @@ public class InOutBlock extends Block {
         popupUpdate(this.shape);
     }
 
+    /**
+     * Makes calculations.
+     */
     @Override
     public void calculate() {
 
@@ -102,6 +104,11 @@ public class InOutBlock extends Block {
         }
     }
 
+    /**
+     * Sets value invisible when scheme not in execution state.
+     *
+     * @param bool bool to set state
+     */
     public void hideVal(boolean bool) {
         if (bool) {
             this.valLab.setVisible(false);

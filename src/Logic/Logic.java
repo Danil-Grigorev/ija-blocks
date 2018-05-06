@@ -24,7 +24,11 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
 
-
+/**
+ * Logic class for scheme execution.
+ *
+ * @author xgrigo02
+ */
 public class Logic {
     public State schemeState;
     private AnchorPane schemePane;
@@ -46,6 +50,14 @@ public class Logic {
     private boolean blockNewSetInWind;
 
     // -----------------------
+
+    /**
+     * Logic initializer, sets connection with main window, and indents for correct block positioning
+     *
+     * @param displayPane   Main window pane
+     * @param indentX       x offset for block positioning
+     * @param indentY       y offset for block positioning
+     */
     public Logic(AnchorPane displayPane, double indentX, double indentY) {
         this.indentX = indentX;
         this.indentY = indentY;
@@ -59,10 +71,26 @@ public class Logic {
         blockNewSetInWind = false;
     }
 
+    /**
+     * Schema state getter.
+     *
+     * @return State    Schema actual state:
+     *
+     *                  <code>DEFAULT</code>    Waits for any operation, movement or connection seting.
+     *                  <code>PUT_BLOCK</code>  Putting block.
+     *                  <code>REMOVE</code>     Removing elements
+     *                  <code>ADD_CON_2</code>  Waits for setting second connection.
+     *                  <code>EXECUTE</code>    Schema is executing.
+     */
     public State getSchemeState() {
         return schemeState;
     }
 
+    /**
+     * Setting new scheme state and clears buffers for unfinished operations.
+     *
+     * @param schemeState   New <code>State</code> for scheme.
+     */
     public void setSchemeState(State schemeState) {
         Platform.runLater( () -> {
             if (schemeState == State.DEFAULT) {
@@ -90,6 +118,11 @@ public class Logic {
         });
     }
 
+    /**
+     * Handles all scheme operations.
+     *
+     * @param mouseEvent    Depending on scheme state, will do operation on clicked position.
+     */
     public void schemeAct(MouseEvent mouseEvent) {
         Platform.runLater( () -> {
 
@@ -115,6 +148,19 @@ public class Logic {
         });
     }
 
+    /**
+     *  Creates block skeleton of specified type.
+     *
+     * @param type  <code>String</code>, which specifies type of block to create.
+     *
+     *              <code>add</code>    ADD block.
+     *              <code>sub</code>    SUB block.
+     *              <code>mul</code>    MUL block.
+     *              <code>div</code>    DIV block.
+     *              <code>split</code>  SPLIT block.
+     *              <code>in</code>     IN block.
+     *              <code>out</code>    OUT block.
+     */
     public synchronized void initBl(String type) {
         Platform.runLater(() -> {
             if (accNode == false) {
@@ -149,6 +195,12 @@ public class Logic {
         });
     }
 
+    /**
+     * Puts initialized block on specified coordinates.
+     *
+     * @param X x coordinates for block creation.
+     * @param Y y coordinates for block creation.
+     */
     private synchronized void putBl(double X, double Y) {
         Platform.runLater(() -> {
             if (accNode == false) {
@@ -168,6 +220,10 @@ public class Logic {
         });
     }
 
+    /**
+     * Executes all blocks, which are ready for calculation and have all input ports set
+     * and have data.
+     */
     public void executeAll() {
         boolean doCalc;
         ArrayList<Block> blocksToExecute = new ArrayList<>();
@@ -187,10 +243,10 @@ public class Logic {
             }
         }
         for (Block block : blocksToExecute) {
-            block.calculate();
             for (OutputPort port : block.getOutputPorts()) {
                 port.block();
             }
+            block.calculate();
         }
         for (Block block : blocksToExecute) {
             for (OutputPort port : block.getOutputPorts()) {
@@ -199,6 +255,11 @@ public class Logic {
         }
     }
 
+    /**
+     * While scheme is executing, will open new window for value specification after IN block click.
+     *
+     * @param caller    Source block reference.
+     */
     private void openSetInWind(Block caller) {
         if (!blockNewSetInWind) {
             blockNewSetInWind = true;
@@ -223,6 +284,12 @@ public class Logic {
         }
     }
 
+    /**
+     * Depending on scheme <code>State</code> will do expected operation.
+     *
+     * @param caller    <code>Block</code> Source block reference.
+     * @param e         <code>MouseEvent</code> for additional actions
+     */
     public void blockClick(Block caller, MouseEvent e) {
         switch (getSchemeState()) {
             case REMOVE:
@@ -243,6 +310,12 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Allows blocks to be draggable.
+     *
+     * @param caller    <code>Block</code> Source block reference.
+     * @param e         <code>MouseEvent</code> for additional actions
+     */
     public void blockDrag(Block caller, MouseEvent e) {
         switch (getSchemeState()) {
             case DEFAULT:
@@ -255,6 +328,12 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Does operations like creating new connection or block removing after port click.
+     *
+     * @param caller    <code>Port</code> Source port reference.
+     * @param e         <code>MouseEvent</code> for additional actions
+     */
     public void portClick(Port caller, MouseEvent e) {
         switch (getSchemeState()) {
             case REMOVE:
@@ -303,6 +382,12 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Provide connection click functionality, like creating new joint or deletion.
+     *
+     * @param caller    <code>Connection</code> Source connection reference.
+     * @param e         <code>MouseEvent</code> for additional actions
+     */
     public void connectionClick(Connection caller, MouseEvent e) {
         switch (getSchemeState()) {
             case DEFAULT:
@@ -318,6 +403,12 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Makes joints draggable.
+     *
+     * @param caller    <code>Connection</code> Source connection reference.
+     * @param e         <code>MouseEvent</code> for additional actions
+     */
     public void jointDrag(Connection caller, MouseEvent e) {
         Rectangle joint = (Rectangle) e.getSource();
         switch (getSchemeState()) {
@@ -329,6 +420,12 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Provides joints functionality on click, like remove.
+     *
+     * @param caller    <code>Connection</code> Source connection reference.
+     * @param e         <code>MouseEvent</code> for additional actions
+     */
     public void jointClick(Connection caller, MouseEvent e) {
         Rectangle joint = (Rectangle) e.getSource();
         switch (getSchemeState()) {
@@ -340,6 +437,11 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Provides scheme element highlighting for all elements.
+     *
+     * @param e     <code>MouseEvent</code> contains information about source element.
+     */
     public void elementHover(MouseEvent e) {
         Shape object = null;
         if (e.getSource() instanceof Label) {
@@ -351,8 +453,8 @@ public class Logic {
                 }
             }
             if (object == null) {
-                Platform.exit();
-                System.exit(99);
+                e.consume();
+                return;
             }
         }
         else {
@@ -369,6 +471,11 @@ public class Logic {
         e.consume();
     }
 
+    /**
+     * Allows current scheme to be saved.
+     *
+     * @param name  <code>File</code> new .scm file name for saving current scheme.
+     */
     public void save(File name) {
         try {
             FileOutputStream file = new FileOutputStream(name);
@@ -380,11 +487,16 @@ public class Logic {
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Can't save scheme");
-            alert.setContentText("An error occurred while saving schema");
+            alert.setContentText("An error occurred while saving scheme");
             alert.showAndWait();
         }
     }
 
+    /**
+     * Allows scheme to be loaded.
+     *
+     * @param file <code>File</code> .scm file for scheme loading.
+     */
     public void load(File file) {
         try {
             FileInputStream fileIn = new FileInputStream(file);
@@ -405,10 +517,18 @@ public class Logic {
 
     }
 
+    /**
+     * Decorator for new element id creation, which returns generated ID from <code>elementContainer</code>.
+     *
+     * @return <code>int</code> new element ID.
+     */
     public int generateId() {
         return elementContainer.generateId();
     }
 
+    /**
+     * Resets all buffers after all scheme operations, (particularly unfinished).
+     */
     public void tmpReset() {
         if (tmpCon != null && !tmpCon.isSet()) {
             tmpCon.remove();
@@ -418,21 +538,40 @@ public class Logic {
         tmpCon = null;
     }
 
+    /**
+     * Resets whole scheme and clears it's pane.
+     */
     public void reset() {
         schemePane.getChildren().clear();
         blocks.clear();
         elementContainer = new ItemContainer();
+        this.schemeName = null;
         setSchemeState(State.DEFAULT);
     }
 
+    /**
+     * Getter for current scheme blocks as <code>ArrayList</code>.
+     * @return  <code>ArrayList</code> <code>Block</code>s
+     */
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
 
+    /**
+     * Getter for current scheme file location, or <code>null</code>.
+     *
+     * @return  <code>File</code> scheme file
+     */
     public File getSchemeName() {
         return this.schemeName;
     }
 
+
+    /**
+     * Setter for current scheme file location.
+     *
+     * @param schemeName <code>File</code> sets scheme location.
+     */
     public void setSchemeName(File schemeName) {
         this.schemeName = schemeName;
     }

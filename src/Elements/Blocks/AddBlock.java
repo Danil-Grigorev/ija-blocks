@@ -6,16 +6,23 @@ import Elements.DataTypes.FloatType;
 import Elements.DataTypes.IntType;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
-import javafx.scene.control.Tooltip;
+import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import Logic.Logic;
-
+/**
+ * @author xgrigo02
+ * @author xcerve23
+ */
 public class AddBlock extends Block {
 
+    /**
+     * ADD block constructor.
+     *
+     * @param logic     Logic of current scheme
+     * @param scheme    Pane to put block on
+     */
 	public AddBlock(Logic logic, AnchorPane scheme) {
 	    this.scheme = scheme;
 	    this.logic = logic;
@@ -33,6 +40,9 @@ public class AddBlock extends Block {
         this.accepted = 0;
     }
 
+    /**
+     * Makes calculations.
+     */
     @Override
     public void calculate() {
         int port_num;

@@ -3,13 +3,16 @@ package Elements.Containers;
 import Elements.Blocks.*;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
-import javafx.application.Platform;
+import Logic.Logic;
 import javafx.scene.layout.AnchorPane;
 
-import Logic.Logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
+/**
+ * @author xgrigo02
+ */
 public class BlockSave implements Serializable {
     private double layoutX;
     private double layoutY;
@@ -18,6 +21,10 @@ public class BlockSave implements Serializable {
     private ArrayList<Integer> InPorts;
     private ArrayList<Integer> OutPorts;
 
+    /**
+     * BlockSave constructor
+     * @param block block for save creation
+     */
     public BlockSave(Block block) {
         this.id = block.getId();
         this.name = block.getName();
@@ -39,30 +46,60 @@ public class BlockSave implements Serializable {
     }
 
 
+    /**
+     * Getter for BlockSave's layout x
+     * @return int X
+     */
     public double getLayoutX() {
         return this.layoutX;
     }
 
+    /**
+     * Getter for BlockSave's layout y
+     * @return int Y
+     */
     public double getLayoutY() {
         return this.layoutY;
     }
 
+    /**
+     * Getter for BlockSave's name
+     * @return String name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for blockSave's ID
+     * @return int ID
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Getter for blockSave's input ports
+     * @return ArrayList of ports
+     */
     public ArrayList<Integer> getInPorts() {
         return this.InPorts;
     }
 
+    /**
+     * Getter for blockSave's output ports
+     * @return ArrayList of ports
+     */
     public ArrayList<Integer> getOutPorts() {
         return this.OutPorts;
     }
 
+    /**
+     * Restore Block from BlockSave on scheme and adds it to scheme pane.
+     * @param logic     Scheme Logic
+     * @param scheme    scheme Pane
+     * @return          Block created
+     */
     public Block restore(Logic logic, AnchorPane scheme) {
         Block newBl;
         switch (this.name) {
@@ -99,6 +136,11 @@ public class BlockSave implements Serializable {
         return newBl;
     }
 
+    /**
+     * Compares BlockSave object with other one.
+     * @param o object to compare
+     * @return boolean result
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null) { return false; }
@@ -107,6 +149,10 @@ public class BlockSave implements Serializable {
         return this.getId() == ((BlockSave) o).getId();
     }
 
+    /**
+     * Hash code generator for BlockSave
+     * @return
+     */
     @Override
     public int hashCode() {
         return this.getId();

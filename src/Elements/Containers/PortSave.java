@@ -8,6 +8,9 @@ import Logic.Logic;
 
 import java.io.Serializable;
 
+/**
+ * @author xgrigo02
+ */
 public class PortSave implements Serializable {
 
     private double layoutX;
@@ -17,6 +20,10 @@ public class PortSave implements Serializable {
     private int conToId;
     private String type;
 
+    /**
+     * Constructor for PortSave
+     * @param port Port to create save for
+     */
     public PortSave (Port port) {
         this.layoutX = port.getLayoutX();
         this.layoutY = port.getLayoutY();
@@ -35,30 +42,51 @@ public class PortSave implements Serializable {
         this.id = port.getId();
     }
 
+    /**
+     * Getter for PortSave's layout x
+     * @return int X
+     */
     public double getLayoutX() {
         return this.layoutX;
     }
 
+    /**
+     * Getter for PortSave's layout y
+     * @return int Y
+     */
     public double getLayoutY() {
         return this.layoutY;
     }
 
+    /**
+     * Getter for PortSave's block ID
+     * @return int ID
+     */
     public int getBlockId() {
         return this.blockId;
     }
 
+    /**
+     * Getter for PortSave's ID
+     * @return int ID
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Getter for PorsSave's type
+     * @return Staring type
+     */
     public String getType() {
         return this.type;
     }
 
-    public int getConToId() {
-        return this.conToId;
-    }
-
+    /**
+     * Restores Port from PortSave, and puts it on scheme
+     * @param logic     Logic for scheme
+     * @return          Port restored one
+     */
     public Port restore(Logic logic, Block parent) {
         Port newPort;
         if (this.type.equals("in")) {
@@ -74,6 +102,11 @@ public class PortSave implements Serializable {
 
     }
 
+    /**
+     * Compares PortSave object with other one.
+     * @param o object to compare
+     * @return boolean result
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null) { return false; }
@@ -82,6 +115,10 @@ public class PortSave implements Serializable {
         return this.getId() == ((PortSave) o).getId();
     }
 
+    /**
+     * Hash code generator for PortSave
+     * @return
+     */
     @Override
     public int hashCode() {
         return this.getId();

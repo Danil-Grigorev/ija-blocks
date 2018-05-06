@@ -7,14 +7,22 @@ import Elements.DataTypes.IntType;
 import Elements.Ports.InputPort;
 import Elements.Ports.OutputPort;
 import Logic.Logic;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author xgrigo02
+ * @author xcerve23
+ */
 public class DivBlock extends Block {
 
+    /**
+     * DIV block constructor.
+     *
+     * @param logic     Logic of current scheme
+     * @param scheme    Pane to put block on
+     */
 	public DivBlock(Logic logic, AnchorPane scheme) {
         this.scheme = scheme;
         this.logic = logic;
@@ -32,6 +40,9 @@ public class DivBlock extends Block {
         this.accepted = 0;
     }
 
+    /**
+     * Makes calculations.
+     */
     @Override
     public void calculate() {
         int port_num;

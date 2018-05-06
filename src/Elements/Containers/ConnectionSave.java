@@ -7,8 +7,11 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
 
+/**
+ * @author xgrigo02
+ */
 public class ConnectionSave implements Serializable {
 
     private int id;
@@ -21,6 +24,10 @@ public class ConnectionSave implements Serializable {
     private ArrayList<Double> jointsX;
     private ArrayList<Double> jointsY;
 
+    /**
+     * Constructor for ConnectionSave
+     * @param con connection to create save for
+     */
     public ConnectionSave(Connection con) {
         this.id = con.getId();
         this.fromPortId = con.getFrom().getId();
@@ -42,26 +49,52 @@ public class ConnectionSave implements Serializable {
         }
     }
 
+    /**
+     * Getter for ConnectionSave's ID
+     * @return int ID
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Getter for first ConnectionSave's port ID
+     * @return int ID
+     */
     public int getFromPortId() {
         return this.fromPortId;
     }
 
+    /**
+     * Getter for first ConnectionSave's port ID
+     * @return int ID
+     */
     public int getToPortId() {
         return this.toPortId;
     }
 
+    /**
+     * Getter for ConnectionSave's joints X coordinates
+     * @return ArrayList joints X
+     */
     public ArrayList<Double> getJointsX() {
         return this.jointsX;
     }
 
+    /**
+     * Getter for ConnectionSave's joints Y coordinates
+     * @return ArrayList joints Y
+     */
     public ArrayList<Double> getJointsY() {
         return this.jointsY;
     }
 
+    /**
+     * Restores Connection from Connection save, and puts it on scheme
+     * @param logic     Logic for scheme
+     * @param scheme    scheme pane to put connection on
+     * @return          Connection restored one
+     */
     public Connection restore(Logic logic, AnchorPane scheme) {
         Connection newCon = new Connection(logic, scheme);
         newCon.setId(this.id);
@@ -78,6 +111,11 @@ public class ConnectionSave implements Serializable {
         return newCon;
     }
 
+    /**
+     * Compares ConnectionSave object with other one.
+     * @param o object to compare
+     * @return boolean result
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null) { return false; }
@@ -86,6 +124,10 @@ public class ConnectionSave implements Serializable {
         return this.getId() == ((ConnectionSave) o).getId();
     }
 
+    /**
+     * Hash code generator for ConnectionSave
+     * @return
+     */
     @Override
     public int hashCode() {
         return this.getId();

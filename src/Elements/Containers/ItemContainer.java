@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * @author xgrigo02
+ */
 public class ItemContainer implements Serializable {
 
     private ArrayList <BlockSave> blocks;
@@ -22,6 +25,9 @@ public class ItemContainer implements Serializable {
     private int id;
     private String name;
 
+    /**
+     * Constructor for ItemContainer.
+     */
     public ItemContainer() {
         blocks = new ArrayList<>();
         connections = new ArrayList<>();
@@ -30,22 +36,45 @@ public class ItemContainer implements Serializable {
         id = 0;
     }
 
+    /**
+     * New ID generator for all scheme elements.
+     * @return int new ID
+     */
     public int generateId() {
         return id++;
     }
 
+    /**
+     * Getter for container block saves.
+     *
+     * @return ArrayList BlockSaves
+     */
     public ArrayList<BlockSave> getBlocks() {
         return blocks;
     }
 
+    /**
+     * Getter for container port saves.
+     *
+     * @return ArrayList PortSaves
+     */
     public ArrayList<PortSave> getPorts() {
         return ports;
     }
 
+    /**
+     * Getter for container connection saves.
+     *
+     * @return ArrayList ConnectionSaves
+     */
     public ArrayList<ConnectionSave> getConnections() {
         return connections;
     }
 
+    /**
+     * Adds block save to container
+     * @param save BlockSave to add
+     */
     public void addBlock(BlockSave save) {
         if (this.blocks.contains(save)) {
             this.blocks.set(this.blocks.indexOf(save), save);
@@ -55,6 +84,10 @@ public class ItemContainer implements Serializable {
         }
     }
 
+    /**
+     * Adds connection save to container
+     * @param save ConnectionSave to add
+     */
     public void addConnection(ConnectionSave save) {
         if (this.connections.contains(save)) {
             this.connections.set(this.connections.indexOf(save), save);
@@ -64,6 +97,10 @@ public class ItemContainer implements Serializable {
         }
     }
 
+    /**
+     * Adds port save to container
+     * @param save PortSave to add
+     */
     public void addPort(PortSave save) {
         if (this.ports.contains(save)) {
             this.ports.set(this.ports.indexOf(save), save);
@@ -73,27 +110,10 @@ public class ItemContainer implements Serializable {
         }
     }
 
-    public void show() {
-        System.out.println("Container content:");
-        System.out.println("-------------------------------");
-        System.out.println("blocks: " + this.blocks);
-        for (BlockSave bl : this.blocks) {
-            System.out.println("\tBlock: " + bl.getId());
-        }
-        System.out.println("ports: " + this.ports);
-        for (PortSave pt : this.ports) {
-            System.out.println("\t" + pt.getType() + "Port: " + pt.getId() + " -> Block: " + pt.getBlockId());
-        }
-        System.out.println("connections: " + this.connections);
-        for (ConnectionSave cn : this.connections) {
-            System.out.println("\tConnection: " + cn.getId()
-                    + " -> Port from: " + cn.getFromPortId()
-                    + " -> Port to: " + cn.getToPortId());
-        }
-        System.out.println("-------------------------------");
-
-    }
-
+    /**
+     * Removes save form ItemContainer
+     * @param o object to delete
+     */
     public void remove(Object o) {
         ArrayList<BlockSave> blocksToRemove = new ArrayList<>();
         ArrayList<PortSave> portsToRemove = new ArrayList<>();
@@ -143,6 +163,11 @@ public class ItemContainer implements Serializable {
         this.blocks.removeAll(blocksToRemove);
     }
 
+    /**
+     * Restores scheme from ItemContainer
+     * @param logic     Logic to be modified
+     * @param scheme    Scheme to update
+     */
     public void restore(Logic logic, AnchorPane scheme) {
         Hashtable<Integer, Block> rest_blocks = new Hashtable<>();
         Hashtable<Integer, Port> rest_ports = new Hashtable<>();
@@ -190,10 +215,18 @@ public class ItemContainer implements Serializable {
         logic.getBlocks().addAll(rest_blocks.values());
     }
 
+    /**
+     * Getter for scheme save name
+     * @return String name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Setter for scheme save name
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<AnchorPane fx:id="inBlockSetup" prefHeight="109.0" prefWidth="300.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Logic.InBlockSetup">
+   <children>
+      <ChoiceBox fx:id="typeChoise1" layoutX="23.0" layoutY="37.0" prefHeight="26.0" prefWidth="79.0" value="Int">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Int" />
+                  <String fx:value="Float" />
+                  <String fx:value="Double" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
+
+
+      <TextField fx:id="valTextIn1" layoutX="109.0" layoutY="37.0" promptText="0.0" />
+      <Label layoutX="23.0" layoutY="14.0" prefHeight="18.0" prefWidth="79.0" text="Type">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="15.0" prefHeight="18.0" prefWidth="171.0" text="Value">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="okBtn1" layoutX="84.0" layoutY="72.0" mnemonicParsing="false" onAction="#okClick" text="OK" />
+      <Button fx:id="cancelBtn1" layoutX="163.0" layoutY="72.0" mnemonicParsing="false" onAction="#cancelClick" text="Cancel" />
+   </children>
+</AnchorPane>
