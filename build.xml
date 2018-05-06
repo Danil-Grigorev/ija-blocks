@@ -1,203 +1,84 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="project" default="all">
-  
-  
-  <property file="build.properties"/>
-  <!-- Uncomment the following property if no tests compilation is needed -->
-  <!-- 
-  <property name="skip.tests" value="true"/>
-   -->
-  
-  <!-- Compiler options -->
-  
-  <property name="compiler.debug" value="on"/>
-  <property name="compiler.generate.no.warnings" value="off"/>
-  <property name="compiler.args" value=""/>
-  <property name="compiler.max.memory" value="700m"/>
-  <patternset id="ignored.files">
-    <exclude name="**/*.hprof/**"/>
-    <exclude name="**/*.pyc/**"/>
-    <exclude name="**/*.pyo/**"/>
-    <exclude name="**/*.rbc/**"/>
-    <exclude name="**/*.yarb/**"/>
-    <exclude name="**/*~/**"/>
-    <exclude name="**/.DS_Store/**"/>
-    <exclude name="**/.git/**"/>
-    <exclude name="**/.hg/**"/>
-    <exclude name="**/.svn/**"/>
-    <exclude name="**/CVS/**"/>
-    <exclude name="**/__pycache__/**"/>
-    <exclude name="**/_svn/**"/>
-    <exclude name="**/vssver.scc/**"/>
-    <exclude name="**/vssver2.scc/**"/>
-  </patternset>
-  <patternset id="library.patterns">
-    <include name="*.war"/>
-    <include name="*.swc"/>
-    <include name="*.zip"/>
-    <include name="*.egg"/>
-    <include name="*.ane"/>
-    <include name="*.jar"/>
-    <include name="*.ear"/>
-  </patternset>
-  <patternset id="compiler.resources">
-    <exclude name="**/?*.java"/>
-    <exclude name="**/?*.form"/>
-    <exclude name="**/?*.class"/>
-    <exclude name="**/?*.groovy"/>
-    <exclude name="**/?*.scala"/>
-    <exclude name="**/?*.flex"/>
-    <exclude name="**/?*.kt"/>
-    <exclude name="**/?*.clj"/>
-  </patternset>
-  
-  <!-- Modules -->
-  
-  
-  <!-- Module project -->
-  
-  <dirname property="module.project.basedir" file="${ant.file}"/>
-  
-  
-  
-  <property name="compiler.args.project" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
-  
-  <property name="project.output.dir" value="${module.project.basedir}/build/production/project"/>
-  <property name="project.testoutput.dir" value="${module.project.basedir}/build/test/project"/>
-  
-  <path id="project.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-  
-  <path id="project.module.production.classpath"/>
-  
-  <path id="project.runtime.production.module.classpath">
-    <pathelement location="${project.output.dir}"/>
-  </path>
-  
-  <path id="project.module.classpath">
-    <pathelement location="${project.output.dir}"/>
-  </path>
-  
-  <path id="project.runtime.module.classpath">
-    <pathelement location="${project.testoutput.dir}"/>
-    <pathelement location="${project.output.dir}"/>
-  </path>
-  
-  
-  <patternset id="excluded.from.module.project">
-    <patternset refid="ignored.files"/>
-  </patternset>
-  
-  <patternset id="excluded.from.compilation.project">
-    <patternset refid="excluded.from.module.project"/>
-  </patternset>
-  
-  <path id="project.module.sourcepath">
-    <dirset dir="${module.project.basedir}">
-      <include name="src"/>
-    </dirset>
-  </path>
-  
-  
-  <target name="compile.module.project" depends="compile.module.project.production,compile.module.project.tests" description="Compile module project"/>
-  
-  <target name="compile.module.project.production" description="Compile module project; production classes">
-    <mkdir dir="${project.output.dir}"/>
-    <javac destdir="${project.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
-      <compilerarg line="${compiler.args.project}"/>
-      <bootclasspath refid="project.module.bootclasspath"/>
-      <classpath refid="project.module.production.classpath"/>
-      <src refid="project.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.project"/>
-    </javac>
-    
-    <copy todir="${project.output.dir}">
-      <fileset dir="${module.project.basedir}/src">
-        <patternset refid="compiler.resources"/>
-        <type type="file"/>
-      </fileset>
-    </copy>
-  </target>
-  
-  <target name="compile.module.project.tests" depends="compile.module.project.production" description="compile module project; test classes" unless="skip.tests"/>
-  
-  <target name="clean.module.project" description="cleanup module">
-    <delete dir="${project.output.dir}"/>
-    <delete dir="${project.testoutput.dir}"/>
-  </target>
-  
-  <target name="init" description="Build initialization">
-    <!-- Perform any build initialization in this target -->
-  </target>
-  
-  <target name="clean" depends="clean.module.project, clean.artifact.javafxapp" description="cleanup all"/>
-  
-  <target name="build.modules" depends="init, clean, compile.module.project" description="build all modules"/>
-  
-  <target name="init.artifacts">
-    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
-    <property name="artifact.output.javafxapp" value="${basedir}/out/artifacts/JavaFXApp"/>
-    <property name="artifact.output.project:jar" value="${basedir}/out/artifacts/project_jar"/>
-    <mkdir dir="${artifacts.temp.dir}"/>
-    <property name="artifact.temp.output.JavaFXApp" value="${artifacts.temp.dir}/JavaFXApp.jar"/>
-    <property name="temp.jar.path.project.jar" value="${artifacts.temp.dir}/project.jar"/>
-    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
-  </target>
-  
-  <target name="clean.artifact.javafxapp" description="clean JavaFXApp artifact output">
-    <delete dir="${artifact.output.javafxapp}"/>
-  </target>
-  
-  <target name="artifact.javafxapp" depends="init.artifacts" description="Build &#39;JavaFXApp&#39; artifact" xmlns:fx="javafx:com.sun.javafx.tools.ant">
-    <mkdir dir="${artifact.output.javafxapp}"/>
-    <copy todir="${artifact.temp.output.JavaFXApp}">
-      <fileset dir="${ija-project.output.dir}"/>
-    </copy>
-    <fx:fileset id="all_but_JavaFXApp" dir="${artifact.temp.output.JavaFXApp}" includes="**/*.jar">
-      <exclude name="JavaFXApp.jar"/>
-    </fx:fileset>
-    <fx:fileset id="all_JavaFXApp" dir="${artifact.temp.output.JavaFXApp}" includes="**/*.jar"/>
-    <fx:application id="JavaFXApp_id" name="JavaFXApp" mainClass="sample.Main"/>
-    <fx:jar destfile="${artifact.temp.output.JavaFXApp}/JavaFXApp.jar">
-      <fx:application refid="JavaFXApp_id"/>
-      <fileset dir="${artifact.temp.output.JavaFXApp}" excludes="**/*.jar"/>
-      <fx:resources>
-        <fx:fileset refid="all_but_JavaFXApp"/>
-      </fx:resources>
-    </fx:jar>
-    <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.JavaFXApp}/deploy" outfile="JavaFXApp">
-      <fx:application refid="JavaFXApp_id"/>
-      <fx:resources>
-        <fx:fileset refid="all_JavaFXApp"/>
-      </fx:resources>
-    </fx:deploy>
-    <copy todir="${artifact.output.javafxapp}">
-      <fileset dir="${artifact.temp.output.JavaFXApp}/deploy"/>
-    </copy>
-    <delete includeemptydirs="true">
-      <fileset dir="${artifact.temp.output.JavaFXApp}"/>
-    </delete>
-  </target>
-  
-  <target name="artifact.project:jar" depends="init.artifacts, compile.module.project" description="Build &#39;project:jar&#39; artifact">
-    <property name="artifact.temp.output.project:jar" value="${artifacts.temp.dir}/project_jar"/>
-    <mkdir dir="${artifact.temp.output.project:jar}"/>
-    <jar destfile="${temp.jar.path.project.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${project.output.dir}"/>
-    </jar>
-    <copy file="${temp.jar.path.project.jar}" tofile="${artifact.temp.output.project:jar}/project.jar"/>
-  </target>
-  
-  <target name="build.all.artifacts" depends="artifact.javafxapp, artifact.project:jar" description="Build all artifacts">
-    <mkdir dir="${artifact.output.project:jar}"/>
-    <copy todir="${artifact.output.project:jar}">
-      <fileset dir="${artifact.temp.output.project:jar}"/>
-    </copy>
-    
-    <!-- Delete temporary files -->
-    <delete dir="${artifacts.temp.dir}"/>
-  </target>
-  
-  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+<project name="project" default="compile" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <description>
+        IJA Project
+        Danil Grigorev, xgrigo02
+        Viktoria Cervenanska, xcerve23
+    </description>
+
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build/"/>
+    <property name="dest.dir" location="dest-client/"/>
+    <property name="dest.serv.dir" location="dest-server"/>
+    <property name="doc.dir" value="doc/"/>
+    <property name="classes.dir" value="./build"/>
+
+    <!-- COMPILE -->
+    <target name="compile" depends="clean, doc">
+
+        <echo>${java.home}/../lib/ant-javafx.jar</echo>
+        <!-- COPY FXML FILES TO BUILD DIRECTORY -->
+        <copy todir="${build.dir}/FXML_src">
+            <fileset dir="${src.dir}/FXML_src"/>
+        </copy>
+
+
+        <!-- COPY IMAGES TO BUILD DIRECTORY -->
+        <copy todir="${build.dir}/images">
+            <fileset dir="${src.dir}/images"/>
+        </copy>
+
+        <!-- SETTING ANT PATH -->
+        <path id="antInit">
+            <filelist>
+                <file name="${java.home}/../lib/ant-javafx.jar"/>
+                <file name="${java.home}/lib/jfxrt.jar"/>
+                <file name="${basedir}"/>
+            </filelist>
+        </path>
+
+        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+                 uri="javafx:com.sun.javafx.tools.ant"
+                 classpathref="antInit"/>
+
+        <!-- COMPILE -->
+        <javac includeantruntime="false"
+               srcdir="${src.dir}"
+               destdir="${build.dir}"
+               fork="yes"
+               executable="javac"
+               classpathref="antInit"
+               source="1.8"
+               debug="on">
+        </javac>
+
+        <!-- CREATING JAR -->
+        <fx:jar destfile="${dest.dir}/SchemaApp.jar">
+            <fx:application name="CalcSchemaApp"
+                            mainClass="Logic.Main"/>
+            <fileset dir="${build.dir}"/>
+        </fx:jar>
+        <mkdir dir=""></mkdir>
+
+    </target>
+
+     <!--RUN -->
+     <target name="run" depends="compile">
+         <java jar="${dest.dir}/SchemaApp.jar" fork="true" spawn="true"/>
+     </target>
+
+    <!-- GENERATING DOCUMENTATION -->
+    <target name="doc">
+        <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"/>
+    </target>
+
+    <!-- CLEAN -->
+    <target name="clean">
+        <delete includeEmptyDirs="true">
+            <fileset dir="${build.dir}" includes="**/*" />
+            <fileset dir="${doc.dir}" includes="**/*"/>
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${dest.dir}" includes="**/*"/>
+        </delete>
+    </target>
 </project>
